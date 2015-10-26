@@ -14,6 +14,8 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.ManyToMany;
+import javax.persistence.Temporal;
+import javax.persistence.TemporalType;
 
 import javax.validation.constraints.NotNull;
 
@@ -35,9 +37,11 @@ public class Trip {
     private String description;
     
     @NotNull
+    @Temporal(TemporalType.DATE)
     private Date dateFrom;
     
     @NotNull
+    @Temporal(TemporalType.DATE)
     private Date dateTo;
     
     @NotNull
