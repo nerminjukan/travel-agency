@@ -67,7 +67,7 @@ public class Customer {
     @Override
     public int hashCode() {
         int hash = 3;
-        hash = 13 * hash + Objects.hashCode(this.getName());
+        hash = 13 * hash + Objects.hashCode(this.getEmail());
         return hash;
     }
 
@@ -80,7 +80,7 @@ public class Customer {
             return false;
         }
         final Customer other = (Customer) obj;
-        if (!Objects.equals(this.getName(), other.getName())) {
+        if (!Objects.equals(this.getEmail(), other.getEmail())) {
             return false;
         }
         return true;
