@@ -121,6 +121,9 @@ public class Excursion {
             return false;
         }
         final Excursion other = (Excursion) obj;
-        return id == null ? other.id == null : id.equals(other.id);
+        if (!Objects.equals(this.getName(), other.getName())) {
+            return false;
+        }
+        return true;
     }
 }

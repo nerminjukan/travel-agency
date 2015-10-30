@@ -23,10 +23,10 @@ public class Customer {
     private String name;
 
     @NotNull
+    @Column(unique=true)
     private String email;
     
     @NotNull
-    @Column(name = "phone_number")
     private String phoneNumber;
 
     public Customer() {
@@ -67,10 +67,7 @@ public class Customer {
     @Override
     public int hashCode() {
         int hash = 3;
-        hash = 13 * hash + Objects.hashCode(this.id);
-        hash = 13 * hash + Objects.hashCode(this.name);
-        hash = 13 * hash + Objects.hashCode(this.email);
-        hash = 13 * hash + Objects.hashCode(this.phoneNumber);
+        hash = 13 * hash + Objects.hashCode(this.getName());
         return hash;
     }
 
@@ -79,20 +76,11 @@ public class Customer {
         if (obj == null) {
             return false;
         }
-        if (getClass() != obj.getClass()) {
+        if (!(obj instanceof Customer)) {
             return false;
         }
         final Customer other = (Customer) obj;
-        if (!Objects.equals(this.id, other.id)) {
-            return false;
-        }
-        if (!Objects.equals(this.name, other.name)) {
-            return false;
-        }
-        if (!Objects.equals(this.email, other.email)) {
-            return false;
-        }
-        if (!Objects.equals(this.phoneNumber, other.phoneNumber)) {
+        if (!Objects.equals(this.getName(), other.getName())) {
             return false;
         }
         return true;

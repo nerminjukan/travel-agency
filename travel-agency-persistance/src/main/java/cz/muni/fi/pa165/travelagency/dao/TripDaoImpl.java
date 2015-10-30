@@ -8,16 +8,18 @@ import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 
 import org.springframework.stereotype.Repository;
+import org.springframework.transaction.annotation.Transactional;
 
 /**
  *
  * @author Ondrej Mular
  */
+@Transactional
 @Repository
 public class TripDaoImpl implements TripDao {
 
     @PersistenceContext
-    private EntityManager em;
+    EntityManager em;
     
     @Override
     public void create(Trip t) {

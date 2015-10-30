@@ -5,17 +5,19 @@ import java.util.List;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import org.springframework.stereotype.Repository;
+import org.springframework.transaction.annotation.Transactional;
 
 /**
  * CustomerDaoImpl implements {@link CustomerDao}.
  * 
  * @author Radovan Sinko
  */
+@Transactional
 @Repository
 public class CustomerDaoImpl implements CustomerDao {
 
     @PersistenceContext
-    private EntityManager em;
+    EntityManager em;
 
     @Override
     public void create(Customer c) {

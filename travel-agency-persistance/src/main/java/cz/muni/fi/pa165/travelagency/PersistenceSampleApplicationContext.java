@@ -1,5 +1,6 @@
 package cz.muni.fi.pa165.travelagency;
 
+import cz.muni.fi.pa165.travelagency.dao.CustomerDao;
 import org.hibernate.jpa.HibernatePersistenceProvider;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
@@ -21,7 +22,8 @@ import javax.sql.DataSource;
 @Configuration
 @EnableTransactionManagement
 @EnableJpaRepositories
-@ComponentScan(basePackages = "cz.muni.fi.pa165.travelagency.dao")
+//@ComponentScan("cz.muni.fi.pa165.travelagency.dao")
+@ComponentScan(basePackageClasses={CustomerDao.class})
 public class PersistenceSampleApplicationContext {
 	
 	@Bean 
@@ -38,7 +40,7 @@ public class PersistenceSampleApplicationContext {
 		return jpaFactoryBean;
 	}
 	
-	@Bean 
+	@Bean
 	public LocalValidatorFactoryBean localValidatorFactoryBean(){
 		return new LocalValidatorFactoryBean();
 	}

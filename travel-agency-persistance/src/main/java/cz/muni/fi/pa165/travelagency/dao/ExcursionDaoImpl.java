@@ -6,16 +6,18 @@ import org.springframework.stereotype.Repository;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import java.util.List;
+import org.springframework.transaction.annotation.Transactional;
 
 /**
  * @author Ondrej Glasnak
  * date    28.10.2015
  */
+@Transactional
 @Repository
 public class ExcursionDaoImpl implements ExcursionDao {
 
     @PersistenceContext
-    private EntityManager em;
+    EntityManager em;
 
     @Override
     public void create(Excursion e) {

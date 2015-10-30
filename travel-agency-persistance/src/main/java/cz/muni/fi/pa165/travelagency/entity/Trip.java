@@ -31,7 +31,7 @@ public class Trip {
     private Long id;
     
     @NotNull
-    @Column(nullable=false,unique=true)
+    @Column(unique=true)
     private String name;
     
     private String description;
@@ -163,7 +163,7 @@ public class Trip {
         if (obj == null) {
             return false;
         }
-        if (obj instanceof Trip) {
+        if (!(obj instanceof Trip)) {
             return false;
         }
         final Trip other = (Trip) obj;
