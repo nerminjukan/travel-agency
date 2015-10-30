@@ -10,6 +10,7 @@ import javax.persistence.NoResultException;
 import org.springframework.transaction.annotation.Transactional;
 
 /**
+ * implementated methods of the ExcursionDao interface
  * @author Ondrej Glasnak date 28.10.2015
  */
 @Transactional
