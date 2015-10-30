@@ -6,11 +6,11 @@ import org.springframework.stereotype.Repository;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import java.util.List;
+import javax.persistence.NoResultException;
 import org.springframework.transaction.annotation.Transactional;
 
 /**
- * @author Ondrej Glasnak
- * date    28.10.2015
+ * @author Ondrej Glasnak date 28.10.2015
  */
 @Transactional
 @Repository
@@ -46,11 +46,14 @@ public class ExcursionDaoImpl implements ExcursionDao {
     }
 
     @Override
-    public List<Excursion> findByName(String name) {
-        return em.createQuery(
-                "SELECT e FROM Excursion e WHERE e.name LIKE :name ",
-                Excursion.class).setParameter(
-                "name", "%" + name + "%").getResultList();
+    public Excursion findByName(String name) {
+        try {
+            return em.createQuery(
+                    "SELECT e FROM Excursion e WHERE e.name = :name ",
+                    Excursion.class).setParameter("name", name).getSingleResult();
+        } catch (NoResultException nrf) {
+            return null;
+        }
     }
 
     @Override

@@ -14,6 +14,6 @@ public interface ExcursionDao {
     void remove(Excursion e);
     List<Excursion> findAll();
     Excursion findById(Long id);
-    List<Excursion> findByName(String name);
+    Excursion findByName(String name);
     List<Excursion> findByDestination(String destination);
 }
