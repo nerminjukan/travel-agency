@@ -142,4 +142,9 @@ public class CustomerDaoTest extends AbstractTestNGSpringContextTests {
     public void testNotExistingEmail() {
         Assert.assertNull(customerDao.findByEmail("not@existing.mail"));
     }
+    
+    @Test
+    public void testNotExistingId() {
+        Assert.assertNull(customerDao.findById(Long.MIN_VALUE));
+    }
 }
