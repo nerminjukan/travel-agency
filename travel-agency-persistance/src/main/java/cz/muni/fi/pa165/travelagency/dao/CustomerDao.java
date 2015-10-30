@@ -20,8 +20,9 @@ public interface CustomerDao {
      * Update existing Customer.
      * 
      * @param c Customer to be updated in DB
+     * @return updated Customer
      */
-    void update(Customer c);
+    Customer update(Customer c);
     
     /**
      * Delete Customer from DB.

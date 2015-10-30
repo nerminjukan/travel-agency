@@ -10,7 +10,7 @@ import java.util.List;
  */
 public interface ExcursionDao {
     void create(Excursion e);
-    void update(Excursion e);
+    Excursion update(Excursion e);
     void remove(Excursion e);
     List<Excursion> findAll();
     Excursion findById(Long id);

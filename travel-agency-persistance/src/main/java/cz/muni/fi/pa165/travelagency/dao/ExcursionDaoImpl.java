@@ -25,8 +25,8 @@ public class ExcursionDaoImpl implements ExcursionDao {
     }
 
     @Override
-    public void update(Excursion e) {
-        em.merge(e);
+    public Excursion update(Excursion e) {
+        return em.merge(e);
     }
 
     @Override
