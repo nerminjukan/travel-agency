@@ -27,8 +27,8 @@ public class TripDaoImpl implements TripDao {
     }
 
     @Override
-    public void update(Trip t) {
-        em.merge(t);
+    public Trip update(Trip t) {
+        return em.merge(t);
     }
 
     @Override
