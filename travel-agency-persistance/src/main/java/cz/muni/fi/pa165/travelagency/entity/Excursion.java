@@ -1,4 +1,4 @@
-package cz.muni.fi.pa165.travel_agency.entity;
+package cz.muni.fi.pa165.travelagency.entity;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;

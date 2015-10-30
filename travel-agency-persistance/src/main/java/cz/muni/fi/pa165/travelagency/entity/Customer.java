@@ -1,4 +1,4 @@
-package cz.muni.fi.pa165.travel_agency.entity;
+package cz.muni.fi.pa165.travelagency.entity;
 
 import java.util.Objects;
 import javax.persistence.Column;

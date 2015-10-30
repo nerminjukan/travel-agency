@@ -1,6 +1,6 @@
-package cz.muni.fi.pa165.travel_agency.dao;
+package cz.muni.fi.pa165.travelagency.dao;
 
-import cz.muni.fi.pa165.travel_agency.entity.Excursion;
+import cz.muni.fi.pa165.travelagency.entity.Excursion;
 
 import java.util.List;
 
