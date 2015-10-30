@@ -59,5 +59,5 @@ public interface CustomerDao {
      * @param email email of Customers
      * @return list of Customers with provided email
      */
-    List<Customer> findByEmail(String email);
+    Customer findByEmail(String email);
 }

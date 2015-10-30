@@ -3,13 +3,14 @@ package cz.muni.fi.pa165.travelagency.dao;
 import cz.muni.fi.pa165.travelagency.entity.Customer;
 import java.util.List;
 import javax.persistence.EntityManager;
+import javax.persistence.NoResultException;
 import javax.persistence.PersistenceContext;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 
 /**
  * CustomerDaoImpl implements {@link CustomerDao}.
- * 
+ *
  * @author Radovan Sinko
  */
 @Transactional
@@ -46,14 +47,17 @@ public class CustomerDaoImpl implements CustomerDao {
 
     @Override
     public List<Customer> findByName(String name) {
-        return em.createQuery("SELECT c FROM Customer c WHERE c.name = :name ",
-                Customer.class).setParameter("name", name).getResultList();
+        return em.createQuery("SELECT c FROM Customer c WHERE c.name LIKE :name ",
+                Customer.class).setParameter("name", "%" + name + "%").getResultList();
     }
 
     @Override
-    public List<Customer> findByEmail(String email) {
-        return em.createQuery("SELECT c FROM Customer c WHERE c.email = :email ",
-                Customer.class).setParameter("email", email).getResultList();
+    public Customer findByEmail(String email) {
+        try {
+            return em.createQuery("SELECT c FROM Customer c WHERE c.email = :email ",
+                    Customer.class).setParameter("email", email).getSingleResult();
+        } catch (NoResultException nrf) {
+            return null;
+        }
     }
-
 }

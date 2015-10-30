@@ -20,6 +20,7 @@ import org.springframework.test.context.testng.AbstractTransactionalTestNGSpring
 import org.springframework.test.context.transaction.TransactionalTestExecutionListener;
 import org.springframework.transaction.annotation.Transactional;
 import org.testng.Assert;
+import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.BeforeTest;
 import org.testng.annotations.Test;
 
@@ -30,17 +31,14 @@ import org.testng.annotations.Test;
 @ContextConfiguration(classes=PersistenceSampleApplicationContext.class)
 @TestExecutionListeners(TransactionalTestExecutionListener.class)
 @Transactional
-public class CustomerDaoTest extends AbstractTransactionalTestNGSpringContextTests {
-    @PersistenceContext 
-	private EntityManager em;
-    
+public class CustomerDaoTest extends AbstractTestNGSpringContextTests {    
     @Inject
     private CustomerDao customerDao;
             
     private Customer c1;
     private Customer c2;
     
-    @BeforeTest
+    @BeforeMethod
     public void setUp() {
         c1 = new Customer();
         c1.setEmail("test@mail.com");
@@ -87,7 +85,7 @@ public class CustomerDaoTest extends AbstractTransactionalTestNGSpringContextTes
         customerDao.create(c1);
         Assert.assertTrue(customerDao.findAll().size() == 1);
         customerDao.remove(c1);
-        Assert.assertTrue(customerDao.findAll().size() == 0);
+        Assert.assertTrue(customerDao.findAll().isEmpty());
     }
 
     @Test
@@ -110,6 +108,8 @@ public class CustomerDaoTest extends AbstractTransactionalTestNGSpringContextTes
 
     @Test
     public void testFindByName() {
+        customerDao.create(c1);
+        customerDao.create(c2);
         List<Customer> cList = customerDao.findByName("Customer");
         Assert.assertTrue(cList.size() == 2);
         cList = customerDao.findByName("Best Customer");
@@ -133,8 +133,7 @@ public class CustomerDaoTest extends AbstractTransactionalTestNGSpringContextTes
     @Test
     public void testFindByEmail() {
         customerDao.create(c1);
-        // TODO remove cast after fixing CustomerDao interface
-        Customer c = (Customer) customerDao.findByEmail("test@mail.com");
+        Customer c = customerDao.findByEmail("test@mail.com");
         Assert.assertNotNull(c);
         Assert.assertEquals("test@mail.com", c.getEmail());
     }

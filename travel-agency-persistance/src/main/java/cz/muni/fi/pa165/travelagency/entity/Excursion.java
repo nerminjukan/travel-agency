@@ -9,6 +9,7 @@ import java.util.*;
  * @author Ondrej Glasnak
  * date    28.10.2015
  */
+@Entity
 public class Excursion {
 
     @Id
