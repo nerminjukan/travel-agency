@@ -61,5 +61,5 @@ public interface TripDao {
      * @param destination string to find in destination
      * @return list of Trip entities with string {@code destination} in destination
      */
-    List<Trip> findByDestintion(String destination);
+    List<Trip> findByDestination(String destination);
 }

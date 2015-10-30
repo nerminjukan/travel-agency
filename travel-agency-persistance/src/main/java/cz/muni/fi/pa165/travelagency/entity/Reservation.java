@@ -35,45 +35,98 @@ public class Reservation {
     @ManyToMany
     private Set<Excursion> excursions = new HashSet<>();
 
+    /**
+     * Nonparametric constructor
+     */
     public Reservation() {
     }
 
+    /**
+     * Constructor sets reservation with input id
+     * 
+     * @param Id new reservation will be set with this id
+     */
     public Reservation(Long Id) {
         this.Id = Id;
     }
 
+    /**
+     * Method returns id of the reservation
+     * 
+     * @return id of the reservation
+     */
     public Long getId() {
         return Id;
     }
 
+    /**
+     * Method sets id of the reservation
+     * 
+     * @param Id id of the reservation
+     */
     public void setId(Long Id) {
         this.Id = Id;
     }
 
+    /**
+     * Method returns customer of the reservation
+     * 
+     * @return customer of the reservation
+     */
     public Customer getCustomer() {
         return customer;
     }
 
+    /**
+     * Method sets customer of the reservation
+     * 
+     * @param customer customer of the reservation
+     */
     public void setCustomer(Customer customer) {
         this.customer = customer;
     }
 
+    /**
+     * Method returns trip of the reservation
+     * 
+     * @return trip of the reservation
+     */
     public Trip getTrip() {
         return trip;
     }
 
+    /**
+     * Method sets trip of the reservation
+     * 
+     * @param trip trip of the reservation
+     */
     public void setTrip(Trip trip) {
         this.trip = trip;
     }
 
+    /**
+     * Method returns all excursions of the reservation
+     * 
+     * @return all excursions of the reservation
+     */
     public Set<Excursion> getExcursions() {
         return Collections.unmodifiableSet(excursions);
     }
 
+    /**
+     * Method adds excursion for the reservation
+     * 
+     * @param e excursion to add
+     */
     public void addExcursion(Excursion e){
         excursions.add(e);
     }
     
+    /**
+     * Method removes excurcion of the reservation
+     * 
+     * @param e excursion to remove
+     */
     public void removeExcursion(Excursion e){
         excursions.remove(e);
     }

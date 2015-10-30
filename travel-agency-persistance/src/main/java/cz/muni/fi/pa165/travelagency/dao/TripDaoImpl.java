@@ -55,7 +55,7 @@ public class TripDaoImpl implements TripDao {
     }
 
     @Override
-    public List<Trip> findByDestintion(String destination) {
+    public List<Trip> findByDestination(String destination) {
         return em.createQuery(
                 "SELECT t FROM Trip t WHERE t.destination LIKE :dest ",
                 Trip.class
