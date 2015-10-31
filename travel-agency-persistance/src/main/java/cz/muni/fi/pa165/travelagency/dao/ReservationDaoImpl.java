@@ -13,11 +13,13 @@ import javax.persistence.EntityManager;
 import javax.persistence.NoResultException;
 import javax.persistence.PersistenceContext;
 import org.springframework.stereotype.Repository;
+import org.springframework.transaction.annotation.Transactional;
 
 /**
  *
  * @author Jan Duda
  */
+@Transactional
 @Repository
 public class ReservationDaoImpl implements ReservationDao{
 
@@ -70,7 +72,7 @@ public class ReservationDaoImpl implements ReservationDao{
         }
         
         try{
-            return em.createQuery("SELECT r FROM Reservation r WHERE r.customer.id = :tripId", Reservation.class)
+            return em.createQuery("SELECT r FROM Reservation r WHERE r.trip.id = :tripId", Reservation.class)
                     .setParameter("tripId", trip.getId()).getResultList();
         } catch (NoResultException nre) {
             return null;
