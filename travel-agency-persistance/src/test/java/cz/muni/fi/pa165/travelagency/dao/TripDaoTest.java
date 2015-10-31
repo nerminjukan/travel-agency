@@ -3,7 +3,7 @@ package cz.muni.fi.pa165.travelagency.dao;
 import cz.muni.fi.pa165.travelagency.PersistenceSampleApplicationContext;
 import cz.muni.fi.pa165.travelagency.entity.Trip;
 import java.math.BigDecimal;
-import java.util.Date;
+import java.sql.Date;
 import java.util.List;
 import javax.validation.ConstraintViolationException;
 import org.springframework.beans.factory.annotation.Autowired;

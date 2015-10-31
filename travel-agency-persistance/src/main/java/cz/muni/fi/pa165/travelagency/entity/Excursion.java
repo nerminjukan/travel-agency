@@ -3,8 +3,8 @@ package cz.muni.fi.pa165.travelagency.entity;
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
 import java.math.BigDecimal;
-import java.time.LocalDate;
-import java.util.*;
+import java.sql.Date;
+import java.util.Objects;
 
 /**
  * @author Ondrej Glasnak
@@ -24,10 +24,10 @@ public class Excursion {
     private String description;
 
     @NotNull
-    private LocalDate dateFrom;
+    private Date dateFrom;
 
     @NotNull
-    private LocalDate dateTo;
+    private Date dateTo;
 
     @NotNull
     private String destination;
@@ -65,19 +65,19 @@ public class Excursion {
         this.description = description;
     }
 
-    public LocalDate getDateFrom() {
+    public Date getDateFrom() {
         return dateFrom;
     }
 
-    public void setDateFrom(LocalDate dateFrom) {
+    public void setDateFrom(Date dateFrom) {
         this.dateFrom = dateFrom;
     }
 
-    public LocalDate getDateTo() {
+    public Date getDateTo() {
         return dateTo;
     }
 
-    public void setDateTo(LocalDate dateTo) {
+    public void setDateTo(Date dateTo) {
         this.dateTo = dateTo;
     }
 

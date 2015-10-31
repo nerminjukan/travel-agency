@@ -3,17 +3,17 @@ package cz.muni.fi.pa165.travelagency.entity;
 import java.math.BigDecimal;
 
 import java.util.Collections;
-import java.util.Date;
 import java.util.HashSet;
 import java.util.Objects;
 import java.util.Set;
+
+import java.sql.Date;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.ManyToMany;
 import javax.persistence.OneToMany;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
@@ -38,11 +38,9 @@ public class Trip {
     private String description;
     
     @NotNull
-    @Temporal(TemporalType.DATE)
     private Date dateFrom;
     
     @NotNull
-    @Temporal(TemporalType.DATE)
     private Date dateTo;
     
     @NotNull

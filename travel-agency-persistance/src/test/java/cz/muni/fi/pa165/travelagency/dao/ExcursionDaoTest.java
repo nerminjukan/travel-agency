@@ -3,6 +3,7 @@ package cz.muni.fi.pa165.travelagency.dao;
 import cz.muni.fi.pa165.travelagency.PersistenceSampleApplicationContext;
 import cz.muni.fi.pa165.travelagency.entity.Excursion;
 import java.math.BigDecimal;
+import java.sql.Date;
 import java.time.LocalDate;
 import javax.validation.ConstraintViolationException;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -36,24 +37,24 @@ public class ExcursionDaoTest extends AbstractTestNGSpringContextTests {
         excursion1 = new Excursion();
         excursion1.setName("Name");
         excursion1.setDescription("Description");
-        excursion1.setDateFrom(LocalDate.of(2015, 1, 1));
-        excursion1.setDateTo(LocalDate.of(2015, 1, 1).plusDays(1));
+        excursion1.setDateFrom(Date.valueOf(LocalDate.of(2015, 1, 1)));
+        excursion1.setDateTo(Date.valueOf(LocalDate.of(2015, 1, 1).plusDays(1)));
         excursion1.setDestination("Germany");
         excursion1.setPrice(new BigDecimal("100.0"));
         
         excursion2 = new Excursion();
         excursion2.setName("Name1");
         excursion2.setDescription("Description1");
-        excursion2.setDateFrom(LocalDate.of(2015, 1, 1));
-        excursion2.setDateTo(LocalDate.of(2015, 1, 1).plusDays(1));
+        excursion2.setDateFrom(Date.valueOf(LocalDate.of(2015, 1, 1)));
+        excursion2.setDateTo(Date.valueOf(LocalDate.of(2015, 1, 1).plusDays(1)));
         excursion2.setDestination("Japan");
         excursion2.setPrice(new BigDecimal("200.0"));
         
         excursion3 = new Excursion();
         excursion3.setName("Name2");
         excursion3.setDescription("Description2");
-        excursion3.setDateFrom(LocalDate.of(2015, 1, 1));
-        excursion3.setDateTo(LocalDate.of(2015, 1, 1).plusDays(1));
+        excursion3.setDateFrom(Date.valueOf(LocalDate.of(2015, 1, 1)));
+        excursion3.setDateTo(Date.valueOf(LocalDate.of(2015, 1, 1).plusDays(1)));
         excursion3.setDestination("Japan");
         excursion3.setPrice(new BigDecimal("300.0"));
     }
@@ -95,8 +96,8 @@ public class ExcursionDaoTest extends AbstractTestNGSpringContextTests {
         excursionDao.update(excursion1);
         assertEquals(excursionDao.findById(excursion1.getId()).getName(), "Name2");
         assertEquals(excursionDao.findById(excursion1.getId()).getDescription(), "Description");
-        assertEquals(excursionDao.findById(excursion1.getId()).getDateFrom(), LocalDate.of(2015, 1, 1));
-        assertEquals(excursionDao.findById(excursion1.getId()).getDateTo(), LocalDate.of(2015, 1, 1).plusDays(1));
+        assertEquals(excursionDao.findById(excursion1.getId()).getDateFrom(), Date.valueOf(LocalDate.of(2015, 1, 1)));
+        assertEquals(excursionDao.findById(excursion1.getId()).getDateTo(), Date.valueOf(LocalDate.of(2015, 1, 1).plusDays(1)));
         assertEquals(excursionDao.findById(excursion1.getId()).getDestination(), "Germany");
         assertEquals(excursionDao.findById(excursion1.getId()).getPrice(), new BigDecimal("100.0"));
     }
