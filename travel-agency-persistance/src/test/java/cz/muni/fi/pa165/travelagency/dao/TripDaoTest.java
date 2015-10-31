@@ -6,6 +6,7 @@ import java.math.BigDecimal;
 import java.sql.Date;
 import java.util.List;
 import javax.validation.ConstraintViolationException;
+import javax.validation.constraints.AssertTrue;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.TestExecutionListeners;
@@ -91,12 +92,7 @@ public class TripDaoTest extends AbstractTestNGSpringContextTests{
         t1.setName("Trip with new name");
         tripDao.update(t1);
         Trip trip = tripDao.findById(t1.getId());
-        Assert.assertEquals("Trip with new name", t1.getName());
-        Assert.assertEquals(new Date(new Long("1000000")), t1.getDateFrom());
-        Assert.assertEquals(new Date(new Long("2000000")), t1.getDateTo());
-        Assert.assertEquals("Dest 1", t1.getDestination());
-        Assert.assertEquals(new BigDecimal("2000"), t1.getPrice());
-        Assert.assertEquals(new Long(100), t1.getAvailibleTrips());
+        assertDeepEquals(t1, trip);
     }
     
     @Test
@@ -118,12 +114,7 @@ public class TripDaoTest extends AbstractTestNGSpringContextTests{
     public void testFindById(){
         tripDao.create(t1);
         Trip t = tripDao.findById(t1.getId());
-        Assert.assertEquals(t1.getId(), t.getId());
-        Assert.assertEquals(t1.getAvailibleTrips(), t.getAvailibleTrips());
-        Assert.assertEquals(t1.getDateFrom(), t.getDateFrom());
-        Assert.assertEquals(t1.getDateTo(), t.getDateTo());
-        Assert.assertEquals(t1.getDestination(), t.getDestination());
-        Assert.assertEquals(t1.getPrice(), t.getPrice());
+        assertDeepEquals(t1, t);
     }
      
     @Test
@@ -133,26 +124,30 @@ public class TripDaoTest extends AbstractTestNGSpringContextTests{
     }
     
     @Test
+    public void testFindByNameSubstring() {
+        Assert.assertTrue(tripDao.findByNameSubstring("Trip").isEmpty());
+        tripDao.create(t1);
+        tripDao.create(t2);
+        Assert.assertTrue(tripDao.findByNameSubstring("Trip").size() == 2);
+        List<Trip> trips = tripDao.findByNameSubstring("Trip 1");
+        Assert.assertTrue(trips.size() == 1);
+        Trip t = trips.get(0);
+        assertDeepEquals(t, t1);
+    }
+    
+    @Test
     public void testFindByName(){
         tripDao.create(t1);
         tripDao.create(t2);
-        List<Trip> trips = tripDao.findByName(t1.getName());
-        Assert.assertTrue(trips.size() == 1);
-        Trip t = trips.get(0);
-        Assert.assertEquals(t1.getId(), t.getId());
-        Assert.assertEquals(t1.getAvailibleTrips(), t.getAvailibleTrips());
-        Assert.assertEquals(t1.getDateFrom(), t.getDateFrom());
-        Assert.assertEquals(t1.getDateTo(), t.getDateTo());
-        Assert.assertEquals(t1.getDestination(), t.getDestination());
-        Assert.assertEquals(t1.getPrice(), t.getPrice());
+        Trip t = tripDao.findByName(t1.getName());
+        assertDeepEquals(t1, t);
     }
     
     @Test
     public void testNameIsNotInDB(){
-        List<Trip> trips = tripDao.findByName("Trip123");
-        Assert.assertTrue(trips.isEmpty());
+        Assert.assertNull(tripDao.findByName("Trip123"));
     }
-    
+
     @Test
     public void testFindByDestination(){
         tripDao.create(t1);
@@ -160,17 +155,22 @@ public class TripDaoTest extends AbstractTestNGSpringContextTests{
         List<Trip> trips = tripDao.findByDestination(t1.getDestination());
         Assert.assertTrue(trips.size() == 1);
         Trip t = trips.get(0);
-        Assert.assertEquals(t1.getId(), t.getId());
-        Assert.assertEquals(t1.getAvailibleTrips(), t.getAvailibleTrips());
-        Assert.assertEquals(t1.getDateFrom(), t.getDateFrom());
-        Assert.assertEquals(t1.getDateTo(), t.getDateTo());
-        Assert.assertEquals(t1.getDestination(), t.getDestination());
-        Assert.assertEquals(t1.getPrice(), t.getPrice());
+        assertDeepEquals(t1, t);
     }
     
     @Test
     public void testDestinationIsNotInDB(){
         List<Trip> trips = tripDao.findByDestination("Destination1234");
         Assert.assertTrue(trips.isEmpty());
+    }
+    
+    private void assertDeepEquals(Trip actual, Trip expected) {
+        Assert.assertEquals(actual, expected);
+        Assert.assertEquals(actual.getId(), expected.getId());
+        Assert.assertEquals(actual.getAvailibleTrips(), expected.getAvailibleTrips());
+        Assert.assertEquals(actual.getDateFrom(), expected.getDateFrom());
+        Assert.assertEquals(actual.getDateTo(), expected.getDateTo());
+        Assert.assertEquals(actual.getDestination(), expected.getDestination());
+        Assert.assertEquals(actual.getPrice(), expected.getPrice());
     }
 }

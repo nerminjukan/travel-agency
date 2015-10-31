@@ -5,6 +5,7 @@ import cz.muni.fi.pa165.travelagency.entity.Trip;
 import java.util.List;
 
 import javax.persistence.EntityManager;
+import javax.persistence.NoResultException;
 import javax.persistence.PersistenceContext;
 
 import org.springframework.stereotype.Repository;
@@ -48,7 +49,7 @@ public class TripDaoImpl implements TripDao {
     }
 
     @Override
-    public List<Trip> findByName(String name) {
+    public List<Trip> findByNameSubstring(String name) {
         return em.createQuery(
                 "SELECT t FROM Trip t WHERE t.name LIKE :name ", Trip.class
         ).setParameter("name", "%" + name + "%").getResultList();
@@ -60,5 +61,16 @@ public class TripDaoImpl implements TripDao {
                 "SELECT t FROM Trip t WHERE t.destination LIKE :dest ",
                 Trip.class
         ).setParameter("dest", "%" + destination + "%").getResultList();
+    }
+
+    @Override
+    public Trip findByName(String name) {
+        try {
+            return em.createQuery(
+                "SELECT t FROM Trip t WHERE t.name = :name ", Trip.class
+            ).setParameter("name", name).getSingleResult();
+        } catch(NoResultException ex) {
+            return null;
+        }
     }
 }
