@@ -37,6 +37,7 @@
         <module>travel-agency-persistance</module>
         <module>travel-agency-service</module>
         <module>travel-agency-api</module>
+        <module>travel-agency-utils</module>
     </modules>
     <dependencies>
     </dependencies>
