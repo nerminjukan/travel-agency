@@ -6,7 +6,6 @@ import javax.validation.constraints.NotNull;
 import java.math.BigDecimal;
 import java.sql.Date;
 import java.util.Objects;
-import javax.validation.constraints.AssertTrue;
 
 /**
  * @author Ondrej Glasnak
@@ -131,12 +130,4 @@ public class Excursion {
         }
         return true;
     }
-
-//    @AssertTrue
-//    private boolean isValid() {
-//        if (dateFrom == null || dateTo == null) {
-//            return false;
-//        }
-//        return dateFrom.equals(dateTo) || dateFrom.before(dateTo);
-//    }
 }
