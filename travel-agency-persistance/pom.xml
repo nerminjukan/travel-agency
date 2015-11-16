@@ -9,7 +9,7 @@
     <artifactId>travel-agency-persistance</artifactId>
     <version>1.0-SNAPSHOT</version>
     <packaging>jar</packaging>
-    <name>Travel Agency Persistance</name>
+    <name>Travel Agency Persistance Layer</name>
     <dependencies>
         <dependency>
             <groupId>org.testng</groupId>
