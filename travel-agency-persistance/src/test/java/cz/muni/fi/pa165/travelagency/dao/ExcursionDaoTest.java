@@ -143,8 +143,16 @@ public class ExcursionDaoTest extends AbstractTestNGSpringContextTests {
         assertTrue(excursionDao.findAll().contains(excursion1));
         assertTrue(excursionDao.findAll().contains(excursion2));
         assertTrue(excursionDao.findAll().size() == 2);
-    }  
-    
+    }
+
+    @Test(expectedExceptions = ConstraintViolationException.class)
+    public void testInvalidDateRange() {
+        LocalDate date = LocalDate.of(2015, 1, 1);
+        excursion1.setDateFrom(Date.valueOf(date.plusDays(1)));
+        excursion1.setDateTo(Date.valueOf(date));
+        excursionDao.create(excursion1);
+    }
+
     private void assertDeepEquals(Excursion excursion, Excursion excursion1) {
         assertEquals(excursion, excursion1);
         assertEquals(excursion.getId(), excursion1.getId());
@@ -155,6 +163,4 @@ public class ExcursionDaoTest extends AbstractTestNGSpringContextTests {
         assertEquals(excursion.getDestination(), excursion1.getDestination());
         assertEquals(excursion.getPrice(), excursion1.getPrice());
     }
-    
-    
 }

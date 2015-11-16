@@ -40,6 +40,14 @@
         <dependency>
             <groupId>org.hibernate</groupId>
             <artifactId>hibernate-validator</artifactId>
+            <version>5.2.2.Final</version>
+            <scope>test</scope>
+        </dependency>
+        <dependency>
+            <groupId>org.glassfish</groupId>
+            <artifactId>javax.el</artifactId>
+            <version>3.0.0</version>
+            <scope>test</scope>
         </dependency>
         <!-- <dependency> -->
         <!-- <groupId>javax.inject</groupId> -->
@@ -91,10 +99,14 @@
             <version>10.10.2.0</version>
         </dependency>
         <dependency>
+            <groupId>${project.groupId}</groupId>
+            <artifactId>travel-agency-utils</artifactId>
+            <version>1.0</version>
+        </dependency>
+        <dependency>
             <groupId>javax</groupId>
             <artifactId>javaee-web-api</artifactId>
             <version>7.0</version>
-            <scope>test</scope>
             <type>jar</type>
         </dependency>
     </dependencies>
