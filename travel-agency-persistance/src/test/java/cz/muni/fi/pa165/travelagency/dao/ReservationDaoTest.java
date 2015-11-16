@@ -92,18 +92,18 @@ public class ReservationDaoTest extends AbstractTestNGSpringContextTests {
     @Test(expectedExceptions = ConstraintViolationException.class)
     public void testNullCustomer() {
         res1.setCustomer(null);
-        reservationDao.creat(res1);
+        reservationDao.create(res1);
     }
 
     @Test(expectedExceptions = ConstraintViolationException.class)
     public void testNullTrip() {
         res1.setTrip(null);
-        reservationDao.creat(res1);
+        reservationDao.create(res1);
     }
 
     @Test
     public void testUpdate() {
-        reservationDao.creat(res1);
+        reservationDao.create(res1);
         res1.setCustomer(c2);
         reservationDao.update(res1);
         assertEquals(reservationDao.findById(res1.getId()).getTrip(), t1);
@@ -112,7 +112,7 @@ public class ReservationDaoTest extends AbstractTestNGSpringContextTests {
 
     @Test
     public void testRemove() {
-        reservationDao.creat(res1);
+        reservationDao.create(res1);
         Assert.assertTrue(reservationDao.findAll().size() == 1);
         reservationDao.remove(res1);
         Assert.assertTrue(reservationDao.findAll().isEmpty());
@@ -120,15 +120,15 @@ public class ReservationDaoTest extends AbstractTestNGSpringContextTests {
 
     @Test
     public void testFindAll() {
-        reservationDao.creat(res1);
-        reservationDao.creat(res2);
+        reservationDao.create(res1);
+        reservationDao.create(res2);
         List<Reservation> resList = reservationDao.findAll();
         Assert.assertTrue(resList.size() == 2);
     }
 
     @Test
     public void testFindById() {
-        reservationDao.creat(res1);
+        reservationDao.create(res1);
         Reservation res = reservationDao.findById(res1.getId());
         Assert.assertEquals(res1.getId(), res.getId());
         Assert.assertEquals(c1, res.getCustomer());
@@ -137,8 +137,8 @@ public class ReservationDaoTest extends AbstractTestNGSpringContextTests {
 
     @Test
     public void testFindByCustomer() {
-        reservationDao.creat(res1);
-        reservationDao.creat(res2);
+        reservationDao.create(res1);
+        reservationDao.create(res2);
         res2.setCustomer(c1);
         List<Reservation> resList = reservationDao.findByCustomer(c1);
         Assert.assertTrue(resList.size() == 2);
@@ -149,8 +149,8 @@ public class ReservationDaoTest extends AbstractTestNGSpringContextTests {
 
     @Test
     public void testFindByTrip() {
-        reservationDao.creat(res1);
-        reservationDao.creat(res2);
+        reservationDao.create(res1);
+        reservationDao.create(res2);
         res2.setCustomer(c1);
         List<Reservation> resList = reservationDao.findByCustomer(c1);
         Assert.assertTrue(resList.size() == 2);
@@ -161,8 +161,8 @@ public class ReservationDaoTest extends AbstractTestNGSpringContextTests {
 
     @Test
     public void findByTrip() {
-        reservationDao.creat(res1);
-        reservationDao.creat(res2);
+        reservationDao.create(res1);
+        reservationDao.create(res2);
         res1.setTrip(t1);
         res2.setTrip(t1);
         List<Reservation> resList = reservationDao.findByTrip(t1);

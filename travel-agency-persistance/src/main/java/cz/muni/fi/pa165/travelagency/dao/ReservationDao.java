@@ -19,7 +19,7 @@ public interface ReservationDao {
      * 
      * @param r reservation to add
      */
-    void creat(Reservation r);
+    void create(Reservation r);
     
     /**
      * Method updates a reservation r in database

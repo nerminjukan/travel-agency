@@ -48,7 +48,7 @@ public interface TripDao {
     Trip findById(Long id);
     
     /**
-     * In DB find all Trip entities witch has in name substring {@code substr} 
+     * In DB find all Trip entities which has in name substring {@code substr}
      * 
      * @param substr string to find in name
      * @return list of Trip entities with substring {@code substr} in name
@@ -64,7 +64,7 @@ public interface TripDao {
     Trip findByName(String name);
     
     /**
-     * In DB find all Trip entities witch has in destination string {@code destination} 
+     * In DB find all Trip entities which has in destination string {@code destination}
      * 
      * @param destination string to find in destination
      * @return list of Trip entities with string {@code destination} in destination
