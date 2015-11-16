@@ -15,6 +15,8 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.OneToMany;
+import javax.validation.constraints.DecimalMin;
+import javax.validation.constraints.Min;
 
 import javax.validation.constraints.NotNull;
 
@@ -45,12 +47,14 @@ public class Trip {
     private String destination;
     
     @NotNull
+    @DecimalMin("0.0")
     private BigDecimal price;
     
     @OneToMany
     private Set<Excursion> excursions = new HashSet<>();
     
     @NotNull
+    @Min(1)
     private Long availibleTrips;
 
     public Trip(Long id) {

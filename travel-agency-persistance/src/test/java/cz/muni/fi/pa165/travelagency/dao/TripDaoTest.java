@@ -85,7 +85,46 @@ public class TripDaoTest extends AbstractTestNGSpringContextTests{
         t1.setAvailibleTrips(null);
         tripDao.create(t1);
     }
-    
+
+    @Test(expectedExceptions=ConstraintViolationException.class)
+    public void testNegativeAvailibleTrips(){
+        t1.setAvailibleTrips(new Long("-1"));
+        tripDao.create(t1);
+    }
+
+    @Test(expectedExceptions=ConstraintViolationException.class)
+    public void testZeroAvailibleTrips(){
+        t1.setAvailibleTrips(new Long("0"));
+        tripDao.create(t1);
+    }
+
+    @Test
+    public void testOneAvailibleTrip() {
+        t1.setAvailibleTrips(new Long("1"));
+        tripDao.create(t1);
+        assertDeepEquals(tripDao.findById(t1.getId()), t1);
+    }
+
+    @Test(expectedExceptions=ConstraintViolationException.class)
+    public void testNegativePrice(){
+        t1.setPrice(new BigDecimal("-1.0"));
+        tripDao.create(t1);
+    }
+
+    @Test
+    public void testZeroPrice(){
+        t1.setPrice(new BigDecimal("0.0"));
+        tripDao.create(t1);
+        assertDeepEquals(tripDao.findById(t1.getId()), t1);
+    }
+
+    @Test
+    public void testPositivePrice(){
+        t1.setPrice(new BigDecimal("0.01"));
+        tripDao.create(t1);
+        assertDeepEquals(tripDao.findById(t1.getId()), t1);
+    }
+
     @Test
     public void testUpdate(){
         tripDao.create(t1);
