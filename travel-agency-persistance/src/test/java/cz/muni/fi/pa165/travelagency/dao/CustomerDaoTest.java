@@ -1,14 +1,10 @@
 package cz.muni.fi.pa165.travelagency.dao;
 
-import cz.muni.fi.pa165.travelagency.dao.CustomerDao;
 import java.util.List;
 
 import cz.muni.fi.pa165.travelagency.PersistenceSampleApplicationContext;
 import cz.muni.fi.pa165.travelagency.entity.Customer;
-import javax.inject.Inject;
 
-import javax.persistence.EntityManager;
-import javax.persistence.PersistenceContext;
 import javax.persistence.PersistenceException;
 import javax.validation.ConstraintViolationException;
 
@@ -16,12 +12,11 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.TestExecutionListeners;
 import org.springframework.test.context.testng.AbstractTestNGSpringContextTests;
-import org.springframework.test.context.testng.AbstractTransactionalTestNGSpringContextTests;
 import org.springframework.test.context.transaction.TransactionalTestExecutionListener;
 import org.springframework.transaction.annotation.Transactional;
+
 import org.testng.Assert;
 import org.testng.annotations.BeforeMethod;
-import org.testng.annotations.BeforeTest;
 import org.testng.annotations.Test;
 
 /**
@@ -32,7 +27,7 @@ import org.testng.annotations.Test;
 @TestExecutionListeners(TransactionalTestExecutionListener.class)
 @Transactional
 public class CustomerDaoTest extends AbstractTestNGSpringContextTests {    
-    @Inject
+    @Autowired
     private CustomerDao customerDao;
             
     private Customer c1;
