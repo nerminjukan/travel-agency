@@ -58,7 +58,7 @@ public class Trip {
     
     @NotNull
     @Min(1)
-    private Long availibleTrips;
+    private Long availableTrips;
 
     /**
      * Constructor of Trip which sets id.
@@ -208,16 +208,16 @@ public class Trip {
      * @return Number of total available trips.
      */
     public Long getAvailibleTrips() {
-        return availibleTrips;
+        return availableTrips;
     }
 
     /**
      * Method sets number of available trips.
      *
-     * @param availibleTrips Number of available trips to be set.
+     * @param availableTrips Number of available trips to be set.
      */
-    public void setAvailibleTrips(Long availibleTrips) {
-        this.availibleTrips = availibleTrips;
+    public void setAvailibleTrips(Long availableTrips) {
+        this.availableTrips = availableTrips;
     }
 
     /**
@@ -253,7 +253,7 @@ public class Trip {
                 description + ", dateFrom=" + dateFrom + ", dateTo=" + dateTo +
                 ", destination=" + destination + ", price=" + price +
                 ", excursions=" + excursions + ", availibleTrips=" +
-                availibleTrips + '}';
+                availableTrips + '}';
     }
 
     @Override
