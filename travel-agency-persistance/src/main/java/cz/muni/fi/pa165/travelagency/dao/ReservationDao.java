@@ -1,8 +1,3 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package cz.muni.fi.pa165.travelagency.dao;
 
 import cz.muni.fi.pa165.travelagency.entity.Customer;
@@ -11,6 +6,8 @@ import cz.muni.fi.pa165.travelagency.entity.Trip;
 import java.util.List;
 
 /**
+ * The interface provides persistent operation for entity Reservation
+ * 
  * @author Jan Duda
  */
 public interface ReservationDao {
@@ -25,8 +22,9 @@ public interface ReservationDao {
      * Method updates a reservation r in database
      * 
      * @param r reservation to update
+     * @return updated reservation
      */
-    void update(Reservation r);
+    Reservation update(Reservation r);
     
     /**
      * Method removes a reservation r from database

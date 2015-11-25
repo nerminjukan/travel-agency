@@ -1,8 +1,3 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package cz.muni.fi.pa165.travelagency.dao;
 
 import cz.muni.fi.pa165.travelagency.entity.Customer;
@@ -32,8 +27,8 @@ public class ReservationDaoImpl implements ReservationDao{
     }
 
     @Override
-    public void update(Reservation r) {
-        em.merge(r);
+    public Reservation update(Reservation r) {
+        return em.merge(r);
     }
 
     @Override

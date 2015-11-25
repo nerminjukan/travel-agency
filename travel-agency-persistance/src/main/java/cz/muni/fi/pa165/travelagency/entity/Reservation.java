@@ -14,7 +14,8 @@ import javax.persistence.ManyToOne;
 import javax.validation.constraints.NotNull;
 
 /**
- *
+ * Class which represetns entity reservation in Travel agency.
+ * 
  * @author Jan Duda
  */
 @Entity
@@ -22,7 +23,7 @@ public class Reservation {
     
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long Id;
+    private Long id;
     
     @NotNull
     @ManyToOne
@@ -44,10 +45,10 @@ public class Reservation {
     /**
      * Constructor sets reservation with input id
      * 
-     * @param Id new reservation will be set with this id
+     * @param id new reservation will be set with this id
      */
-    public Reservation(Long Id) {
-        this.Id = Id;
+    public Reservation(Long id) {
+        this.id = id;
     }
 
     /**
@@ -56,16 +57,16 @@ public class Reservation {
      * @return id of the reservation
      */
     public Long getId() {
-        return Id;
+        return id;
     }
 
     /**
      * Method sets id of the reservation
      * 
-     * @param Id id of the reservation
+     * @param id id of the reservation
      */
-    public void setId(Long Id) {
-        this.Id = Id;
+    public void setId(Long id) {
+        this.id = id;
     }
 
     /**
@@ -164,8 +165,7 @@ public class Reservation {
     
     @Override
     public String toString() {
-        return "Reservation{" + "Id=" + Id + ", customer=" + customer + ", trip=" + trip + ", excursions=" + excursions + '}';
-    }
-    
+        return "Reservation{" + "Id=" + id + ", customer=" + customer + ", trip=" + trip + ", excursions=" + excursions + '}';
+    }   
     
 }
