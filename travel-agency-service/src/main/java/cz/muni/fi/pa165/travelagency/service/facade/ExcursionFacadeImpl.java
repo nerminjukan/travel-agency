@@ -67,7 +67,7 @@ public class ExcursionFacadeImpl implements ExcursionFacade {
 
     @Override
     public void updateExcursion(ExcursionDTO e) {
-        excursionService.updateExcusion(
+        excursionService.updateExcursion(
                 beanMappingService.mapTo(e, Excursion.class)
         );
     }

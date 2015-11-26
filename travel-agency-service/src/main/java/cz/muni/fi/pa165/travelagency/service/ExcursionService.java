@@ -39,7 +39,7 @@ public interface ExcursionService {
      * @param e Excursion which should be updated.
      * @return Updated excursion.
      */
-    public Excursion updateExcusion(Excursion e);
+    public Excursion updateExcursion(Excursion e);
 
     /**
      * Delete existing excursion.

@@ -33,7 +33,7 @@ public class ExcursionServiceImpl implements ExcursionService {
     }
 
     @Override
-    public Excursion updateExcusion(Excursion e) {
+    public Excursion updateExcursion(Excursion e) {
         return excursionDao.update(e);
     }
 

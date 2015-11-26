@@ -90,10 +90,10 @@ public class ExcursionServiceTest extends AbstractTransactionalTestNGSpringConte
     }
 
     @Test
-    public void testUpdateExcusion() {
+    public void testUpdateExcursion() {
         excursion.setName("Another name");
         excursion.setPrice(BigDecimal.ZERO);
-        excursionService.updateExcusion(excursion);
+        excursionService.updateExcursion(excursion);
         verify(excursionDao).update(excursion);
     }
 
