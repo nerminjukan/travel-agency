@@ -9,11 +9,19 @@ import cz.muni.fi.pa165.travelagency.service.config.ServiceConfiguration;
 import java.math.BigDecimal;
 import java.sql.Date;
 import java.time.LocalDate;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Collections;
+import java.util.List;
 import org.hibernate.service.spi.ServiceException;
 import org.mockito.InjectMocks;
+import org.mockito.Mock;
+import static org.mockito.Mockito.verify;
+import static org.mockito.Mockito.when;
 import org.mockito.MockitoAnnotations;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.test.context.ContextConfiguration;
+import org.springframework.test.context.testng.AbstractTransactionalTestNGSpringContextTests;
 import static org.testng.Assert.*;
 import org.testng.annotations.BeforeClass;
 import org.testng.annotations.BeforeMethod;
@@ -24,9 +32,9 @@ import org.testng.annotations.Test;
  * @author Jan Duda
  */
 @ContextConfiguration(classes = ServiceConfiguration.class)
-public class ReservationServiceTest {
+public class ReservationServiceTest extends AbstractTransactionalTestNGSpringContextTests {
     
-    @Autowired
+    @Mock
     private ReservationDao reservationDao;
     
     @Autowired
@@ -55,41 +63,27 @@ public class ReservationServiceTest {
     
     @Test
     public void testCreateReservation(){
-        Reservation r = reservationService.createReservation(testReservation);
-        assertDeepEquals(reservationDao.findById(r.getId()), testReservation);
+        reservationService.createReservation(testReservation);
+        verify(reservationDao).create(testReservation);
     }
     
     @Test
     public void testUpdateReservation(){
-        reservationDao.create(testReservation);
-        
-        Customer c = testReservation.getCustomer();
-        c.setName("DifferentName");
-        c.setEmail("differentEmail@ggg.com");
-        
-        Trip t = testReservation.getTrip();
-        t.setName("DiffName");
-        t.setPrice(new BigDecimal("200.0"));
-        
-        testReservation.setCustomer(c);
-        testReservation.setTrip(t);
-        
-        assertDeepEquals(testReservation, reservationDao.findById(testReservation.getId()));
+        reservationService.updateReservation(testReservation);
+        verify(reservationDao).update(testReservation);
     }
     
     @Test
     public void testRemoveReservation(){
-        reservationDao.create(testReservation);
-        assertNotNull(reservationDao.findById(testReservation.getId()));
-        
         reservationService.removeReservation(testReservation);
-        assertNull(reservationDao.findById(testReservation.getId()));
+        verify(reservationDao).remove(testReservation);
     }
     
     @Test
     public void testFindAll(){
+        when(reservationDao.findAll()).thenReturn(new ArrayList<>());
         assertEquals(reservationService.findAll().size(), 0);
-        reservationDao.create(testReservation);
+        when(reservationDao.findAll()).thenReturn(Collections.singletonList(testReservation));
         assertEquals(reservationService.findAll().size(), 1);
         
         Reservation r = new Reservation();
@@ -97,44 +91,52 @@ public class ReservationServiceTest {
         r.setTrip(createTrip(1));
         r.addExcursion(createExcursion(1));
         
-        reservationDao.create(r);
+        when(reservationDao.findAll()).thenReturn(Arrays.asList(testReservation, r));
         assertEquals(reservationService.findAll().size(), 2);
     }
     
     @Test
     public void testFindById(){
-        reservationDao.create(testReservation);
+        testReservation.setId(1l);
+        when(reservationDao.findById(testReservation.getId())).thenReturn(testReservation);
         assertDeepEquals(reservationService.findById(testReservation.getId()), testReservation);
     }
     
     @Test
     public void testFindByIdWhichDoesntExist(){
+        when(reservationDao.findById(Long.MIN_VALUE)).thenReturn(null);
         assertNull(reservationService.findById(Long.MIN_VALUE));
     }
     
     @Test
     public void testFindByCustomer(){
-        reservationDao.create(testReservation);
         Customer c = testReservation.getCustomer();
-        assertTrue(reservationService.findByCustomer(c).equals(reservationDao.findByCustomer(c)));
+        when(reservationDao.findByCustomer(c)).thenReturn(Collections.singletonList(testReservation));
+        List<Reservation> l = reservationService.findByCustomer(c);
+        assertEquals(l.size(), 1);
+        assertDeepEquals(l.get(0), testReservation);
     }
     
     @Test
     public void testFindByCustomerWhoDoesntExist(){
         Customer c = createCustomer(2);
+        when(reservationDao.findByCustomer(c)).thenReturn(new ArrayList<>());
         assertEquals(reservationService.findByCustomer(c).size(), 0);
     }
     
     @Test
     public void testFindByTrip(){
-        reservationDao.create(testReservation);
         Trip t = testReservation.getTrip();
-        assertTrue(reservationService.findByTrip(t).equals(reservationDao.findByTrip(t)));
+        when(reservationDao.findByTrip(t)).thenReturn(Collections.singletonList(testReservation));
+        List<Reservation> l = reservationService.findByTrip(t);
+        assertEquals(l.size(), 1);
+        assertDeepEquals(l.get(0), testReservation);
     }
     
     @Test
     public void testFindByTripWhichDoesntExist(){
         Trip t = createTrip(2);
+        when(reservationDao.findByTrip(t)).thenReturn(new ArrayList<>());
         assertEquals(reservationService.findByTrip(t).size(), 0);
     }
     
