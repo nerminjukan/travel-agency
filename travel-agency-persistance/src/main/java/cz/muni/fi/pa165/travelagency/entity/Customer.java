@@ -29,37 +29,72 @@ public class Customer {
     @NotNull
     private String phoneNumber;
 
+    /**
+     * nonparametric constructor
+     */
     public Customer() {
     }
 
+    /**
+     * constructor of customer which sets id.
+     * @param id Id of entity
+     */
     public Customer(Long id) {
         this.id = id;
     }    
     
+    /**
+     * gets ID of customer
+     * @return id Id of customer
+     */
     public Long getId() {
         return id;
     }
 
+    /**
+     * gets the Name of customer
+     * @return name Name of customer
+     */
     public String getName() {
         return name;
     }
 
+    /**
+     * sets specified name of the customer
+     * @param name Name of customer
+     */
     public void setName(String name) {
         this.name = name;
     }
 
+    /**
+     * gets the email of customer
+     * @return email Email of customer
+     */
     public String getEmail() {
         return email;
     }
 
+    /**
+     * sets specified email of the customer
+     * @param email Email of customer
+     */
     public void setEmail(String email) {
         this.email = email;
     }
 
+    /**
+     * gets the phone number of customer
+     * @return phoneNumber Phone number of customer
+     */
     public String getPhoneNumber() {
         return phoneNumber;
     }
 
+    /**
+     * sets specified phone number of the customer
+     * @param phoneNumber Phone number of customer
+     */
     public void setPhoneNumber(String phoneNumber) {
         this.phoneNumber = phoneNumber;
     }
