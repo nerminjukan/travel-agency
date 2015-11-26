@@ -155,7 +155,7 @@ public class ReservationServiceTest extends AbstractTransactionalTestNGSpringCon
         trip.setDateTo(Date.valueOf(LocalDate.of(2015, 1, 2 + numberTrip).plusDays(1)));
         trip.setDestination("Dest " + numberTrip);
         trip.setPrice(new BigDecimal("200" + numberTrip + ".0"));
-        trip.setAvailibleTrips(new Long(100));
+        trip.setAvailableTrips(new Long(100));
         
         return trip;
     }

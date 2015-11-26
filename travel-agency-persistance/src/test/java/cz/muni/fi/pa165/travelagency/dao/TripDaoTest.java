@@ -6,7 +6,7 @@ import java.math.BigDecimal;
 import java.sql.Date;
 import java.util.List;
 import javax.validation.ConstraintViolationException;
-import javax.validation.constraints.AssertTrue;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.TestExecutionListeners;
@@ -39,7 +39,7 @@ public class TripDaoTest extends AbstractTestNGSpringContextTests{
         t1.setDateTo(new Date(new Long("2000000")));
         t1.setDestination("Dest 1");
         t1.setPrice(new BigDecimal("2000"));
-        t1.setAvailibleTrips(new Long(100));
+        t1.setAvailableTrips(new Long(100));
         
         t2 = new Trip();
         t2.setName("Trip 2");
@@ -47,7 +47,7 @@ public class TripDaoTest extends AbstractTestNGSpringContextTests{
         t2.setDateTo(new Date(new Long("10000000")));
         t2.setDestination("Dest 2");
         t2.setPrice(new BigDecimal("1000"));
-        t2.setAvailibleTrips(new Long(50));
+        t2.setAvailableTrips(new Long(50));
     }
     
     @Test(expectedExceptions=ConstraintViolationException.class)
@@ -81,26 +81,26 @@ public class TripDaoTest extends AbstractTestNGSpringContextTests{
     }
     
     @Test(expectedExceptions=ConstraintViolationException.class)
-    public void testNullAvailibleTrips(){
-        t1.setAvailibleTrips(null);
+    public void testNullAvailableTrips(){
+        t1.setAvailableTrips(null);
         tripDao.create(t1);
     }
 
     @Test(expectedExceptions=ConstraintViolationException.class)
-    public void testNegativeAvailibleTrips(){
-        t1.setAvailibleTrips(new Long("-1"));
+    public void testNegativeAvailableTrips(){
+        t1.setAvailableTrips(new Long("-1"));
         tripDao.create(t1);
     }
 
     @Test(expectedExceptions=ConstraintViolationException.class)
-    public void testZeroAvailibleTrips(){
-        t1.setAvailibleTrips(new Long("0"));
+    public void testZeroAvailableTrips(){
+        t1.setAvailableTrips(new Long("0"));
         tripDao.create(t1);
     }
 
     @Test
-    public void testOneAvailibleTrip() {
-        t1.setAvailibleTrips(new Long("1"));
+    public void testOneAvailableTrip() {
+        t1.setAvailableTrips(new Long("1"));
         tripDao.create(t1);
         assertDeepEquals(tripDao.findById(t1.getId()), t1);
     }
@@ -206,7 +206,7 @@ public class TripDaoTest extends AbstractTestNGSpringContextTests{
     private void assertDeepEquals(Trip actual, Trip expected) {
         Assert.assertEquals(actual, expected);
         Assert.assertEquals(actual.getId(), expected.getId());
-        Assert.assertEquals(actual.getAvailibleTrips(), expected.getAvailibleTrips());
+        Assert.assertEquals(actual.getAvailableTrips(), expected.getAvailableTrips());
         Assert.assertEquals(actual.getDateFrom(), expected.getDateFrom());
         Assert.assertEquals(actual.getDateTo(), expected.getDateTo());
         Assert.assertEquals(actual.getDestination(), expected.getDestination());

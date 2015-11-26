@@ -55,7 +55,7 @@ public class TripServiceTest extends AbstractTransactionalTestNGSpringContextTes
         trip1.setDateTo(Date.valueOf("2016-01-15"));
         trip1.setDestination("dest1");
         trip1.setPrice(new BigDecimal("1000"));
-        trip1.setAvailibleTrips((long) 10);
+        trip1.setAvailableTrips((long) 10);
 
         trip2 = new Trip();
         trip1.setId((long) 12);
@@ -64,7 +64,7 @@ public class TripServiceTest extends AbstractTransactionalTestNGSpringContextTes
         trip2.setDateTo(Date.valueOf("2016-02-15"));
         trip2.setDestination("dest2");
         trip2.setPrice(new BigDecimal("2000"));
-        trip2.setAvailibleTrips((long) 20);
+        trip2.setAvailableTrips((long) 20);
     }
 
     @Test
@@ -136,6 +136,6 @@ public class TripServiceTest extends AbstractTransactionalTestNGSpringContextTes
         assertEquals(t1.getDateTo(),t2.getDateTo());
         assertEquals(t1.getPrice(),t2.getPrice());
         assertEquals(t1.getExcursions(),t2.getExcursions());
-        assertEquals(t1.getAvailibleTrips(),t2.getAvailibleTrips());
+        assertEquals(t1.getAvailableTrips(),t2.getAvailableTrips());
     }
 }

@@ -68,7 +68,7 @@ public class ReservationDaoTest extends AbstractTestNGSpringContextTests {
         t1.setDateTo(new Date(new Long("2000000")));
         t1.setDestination("Albaca");
         t1.setPrice(new BigDecimal("2000"));
-        t1.setAvailibleTrips(new Long(100));
+        t1.setAvailableTrips(new Long(100));
 
         t2 = new Trip();
         t2.setName("belarus");
@@ -76,7 +76,7 @@ public class ReservationDaoTest extends AbstractTestNGSpringContextTests {
         t2.setDateTo(new Date(new Long("3000000")));
         t2.setDestination("Bella");
         t2.setPrice(new BigDecimal("4000"));
-        t2.setAvailibleTrips(new Long(50));
+        t2.setAvailableTrips(new Long(50));
         tripDao.create(t1);
         tripDao.create(t2);
 

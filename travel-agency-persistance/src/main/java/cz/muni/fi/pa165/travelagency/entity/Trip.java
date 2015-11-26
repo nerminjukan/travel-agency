@@ -207,7 +207,7 @@ public class Trip {
      *
      * @return Number of total available trips.
      */
-    public Long getAvailibleTrips() {
+    public Long getAvailableTrips() {
         return availableTrips;
     }
 
@@ -216,7 +216,7 @@ public class Trip {
      *
      * @param availableTrips Number of available trips to be set.
      */
-    public void setAvailibleTrips(Long availableTrips) {
+    public void setAvailableTrips(Long availableTrips) {
         this.availableTrips = availableTrips;
     }
 
@@ -252,7 +252,7 @@ public class Trip {
         return "Trip{" + "id=" + id + ", name=" + name + ", description=" +
                 description + ", dateFrom=" + dateFrom + ", dateTo=" + dateTo +
                 ", destination=" + destination + ", price=" + price +
-                ", excursions=" + excursions + ", availibleTrips=" +
+                ", excursions=" + excursions + ", availableTrips=" +
                 availableTrips + '}';
     }
 
