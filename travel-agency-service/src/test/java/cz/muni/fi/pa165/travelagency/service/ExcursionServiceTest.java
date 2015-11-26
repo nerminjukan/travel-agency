@@ -6,8 +6,14 @@ import cz.muni.fi.pa165.travelagency.service.config.ServiceConfiguration;
 import java.math.BigDecimal;
 import java.sql.Date;
 import java.time.LocalDate;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Collections;
 import org.hibernate.service.spi.ServiceException;
 import org.mockito.InjectMocks;
+import org.mockito.Mock;
+import static org.mockito.Mockito.verify;
+import static org.mockito.Mockito.when;
 import org.mockito.MockitoAnnotations;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.test.context.ContextConfiguration;
@@ -24,7 +30,7 @@ import org.testng.annotations.Test;
 @ContextConfiguration(classes = ServiceConfiguration.class)
 public class ExcursionServiceTest extends AbstractTransactionalTestNGSpringContextTests {
 
-    @Autowired
+    @Mock
     private ExcursionDao excursionDao;
 
     @Autowired
@@ -50,19 +56,22 @@ public class ExcursionServiceTest extends AbstractTransactionalTestNGSpringConte
 
     @Test
     public void testFindByIdNotExisting() {
+        when(excursionDao.findById(Long.MIN_VALUE)).thenReturn(null);
         assertNull(excursionService.findById(Long.MIN_VALUE));
     }
 
     @Test
     public void testFindById() {
-        excursionDao.create(excursion);
+        excursion.setId(1l);
+        when(excursionDao.findById(excursion.getId())).thenReturn(excursion);
         assertDeepEquals(excursion, excursionService.findById(excursion.getId()));
     }
 
     @Test
     public void testFindAll() {
+        when(excursionDao.findAll()).thenReturn(new ArrayList<>());
         assertEquals(excursionService.findAll().size(), 0);
-        excursionDao.create(excursion);
+        when(excursionDao.findAll()).thenReturn(Collections.singletonList(excursion));
         assertEquals(excursionService.findAll().size(), 1);
         Excursion e = new Excursion();
         e.setName("test");
@@ -70,36 +79,33 @@ public class ExcursionServiceTest extends AbstractTransactionalTestNGSpringConte
         e.setPrice(BigDecimal.ZERO);
         e.setDateFrom(Date.valueOf(LocalDate.of(2015, 1, 1)));
         e.setDateTo(Date.valueOf(LocalDate.of(2015, 1, 1)));
-        excursionDao.create(e);
+        when(excursionDao.findAll()).thenReturn(Arrays.asList(excursion, e));
         assertEquals(excursionService.findAll().size(), 2);
     }
 
     @Test
     public void testCreateExcursion() {
         Excursion e = excursionService.createExcursion(excursion);
-        assertDeepEquals(excursionDao.findById(e.getId()), excursion);
+        verify(excursionDao).create(excursion);
     }
 
     @Test
     public void testUpdateExcusion() {
-        excursionDao.create(excursion);
         excursion.setName("Another name");
         excursion.setPrice(BigDecimal.ZERO);
         excursionService.updateExcusion(excursion);
-        assertDeepEquals(excursion, excursionDao.findById(excursion.getId()));
+        verify(excursionDao).update(excursion);
     }
 
     @Test
     public void testDeleteExcursion() {
-        excursionDao.create(excursion);
-        assertNotNull(excursionDao.findById(excursion.getId()));
         excursionService.deleteExcursion(excursion);
-        assertNull(excursionDao.findById(excursion.getId()));
+        verify(excursionDao).remove(excursion);
     }
 
     @Test
     public void testFindByName() {
-        excursionDao.create(excursion);
+        when(excursionDao.findByName(excursion.getName())).thenReturn(excursion);
         assertDeepEquals(excursionService.findByName(excursion.getName()), excursion);
     }
 
