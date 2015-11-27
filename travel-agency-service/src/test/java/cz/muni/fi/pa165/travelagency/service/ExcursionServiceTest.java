@@ -99,7 +99,7 @@ public class ExcursionServiceTest extends AbstractTransactionalTestNGSpringConte
 
     @Test
     public void testDeleteExcursion() {
-        excursionService.deleteExcursion(excursion);
+        excursionService.removeExcursion(excursion);
         verify(excursionDao).remove(excursion);
     }
 

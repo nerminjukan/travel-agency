@@ -59,5 +59,5 @@ public interface TripService {
      * Method ... of the trip.
      * @param t
      */
-    void deleteTrip(Trip t);
+    void removeTrip(Trip t);
 }

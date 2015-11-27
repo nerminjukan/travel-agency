@@ -46,7 +46,7 @@ public interface ExcursionService {
      *
      * @param e Excursion which should be deleted.
      */
-    public void deleteExcursion(Excursion e);
+    public void removeExcursion(Excursion e);
 
     /**
      * Returns excursion with specified name

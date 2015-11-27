@@ -38,7 +38,7 @@ public class ExcursionServiceImpl implements ExcursionService {
     }
 
     @Override
-    public void deleteExcursion(Excursion e) {
+    public void removeExcursion(Excursion e) {
         excursionDao.remove(e);
     }
 

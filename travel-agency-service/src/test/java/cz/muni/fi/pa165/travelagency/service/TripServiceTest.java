@@ -122,7 +122,7 @@ public class TripServiceTest extends AbstractTransactionalTestNGSpringContextTes
 
     @Test
     public void testDeleteTrip() {
-        tripService.deleteTrip(trip1);
+        tripService.removeTrip(trip1);
         verify(tripDao).remove(trip1);
     }
 

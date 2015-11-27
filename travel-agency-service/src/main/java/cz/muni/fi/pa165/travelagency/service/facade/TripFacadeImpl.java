@@ -50,10 +50,10 @@ public class TripFacadeImpl implements TripFacade {
     public void deleteTrip(TripDTO t) {
         Set<ExcursionDTO> excursions = t.getExcursions();
         for (ExcursionDTO e : excursions)
-            excursionService.deleteExcursion(
+            excursionService.removeExcursion(
                     beanMappingService.mapTo(e, Excursion.class));
 
-        tripService.deleteTrip(beanMappingService.mapTo(t, Trip.class));
+        tripService.removeTrip(beanMappingService.mapTo(t, Trip.class));
     }
 
     /**

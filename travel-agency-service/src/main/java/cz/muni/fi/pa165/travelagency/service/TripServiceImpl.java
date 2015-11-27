@@ -51,7 +51,7 @@ public class TripServiceImpl implements TripService {
     }
 
     @Override
-    public void deleteTrip(Trip t) {
+    public void removeTrip(Trip t) {
         tripDao.remove(t);
     }
 }

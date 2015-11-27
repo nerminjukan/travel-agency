@@ -62,7 +62,7 @@ public class ExcursionFacadeImpl implements ExcursionFacade {
 
     @Override
     public void deleteExcursion(Long excursionId) {
-        excursionService.deleteExcursion(new Excursion(excursionId));
+        excursionService.removeExcursion(new Excursion(excursionId));
     }
 
     @Override
