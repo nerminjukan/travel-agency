@@ -3,6 +3,7 @@ package cz.muni.fi.pa165.travelagency.service.facade;
 import cz.muni.fi.pa165.travelagency.dto.ExcursionCreateDTO;
 import cz.muni.fi.pa165.travelagency.dto.ExcursionDTO;
 import cz.muni.fi.pa165.travelagency.entity.Excursion;
+import cz.muni.fi.pa165.travelagency.entity.Reservation;
 import cz.muni.fi.pa165.travelagency.entity.Trip;
 import cz.muni.fi.pa165.travelagency.facade.ExcursionFacade;
 import cz.muni.fi.pa165.travelagency.service.BeanMappingService;
@@ -10,6 +11,7 @@ import cz.muni.fi.pa165.travelagency.service.CustomerService;
 import cz.muni.fi.pa165.travelagency.service.ExcursionService;
 import cz.muni.fi.pa165.travelagency.service.ReservationService;
 import cz.muni.fi.pa165.travelagency.service.TripService;
+import java.util.ArrayList;
 import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -56,10 +58,15 @@ public class ExcursionFacadeImpl implements ExcursionFacade {
 
     @Override
     public List<ExcursionDTO> getExcursionsByCustomer(Long customerId) {
+        List<Reservation> l = reservationService.findByCustomer(
+                customerService.findById(customerId)
+        );
+        List<Excursion> eList = new ArrayList<>();
+        for (Reservation r: l) {
+            eList.addAll(r.getExcursions());
+        }
         return beanMappingService.mapTo(
-                reservationService.findByCustomer(
-                        customerService.findById(customerId)
-                ),
+                eList,
                 ExcursionDTO.class
         );
     }
