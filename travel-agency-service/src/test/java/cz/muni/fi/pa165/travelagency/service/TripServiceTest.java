@@ -1,7 +1,9 @@
 package cz.muni.fi.pa165.travelagency.service;
 
+import cz.muni.fi.pa165.travelagency.dao.ReservationDao;
 import cz.muni.fi.pa165.travelagency.dao.TripDao;
 import cz.muni.fi.pa165.travelagency.entity.Excursion;
+import cz.muni.fi.pa165.travelagency.entity.Reservation;
 import cz.muni.fi.pa165.travelagency.entity.Trip;
 import cz.muni.fi.pa165.travelagency.service.config.ServiceConfiguration;
 import org.hibernate.service.spi.ServiceException;
@@ -34,6 +36,9 @@ public class TripServiceTest extends AbstractTransactionalTestNGSpringContextTes
 
     @Mock
     private TripDao tripDao;
+
+    @Mock
+    private ReservationDao reservationDao;
 
     private Trip trip1, trip2;
 
@@ -124,6 +129,17 @@ public class TripServiceTest extends AbstractTransactionalTestNGSpringContextTes
     public void testDeleteTrip() {
         tripService.removeTrip(trip1);
         verify(tripDao).remove(trip1);
+    }
+
+    @Test
+    public void testGetNumberOfAvailableTripsLeft() {
+        when(reservationDao.findByTrip(trip1)).thenReturn(
+                Arrays.asList(new Reservation(), new Reservation(), new Reservation())
+        );
+        assertEquals(
+                (long) trip1.getAvailableTrips()-3,
+                (long) tripService.getNumberOfAvailableTripsLeft(trip1)
+        );
     }
 
     private void assertDeepEquals(Trip t1, Trip t2) {

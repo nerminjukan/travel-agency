@@ -1,13 +1,15 @@
 package cz.muni.fi.pa165.travelagency.service.facade;
 
 import cz.muni.fi.pa165.travelagency.dto.ReservationDTO;
+import cz.muni.fi.pa165.travelagency.dto.ReservationTotalPriceDTO;
 import cz.muni.fi.pa165.travelagency.entity.Reservation;
+import cz.muni.fi.pa165.travelagency.exceptions.TravelAgencyServiceException;
 import cz.muni.fi.pa165.travelagency.facade.ReservationFacade;
 import cz.muni.fi.pa165.travelagency.service.BeanMappingService;
 import cz.muni.fi.pa165.travelagency.service.CustomerService;
-import cz.muni.fi.pa165.travelagency.service.ExcursionService;
 import cz.muni.fi.pa165.travelagency.service.ReservationService;
 import cz.muni.fi.pa165.travelagency.service.TripService;
+import java.math.BigDecimal;
 import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 
@@ -25,10 +27,17 @@ public class ReservationFacadeImpl implements ReservationFacade {
     
     @Autowired
     private CustomerService customerService;
+
+    @Autowired
+    private TripService tripService;
     
     @Override
     public void createReservation(ReservationDTO r) {
-        reservationService.createReservation(beanMappingService.mapTo(r, Reservation.class));
+        Reservation res = beanMappingService.mapTo(r, Reservation.class);
+        if (tripService.getNumberOfAvailableTripsLeft(res.getTrip()) == 0) {
+            throw new TravelAgencyServiceException("Cannot create new reservation for selected trip. There is no more free slot.");
+        }
+        reservationService.createReservation(res);
     }
 
     @Override
@@ -55,5 +64,14 @@ public class ReservationFacadeImpl implements ReservationFacade {
     public List<ReservationDTO> getReservationByCustomer(Long customerId) {
         return beanMappingService.mapTo(reservationService.findByCustomer(customerService.findById(customerId)), ReservationDTO.class);
     }
-    
+
+    @Override
+    public ReservationTotalPriceDTO getTotalPriceOfReservation(Long reservationId) {
+        Reservation r = reservationService.findById(reservationId);
+        BigDecimal price = reservationService.getTotalPrice(r);
+        ReservationTotalPriceDTO dto = new ReservationTotalPriceDTO();
+        dto.setReservation(beanMappingService.mapTo(r, ReservationDTO.class));
+        dto.setPrice(price);
+        return dto;
+    }
 }

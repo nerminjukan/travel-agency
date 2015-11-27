@@ -12,7 +12,7 @@ import org.springframework.context.annotation.Import;
 
 @Configuration
 @Import(PersistenceSampleApplicationContext.class)
-@ComponentScan(basePackageClasses={ExcursionServiceImpl.class, ExcursionFacadeImpl.class})
+@ComponentScan(basePackageClasses={ExcursionServiceImpl.class})
 public class ServiceConfiguration {
 
 	@Bean

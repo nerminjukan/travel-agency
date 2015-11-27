@@ -60,4 +60,12 @@ public interface TripService {
      * @param t
      */
     void removeTrip(Trip t);
+
+    /**
+     * Method returns number of available trips free for reservation
+     *
+     * @param t trip of which left free slots should be returned
+     * @return number of free slots for reservation
+     */
+    Long getNumberOfAvailableTripsLeft(Trip t);
 }

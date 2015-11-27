@@ -1,6 +1,7 @@
 package cz.muni.fi.pa165.travelagency.service;
 
 import cz.muni.fi.pa165.travelagency.dao.TripDao;
+import cz.muni.fi.pa165.travelagency.dao.ReservationDao;
 import cz.muni.fi.pa165.travelagency.entity.Excursion;
 import cz.muni.fi.pa165.travelagency.entity.Trip;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -17,6 +18,9 @@ public class TripServiceImpl implements TripService {
 
     @Autowired
     private TripDao tripDao;
+
+    @Autowired
+    private ReservationDao reservationDao;
 
     @Override
     public Trip findById(Long id) {
@@ -53,5 +57,12 @@ public class TripServiceImpl implements TripService {
     @Override
     public void removeTrip(Trip t) {
         tripDao.remove(t);
+    }
+
+    @Override
+    public Long getNumberOfAvailableTripsLeft(Trip t) {
+        Long total = t.getAvailableTrips();
+        Long reservations = (long) reservationDao.findByTrip(t).size();
+        return total - reservations;
     }
 }

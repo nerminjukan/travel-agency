@@ -4,6 +4,7 @@ import cz.muni.fi.pa165.travelagency.entity.Customer;
 import cz.muni.fi.pa165.travelagency.entity.Excursion;
 import cz.muni.fi.pa165.travelagency.entity.Reservation;
 import cz.muni.fi.pa165.travelagency.entity.Trip;
+import java.math.BigDecimal;
 import java.util.List;
 
 /**
@@ -75,4 +76,13 @@ public interface ReservationService {
      * @return all reservations with input trip
      */
     List<Reservation> findByTrip(Trip t);
+
+    /**
+     * Method returns complete price of specified reservation (sum of trip price
+     * and all excursions).
+     *
+     * @param r reservation to get it's total price
+     * @return total price of reservation
+     */
+    BigDecimal getTotalPrice(Reservation r);
 }

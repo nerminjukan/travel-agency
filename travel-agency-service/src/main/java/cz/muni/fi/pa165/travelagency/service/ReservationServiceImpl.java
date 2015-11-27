@@ -5,6 +5,7 @@ import cz.muni.fi.pa165.travelagency.entity.Customer;
 import cz.muni.fi.pa165.travelagency.entity.Excursion;
 import cz.muni.fi.pa165.travelagency.entity.Reservation;
 import cz.muni.fi.pa165.travelagency.entity.Trip;
+import java.math.BigDecimal;
 import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -60,5 +61,16 @@ public class ReservationServiceImpl implements ReservationService {
     public List<Reservation> findByTrip(Trip t) {
         return reservationDao.findByTrip(t);
     }
-    
+
+    @Override
+    public BigDecimal getTotalPrice(Reservation r) {
+        if (r == null) {
+            throw new IllegalArgumentException();
+        }
+        BigDecimal totalPrice = r.getTrip().getPrice();
+        for (Excursion e: r.getExcursions()) {
+            totalPrice = totalPrice.add(e.getPrice());
+        }
+        return totalPrice;
+    }
 }

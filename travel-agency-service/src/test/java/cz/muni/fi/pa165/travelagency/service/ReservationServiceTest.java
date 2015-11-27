@@ -139,6 +139,32 @@ public class ReservationServiceTest extends AbstractTransactionalTestNGSpringCon
         when(reservationDao.findByTrip(t)).thenReturn(new ArrayList<>());
         assertEquals(reservationService.findByTrip(t).size(), 0);
     }
+
+    @Test
+    public void testGetTotalPriceNoExcursions() {
+        Reservation r = new Reservation();
+        Trip t = createTrip(0);
+        t.setPrice(new BigDecimal("5000.00"));
+        r.setTrip(t);
+        assertEquals(reservationService.getTotalPrice(r), new BigDecimal("5000.00"));
+    }
+
+    public void testGetTotalPriceMultipleExcursions() {
+        Reservation r = new Reservation();
+        Trip t = createTrip(0);
+        t.setPrice(new BigDecimal("5000.00"));
+        r.setTrip(t);
+        Excursion e = createExcursion(0);
+        e.setPrice(new BigDecimal("1500.00"));
+        r.addExcursion(e);
+        e = createExcursion(1);
+        e.setPrice(new BigDecimal("999.99"));
+        r.addExcursion(e);
+        e = createExcursion(2);
+        e.setPrice(new BigDecimal("0.00"));
+        r.addExcursion(e);
+        assertEquals(reservationService.getTotalPrice(r), new BigDecimal("7499.99"));
+    }
     
     private void assertDeepEquals(Reservation r1, Reservation r2){
         assertEquals(r1, r2);
