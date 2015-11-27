@@ -22,6 +22,7 @@ import java.sql.Date;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collections;
+import java.util.List;
 
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
@@ -140,6 +141,43 @@ public class TripServiceTest extends AbstractTransactionalTestNGSpringContextTes
                 (long) trip1.getAvailableTrips()-3,
                 (long) tripService.getNumberOfAvailableTripsLeft(trip1)
         );
+    }
+
+    @Test
+    public void testGetTripsInDateRangeEmpty() {
+        when(tripDao.findAll()).thenReturn(Arrays.asList(trip1, trip2));
+        List<Trip> l = tripService.getTripsInDateRange(
+                Date.valueOf("2015-01-01"),
+                Date.valueOf("2015-12-31")
+        );
+        assertEquals(l.size(), 0);
+        when(tripDao.findAll()).thenReturn(Arrays.asList(trip1, trip2));
+        l = tripService.getTripsInDateRange(
+                Date.valueOf("2016-01-02"),
+                Date.valueOf("2016-02-02")
+        );
+        assertEquals(l.size(), 0);
+    }
+
+    @Test
+    public void testGetTripsInDateRangeOne() {
+        when(tripDao.findAll()).thenReturn(Arrays.asList(trip1, trip2));
+        List<Trip> l = tripService.getTripsInDateRange(
+                Date.valueOf("2016-01-02"),
+                Date.valueOf("2016-02-28")
+        );
+        assertEquals(l.size(), 1);
+        assertDeepEquals(l.get(0), trip2);
+    }
+
+    @Test
+    public void testGetTripsInDateRange() {
+        when(tripDao.findAll()).thenReturn(Arrays.asList(trip1, trip2));
+        List<Trip> l = tripService.getTripsInDateRange(
+                Date.valueOf("2016-01-01"),
+                Date.valueOf("2016-02-15")
+        );
+        assertEquals(l.size(), 2);
     }
 
     private void assertDeepEquals(Trip t1, Trip t2) {

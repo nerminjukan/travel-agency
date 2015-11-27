@@ -5,6 +5,7 @@ import cz.muni.fi.pa165.travelagency.entity.Customer;
 import cz.muni.fi.pa165.travelagency.entity.Excursion;
 import cz.muni.fi.pa165.travelagency.entity.Reservation;
 import cz.muni.fi.pa165.travelagency.entity.Trip;
+import cz.muni.fi.pa165.travelagency.exceptions.TravelAgencyServiceException;
 import cz.muni.fi.pa165.travelagency.service.config.ServiceConfiguration;
 import java.math.BigDecimal;
 import java.sql.Date;
@@ -36,6 +37,9 @@ public class ReservationServiceTest extends AbstractTransactionalTestNGSpringCon
     
     @Mock
     private ReservationDao reservationDao;
+
+    @Mock
+    private TripService tripService;
     
     @Autowired
     @InjectMocks
@@ -63,8 +67,19 @@ public class ReservationServiceTest extends AbstractTransactionalTestNGSpringCon
     
     @Test
     public void testCreateReservation(){
+        when(
+                tripService.getNumberOfAvailableTripsLeft(testReservation.getTrip())
+        ).thenReturn(1l);
         reservationService.createReservation(testReservation);
         verify(reservationDao).create(testReservation);
+    }
+
+    @Test(expectedExceptions = TravelAgencyServiceException.class)
+    public void testCreateReservationFull(){
+        when(
+                tripService.getNumberOfAvailableTripsLeft(testReservation.getTrip())
+        ).thenReturn(0l);
+        reservationService.createReservation(testReservation);
     }
     
     @Test

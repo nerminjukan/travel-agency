@@ -11,11 +11,15 @@ import org.springframework.beans.factory.annotation.Autowired;
 
 import java.util.List;
 import java.util.Set;
+import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 /**
  * @author Ondrej Glasnak
  *         date 22/11/15
  */
+@Transactional
+@Service
 public class TripFacadeImpl implements TripFacade {
 
     @Autowired

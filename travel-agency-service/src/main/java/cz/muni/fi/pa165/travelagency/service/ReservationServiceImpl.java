@@ -5,6 +5,7 @@ import cz.muni.fi.pa165.travelagency.entity.Customer;
 import cz.muni.fi.pa165.travelagency.entity.Excursion;
 import cz.muni.fi.pa165.travelagency.entity.Reservation;
 import cz.muni.fi.pa165.travelagency.entity.Trip;
+import cz.muni.fi.pa165.travelagency.exceptions.TravelAgencyServiceException;
 import java.math.BigDecimal;
 import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -20,8 +21,14 @@ public class ReservationServiceImpl implements ReservationService {
     @Autowired
     private ReservationDao reservationDao;
 
+    @Autowired
+    private TripService tripService;
+
     @Override
     public Reservation createReservation(Reservation r) {
+        if (tripService.getNumberOfAvailableTripsLeft(r.getTrip()) == 0l) {
+            throw new TravelAgencyServiceException("Cannot create new reservation for selected trip. There is no more free slot.");
+        }
         reservationDao.create(r);
         return r;
     }

@@ -4,6 +4,8 @@ import cz.muni.fi.pa165.travelagency.dao.TripDao;
 import cz.muni.fi.pa165.travelagency.dao.ReservationDao;
 import cz.muni.fi.pa165.travelagency.entity.Excursion;
 import cz.muni.fi.pa165.travelagency.entity.Trip;
+import java.sql.Date;
+import java.util.ArrayList;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -64,5 +66,17 @@ public class TripServiceImpl implements TripService {
         Long total = t.getAvailableTrips();
         Long reservations = (long) reservationDao.findByTrip(t).size();
         return total - reservations;
+    }
+
+    @Override
+    public List<Trip> getTripsInDateRange(Date start, Date end) {
+        List<Trip> all = tripDao.findAll();
+        List<Trip> inRange = new ArrayList<>();
+        for (Trip t: all) {
+            if ((t.getDateFrom().after(start) || t.getDateFrom().equals(start)) && (t.getDateTo().before(end) || t.getDateTo().equals(end))) {
+                inRange.add(t);
+            }
+        }
+        return inRange;
     }
 }

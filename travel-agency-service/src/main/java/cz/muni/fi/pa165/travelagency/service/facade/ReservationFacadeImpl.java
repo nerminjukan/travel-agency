@@ -12,11 +12,15 @@ import cz.muni.fi.pa165.travelagency.service.TripService;
 import java.math.BigDecimal;
 import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 /**
  *
  * @author Jan Duda
  */
+@Transactional
+@Service
 public class ReservationFacadeImpl implements ReservationFacade {
 
     @Autowired
@@ -33,11 +37,7 @@ public class ReservationFacadeImpl implements ReservationFacade {
     
     @Override
     public void createReservation(ReservationDTO r) {
-        Reservation res = beanMappingService.mapTo(r, Reservation.class);
-        if (tripService.getNumberOfAvailableTripsLeft(res.getTrip()) == 0) {
-            throw new TravelAgencyServiceException("Cannot create new reservation for selected trip. There is no more free slot.");
-        }
-        reservationService.createReservation(res);
+        reservationService.createReservation(beanMappingService.mapTo(r, Reservation.class));
     }
 
     @Override

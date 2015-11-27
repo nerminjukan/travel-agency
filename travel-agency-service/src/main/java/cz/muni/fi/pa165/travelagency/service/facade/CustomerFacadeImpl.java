@@ -7,11 +7,15 @@ import cz.muni.fi.pa165.travelagency.service.BeanMappingService;
 import cz.muni.fi.pa165.travelagency.service.CustomerService;
 import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 /**
  *
  * @author Radovan Sinko
  */
+@Transactional
+@Service
 public class CustomerFacadeImpl implements CustomerFacade {
     
     @Autowired

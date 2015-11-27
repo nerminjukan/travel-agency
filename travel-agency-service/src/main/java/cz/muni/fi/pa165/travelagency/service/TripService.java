@@ -2,6 +2,7 @@ package cz.muni.fi.pa165.travelagency.service;
 
 import cz.muni.fi.pa165.travelagency.entity.Excursion;
 import cz.muni.fi.pa165.travelagency.entity.Trip;
+import java.sql.Date;
 
 import java.util.List;
 
@@ -68,4 +69,13 @@ public interface TripService {
      * @return number of free slots for reservation
      */
     Long getNumberOfAvailableTripsLeft(Trip t);
+
+    /**
+     * Get trips in date range.
+     *
+     * @param start starting date of date range
+     * @param end ending date of date range
+     * @return trips that are in specified date range
+     */
+    List<Trip> getTripsInDateRange(Date start, Date end);
 }

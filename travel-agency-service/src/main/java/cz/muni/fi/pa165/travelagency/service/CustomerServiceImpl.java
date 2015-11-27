@@ -4,12 +4,14 @@ import cz.muni.fi.pa165.travelagency.dao.CustomerDao;
 import cz.muni.fi.pa165.travelagency.entity.Customer;
 import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
 /**
  * Implementation of CustomerService interface
  * 
  * @author Radovan Sinko
  */
+@Service
 public class CustomerServiceImpl implements CustomerService {
 
     @Autowired
