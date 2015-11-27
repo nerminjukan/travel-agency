@@ -9,8 +9,11 @@ import cz.muni.fi.pa165.travelagency.facade.TripFacade;
 import cz.muni.fi.pa165.travelagency.service.*;
 import org.springframework.beans.factory.annotation.Autowired;
 
+import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
+
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -101,6 +104,14 @@ public class TripFacadeImpl implements TripFacade {
     public List<TripDTO> getTripsByCustomer(Long customerId) {
         List<Reservation> reservations = reservationService.findByCustomer(
                 customerService.findById(customerId));
-        return beanMappingService.mapTo(reservations, TripDTO.class);
+        // set for unique.
+        Set<TripDTO> tripsSet = new HashSet<>();
+
+        for (Reservation r : reservations) {
+            tripsSet.add(beanMappingService.mapTo(r.getTrip(), TripDTO.class));
+        }
+        List<TripDTO> tripList = new ArrayList<>();
+        tripList.addAll(tripsSet);
+        return tripList;
     }
 }
