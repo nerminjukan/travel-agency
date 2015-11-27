@@ -57,10 +57,10 @@ public interface ReservationFacade {
     List<ReservationDTO> getReservationByCustomer(Long customerId);
 
     /**
-     * Return total
+     * Return total price of specified reservation
      *
-     * @param reservationId
-     * @return
+     * @param reservationId Id of reservation to get it's total price
+     * @return total price of specified reservation
      */
     ReservationTotalPriceDTO getTotalPriceOfReservation(Long reservationId);
 }
