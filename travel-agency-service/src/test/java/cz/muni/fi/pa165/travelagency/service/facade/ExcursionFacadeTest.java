@@ -17,12 +17,10 @@ import cz.muni.fi.pa165.travelagency.service.CustomerService;
 import cz.muni.fi.pa165.travelagency.service.ExcursionService;
 import cz.muni.fi.pa165.travelagency.service.ReservationService;
 import cz.muni.fi.pa165.travelagency.service.TripService;
-import cz.muni.fi.pa165.travelagency.service.config.ServiceConfiguration;
 import java.math.BigDecimal;
 import java.sql.Date;
 import java.time.LocalDate;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
 import org.hibernate.service.spi.ServiceException;
@@ -30,14 +28,10 @@ import org.junit.runner.RunWith;
 import org.mockito.InjectMocks;
 import org.mockito.Matchers;
 import org.mockito.Mock;
-import org.mockito.Mockito;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 import org.mockito.MockitoAnnotations;
 import org.mockito.runners.MockitoJUnitRunner;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.test.context.ContextConfiguration;
-import org.springframework.test.context.testng.AbstractTransactionalTestNGSpringContextTests;
 import static org.testng.Assert.*;
 import org.testng.annotations.BeforeClass;
 import org.testng.annotations.BeforeMethod;
@@ -121,9 +115,6 @@ public class ExcursionFacadeTest {
         exDTOList = new ArrayList<>();
         exDTOList.add(exDTO1);
         exDTOList.add(exDTO2);
-
-//        Mockito.when(excursionService.findAll()).thenReturn(exList);
-//        Mockito.when(beanMappingService.mapTo(Matchers.anyCollection(), Matchers.eq(ExcursionDTO.class))).thenReturn(exDTOList);
     }
 
     @Test
