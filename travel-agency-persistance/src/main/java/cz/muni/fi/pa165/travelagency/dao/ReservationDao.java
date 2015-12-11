@@ -1,6 +1,6 @@
 package cz.muni.fi.pa165.travelagency.dao;
 
-import cz.muni.fi.pa165.travelagency.entity.Customer;
+import cz.muni.fi.pa165.travelagency.entity.User;
 import cz.muni.fi.pa165.travelagency.entity.Reservation;
 import cz.muni.fi.pa165.travelagency.entity.Trip;
 import java.util.List;
@@ -54,7 +54,7 @@ public interface ReservationDao {
      * @param customer all reservations will be returned with this customer
      * @return all reservations with input customer
      */
-    List<Reservation> findByCustomer(Customer customer);
+    List<Reservation> findByCustomer(User customer);
     
     /**
      * Method returns all reservations with input trip

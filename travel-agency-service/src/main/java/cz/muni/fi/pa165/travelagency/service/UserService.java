@@ -1,6 +1,6 @@
 package cz.muni.fi.pa165.travelagency.service;
 
-import cz.muni.fi.pa165.travelagency.entity.Customer;
+import cz.muni.fi.pa165.travelagency.entity.User;
 import java.util.List;
 
 /**
@@ -8,45 +8,45 @@ import java.util.List;
  * 
  * @author Radovan Sinko
  */
-public interface CustomerService {
+public interface UserService {
     
     /**
      * Create new customer
      * 
-     * @param c Customer to be created
+     * @param c User to be created
      * @return created customer
      */
-    Customer createCustomer(Customer c);
+    User createCustomer(User c);
 
     /**
      * Update customer
      * 
-     * @param c Customer to be updated
+     * @param c User to be updated
      * @return updated customer
      */
-    Customer updateCustomer(Customer c);
+    User updateCustomer(User c);
     
     /**
      * Remove customer
      * 
-     * @param c Customer to be removed
+     * @param c User to be removed
      */
-    void removeCustomer(Customer c);
+    void removeCustomer(User c);
 
     /**
      * Finds and returns all customers
      * 
      * @return list of all customers
      */
-    List<Customer> findAll();
+    List<User> findAll();
     
     /**
      * Finds and returns customer with specified id
      * 
-     * @param customerId Customer id
+     * @param customerId User id
      * @return customer with specified id
      */
-    Customer findById(Long customerId);
+    User findById(Long customerId);
     
     /**
      * Finds and returns list of customers with specified name
@@ -54,7 +54,7 @@ public interface CustomerService {
      * @param name Name of customer
      * @return list of customers with specified id
      */
-    List<Customer> findByName(String name);
+    List<User> findByName(String name);
     
     /**
      * Finds and returns customer with specified email
@@ -62,5 +62,5 @@ public interface CustomerService {
      * @param email Email of customer
      * @return list of customers with specified email
      */
-    Customer findByEmail(String email);
+    User findByEmail(String email);
 }

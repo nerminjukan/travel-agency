@@ -1,6 +1,6 @@
 package cz.muni.fi.pa165.travelagency.dao;
 
-import cz.muni.fi.pa165.travelagency.entity.Customer;
+import cz.muni.fi.pa165.travelagency.entity.User;
 import cz.muni.fi.pa165.travelagency.entity.Reservation;
 import cz.muni.fi.pa165.travelagency.entity.Trip;
 import java.util.List;
@@ -48,7 +48,7 @@ public class ReservationDaoImpl implements ReservationDao{
     }
 
     @Override
-    public List<Reservation> findByCustomer(Customer customer) {
+    public List<Reservation> findByCustomer(User customer) {
         if(customer == null){
             throw new IllegalArgumentException("Customer is null!");
         }

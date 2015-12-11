@@ -3,7 +3,7 @@ package cz.muni.fi.pa165.travelagency.dao;
 import java.util.List;
 
 import cz.muni.fi.pa165.travelagency.PersistenceSampleApplicationContext;
-import cz.muni.fi.pa165.travelagency.entity.Customer;
+import cz.muni.fi.pa165.travelagency.entity.User;
 
 import javax.persistence.PersistenceException;
 import javax.validation.ConstraintViolationException;
@@ -26,21 +26,21 @@ import org.testng.annotations.Test;
 @ContextConfiguration(classes=PersistenceSampleApplicationContext.class)
 @TestExecutionListeners(TransactionalTestExecutionListener.class)
 @Transactional
-public class CustomerDaoTest extends AbstractTestNGSpringContextTests {    
+public class UserDaoTest extends AbstractTestNGSpringContextTests {    
     @Autowired
-    private CustomerDao customerDao;
+    private UserDao customerDao;
             
-    private Customer c1;
-    private Customer c2;
+    private User c1;
+    private User c2;
     
     @BeforeMethod
     public void setUp() {
-        c1 = new Customer();
+        c1 = new User();
         c1.setEmail("test@mail.com");
         c1.setName("Customer Name");
         c1.setPhoneNumber("1234567890");
         
-        c2 = new Customer();
+        c2 = new User();
         c2.setEmail("mail@test.net");
         c2.setName("Best Customer");
         c2.setPhoneNumber("42");
@@ -69,7 +69,7 @@ public class CustomerDaoTest extends AbstractTestNGSpringContextTests {
         customerDao.create(c1);
         c1.setName("Another Name");
         customerDao.update(c1);
-        Customer c = customerDao.findById(c1.getId());
+        User c = customerDao.findById(c1.getId());
         Assert.assertEquals("Another Name", c.getName());
         Assert.assertEquals("test@mail.com", c.getEmail());
         Assert.assertEquals("1234567890", c.getPhoneNumber());
@@ -87,14 +87,14 @@ public class CustomerDaoTest extends AbstractTestNGSpringContextTests {
     public void testFindAll() {
         customerDao.create(c1);
         customerDao.create(c2);
-        List<Customer> cList = customerDao.findAll();
+        List<User> cList = customerDao.findAll();
         Assert.assertTrue(cList.size() == 2);
     }
 
     @Test
     public void testFindById() {
         customerDao.create(c1);
-        Customer c = customerDao.findById(c1.getId());
+        User c = customerDao.findById(c1.getId());
         Assert.assertEquals(c1.getId(), c.getId());
         Assert.assertEquals("test@mail.com", c.getEmail());
         Assert.assertEquals("Customer Name", c.getName());
@@ -105,11 +105,11 @@ public class CustomerDaoTest extends AbstractTestNGSpringContextTests {
     public void testFindByName() {
         customerDao.create(c1);
         customerDao.create(c2);
-        List<Customer> cList = customerDao.findByName("Customer");
+        List<User> cList = customerDao.findByName("Customer");
         Assert.assertTrue(cList.size() == 2);
         cList = customerDao.findByName("Best Customer");
         Assert.assertTrue(cList.size() == 1);
-        Customer c = cList.get(0);
+        User c = cList.get(0);
         Assert.assertEquals("Best Customer", c.getName());
         Assert.assertEquals("42", c.getPhoneNumber());
         Assert.assertEquals("mail@test.net", c.getEmail());
@@ -118,7 +118,7 @@ public class CustomerDaoTest extends AbstractTestNGSpringContextTests {
     @Test(expectedExceptions = PersistenceException.class)
     public void testEmailUnique() {
         customerDao.create(c1);
-        Customer c = new Customer();
+        User c = new User();
         c.setEmail("test@mail.com");
         c.setName("Random Name");
         c.setPhoneNumber("654321");
@@ -128,7 +128,7 @@ public class CustomerDaoTest extends AbstractTestNGSpringContextTests {
     @Test
     public void testFindByEmail() {
         customerDao.create(c1);
-        Customer c = customerDao.findByEmail("test@mail.com");
+        User c = customerDao.findByEmail("test@mail.com");
         Assert.assertNotNull(c);
         Assert.assertEquals("test@mail.com", c.getEmail());
     }

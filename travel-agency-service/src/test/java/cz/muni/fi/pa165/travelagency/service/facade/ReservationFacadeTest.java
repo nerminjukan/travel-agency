@@ -5,21 +5,21 @@
  */
 package cz.muni.fi.pa165.travelagency.service.facade;
 
-import cz.muni.fi.pa165.travelagency.dto.CustomerDTO;
 import cz.muni.fi.pa165.travelagency.dto.ExcursionDTO;
 import cz.muni.fi.pa165.travelagency.dto.ReservationDTO;
 import cz.muni.fi.pa165.travelagency.dto.ReservationTotalPriceDTO;
 import cz.muni.fi.pa165.travelagency.dto.TripDTO;
-import cz.muni.fi.pa165.travelagency.entity.Customer;
+import cz.muni.fi.pa165.travelagency.dto.UserDTO;
 import cz.muni.fi.pa165.travelagency.entity.Excursion;
 import cz.muni.fi.pa165.travelagency.entity.Reservation;
 import cz.muni.fi.pa165.travelagency.entity.Trip;
+import cz.muni.fi.pa165.travelagency.entity.User;
 import cz.muni.fi.pa165.travelagency.facade.ReservationFacade;
 import cz.muni.fi.pa165.travelagency.service.BeanMappingService;
-import cz.muni.fi.pa165.travelagency.service.CustomerService;
 import cz.muni.fi.pa165.travelagency.service.ExcursionService;
 import cz.muni.fi.pa165.travelagency.service.ReservationService;
 import cz.muni.fi.pa165.travelagency.service.TripService;
+import cz.muni.fi.pa165.travelagency.service.UserService;
 
 import java.math.BigDecimal;
 import java.sql.Date;
@@ -64,7 +64,7 @@ public class ReservationFacadeTest {
     private ReservationService reservationService;
     
     @Mock
-    private CustomerService customerService;
+    private UserService customerService;
     
     @InjectMocks
     private ReservationFacade reservationFacade = new ReservationFacadeImpl();
@@ -145,7 +145,7 @@ public class ReservationFacadeTest {
     
     @Test
     public void testGetReservationsByCustomer(){
-        Customer c = new Customer(1L);
+        User c = new User(1L);
         List<Reservation> reservations = new ArrayList<>();
         reservations.add(r1);
        
@@ -202,8 +202,8 @@ public class ReservationFacadeTest {
         return trip;
     }
     
-    private Customer createCustomer(long id){
-        Customer customer = new Customer();
+    private User createCustomer(long id){
+        User customer = new User();
         customer.setEmail("test" + id + "@mail.com");
         customer.setName("Customer Name " + id);
         customer.setPhoneNumber("123456789" + id);
@@ -248,8 +248,8 @@ public class ReservationFacadeTest {
         return tripDTO;
     }
     
-    private CustomerDTO createCustomerDTO(long id){
-        CustomerDTO customerDTO = new CustomerDTO();
+    private UserDTO createCustomerDTO(long id){
+        UserDTO customerDTO = new UserDTO();
         customerDTO.setId(id);
         customerDTO.setEmail("test" + id + "@mail.com");
         customerDTO.setName("Customer Name " + id);

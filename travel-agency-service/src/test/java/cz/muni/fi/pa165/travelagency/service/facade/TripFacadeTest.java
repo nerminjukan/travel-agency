@@ -1,7 +1,7 @@
 package cz.muni.fi.pa165.travelagency.service.facade;
 
 import cz.muni.fi.pa165.travelagency.dto.TripDTO;
-import cz.muni.fi.pa165.travelagency.entity.Customer;
+import cz.muni.fi.pa165.travelagency.entity.User;
 import cz.muni.fi.pa165.travelagency.entity.Reservation;
 import cz.muni.fi.pa165.travelagency.entity.Trip;
 import cz.muni.fi.pa165.travelagency.facade.TripFacade;
@@ -40,7 +40,7 @@ public class TripFacadeTest {
     @Mock
     private ReservationService resService;
     @Mock
-    private CustomerService customerService;
+    private UserService customerService;
 
     // TODO del
     @Mock
@@ -137,7 +137,7 @@ public class TripFacadeTest {
 
     @Test
     public void testGetTripsByCustomer() {
-        Customer c = new Customer(11L);
+        User c = new User(11L);
         Reservation r1 = new Reservation(21L);
         Reservation r2 = new Reservation(22L);
         r1.setCustomer(c);

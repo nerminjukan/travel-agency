@@ -7,7 +7,7 @@ import cz.muni.fi.pa165.travelagency.entity.Reservation;
 import cz.muni.fi.pa165.travelagency.entity.Trip;
 import cz.muni.fi.pa165.travelagency.facade.ExcursionFacade;
 import cz.muni.fi.pa165.travelagency.service.BeanMappingService;
-import cz.muni.fi.pa165.travelagency.service.CustomerService;
+import cz.muni.fi.pa165.travelagency.service.UserService;
 import cz.muni.fi.pa165.travelagency.service.ExcursionService;
 import cz.muni.fi.pa165.travelagency.service.ReservationService;
 import cz.muni.fi.pa165.travelagency.service.TripService;
@@ -32,7 +32,7 @@ public class ExcursionFacadeImpl implements ExcursionFacade {
     private ExcursionService excursionService;
 
     @Autowired
-    private CustomerService customerService;
+    private UserService customerService;
 
     @Autowired
     private TripService tripService;

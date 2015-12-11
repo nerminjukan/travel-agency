@@ -27,7 +27,7 @@ public class Reservation {
     
     @NotNull
     @ManyToOne
-    private Customer customer;
+    private User customer;
     
     @NotNull
     @ManyToOne
@@ -74,7 +74,7 @@ public class Reservation {
      * 
      * @return customer of the reservation
      */
-    public Customer getCustomer() {
+    public User getCustomer() {
         return customer;
     }
 
@@ -83,7 +83,7 @@ public class Reservation {
      * 
      * @param customer customer of the reservation
      */
-    public void setCustomer(Customer customer) {
+    public void setCustomer(User customer) {
         this.customer = customer;
     }
 

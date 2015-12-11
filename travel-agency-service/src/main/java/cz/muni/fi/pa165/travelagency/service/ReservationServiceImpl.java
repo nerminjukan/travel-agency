@@ -1,7 +1,7 @@
 package cz.muni.fi.pa165.travelagency.service;
 
 import cz.muni.fi.pa165.travelagency.dao.ReservationDao;
-import cz.muni.fi.pa165.travelagency.entity.Customer;
+import cz.muni.fi.pa165.travelagency.entity.User;
 import cz.muni.fi.pa165.travelagency.entity.Excursion;
 import cz.muni.fi.pa165.travelagency.entity.Reservation;
 import cz.muni.fi.pa165.travelagency.entity.Trip;
@@ -60,7 +60,7 @@ public class ReservationServiceImpl implements ReservationService {
     }
 
     @Override
-    public List<Reservation> findByCustomer(Customer c) {
+    public List<Reservation> findByCustomer(User c) {
         return reservationDao.findByCustomer(c);
     }
 

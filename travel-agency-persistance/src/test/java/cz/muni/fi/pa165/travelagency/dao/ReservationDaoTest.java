@@ -1,7 +1,7 @@
 package cz.muni.fi.pa165.travelagency.dao;
 
 import cz.muni.fi.pa165.travelagency.PersistenceSampleApplicationContext;
-import cz.muni.fi.pa165.travelagency.entity.Customer;
+import cz.muni.fi.pa165.travelagency.entity.User;
 import cz.muni.fi.pa165.travelagency.entity.Reservation;
 import cz.muni.fi.pa165.travelagency.entity.Trip;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -40,22 +40,22 @@ public class ReservationDaoTest extends AbstractTestNGSpringContextTests {
     private Reservation res1, res2;
 
     @Autowired
-    private CustomerDao customerDao;
+    private UserDao customerDao;
 
     @Autowired
     private TripDao tripDao;
 
-    private Customer c1, c2;
+    private User c1, c2;
     private Trip t1, t2;
 
     @BeforeMethod
     public void setUp() {
 
-        c1 = new Customer();
+        c1 = new User();
         c1.setEmail("test@mail.com");
         c1.setName("Customer Name");
         c1.setPhoneNumber("1234567890");
-        c2 = new Customer();
+        c2 = new User();
         c2.setEmail("second@gmail.com");
         c2.setName("Another Customer");
         c2.setPhoneNumber("1135813210");

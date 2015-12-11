@@ -15,7 +15,7 @@ public class ReservationDTO {
     private Long id;
     
     @NotNull
-    private CustomerDTO customer;
+    private UserDTO customer;
     
     @NotNull
     private TripDTO trip;
@@ -30,11 +30,11 @@ public class ReservationDTO {
         this.id = id;
     }
 
-    public CustomerDTO getCustomer() {
+    public UserDTO getCustomer() {
         return customer;
     }
 
-    public void setCustomer(CustomerDTO customer) {
+    public void setCustomer(UserDTO customer) {
         this.customer = customer;
     }
 

@@ -7,13 +7,13 @@ package cz.muni.fi.pa165.travelagency.service.facade;
 
 import cz.muni.fi.pa165.travelagency.dto.ExcursionCreateDTO;
 import cz.muni.fi.pa165.travelagency.dto.ExcursionDTO;
-import cz.muni.fi.pa165.travelagency.entity.Customer;
+import cz.muni.fi.pa165.travelagency.entity.User;
 import cz.muni.fi.pa165.travelagency.entity.Excursion;
 import cz.muni.fi.pa165.travelagency.entity.Reservation;
 import cz.muni.fi.pa165.travelagency.entity.Trip;
 import cz.muni.fi.pa165.travelagency.facade.ExcursionFacade;
 import cz.muni.fi.pa165.travelagency.service.BeanMappingService;
-import cz.muni.fi.pa165.travelagency.service.CustomerService;
+import cz.muni.fi.pa165.travelagency.service.UserService;
 import cz.muni.fi.pa165.travelagency.service.ExcursionService;
 import cz.muni.fi.pa165.travelagency.service.ReservationService;
 import cz.muni.fi.pa165.travelagency.service.TripService;
@@ -51,7 +51,7 @@ public class ExcursionFacadeTest {
     private ExcursionService excursionService;
 
     @Mock
-    private CustomerService customerService;
+    private UserService customerService;
 
     @Mock
     private TripService tripService;
@@ -133,7 +133,7 @@ public class ExcursionFacadeTest {
 
     @Test
     public void testGetExcursionsByCustomer() {
-        Customer c = new Customer(3l);
+        User c = new User(3l);
         Reservation r = new Reservation(2l);
         r.setCustomer(c);
         r.addExcursion(ex1);

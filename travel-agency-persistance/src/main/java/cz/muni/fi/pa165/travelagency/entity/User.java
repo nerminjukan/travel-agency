@@ -6,6 +6,7 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.Table;
 import javax.validation.constraints.NotNull;
 
 /**
@@ -13,7 +14,8 @@ import javax.validation.constraints.NotNull;
  * @author Radovan Sinko
  */
 @Entity
-public class Customer {
+@Table(name = "Users")
+public class User {
     
     @Id
     @GeneratedValue(strategy=GenerationType.IDENTITY)
@@ -32,14 +34,14 @@ public class Customer {
     /**
      * nonparametric constructor
      */
-    public Customer() {
+    public User() {
     }
 
     /**
      * constructor of customer which sets id.
      * @param id Id of entity
      */
-    public Customer(Long id) {
+    public User(Long id) {
         this.id = id;
     }    
     
@@ -111,10 +113,10 @@ public class Customer {
         if (obj == null) {
             return false;
         }
-        if (!(obj instanceof Customer)) {
+        if (!(obj instanceof User)) {
             return false;
         }
-        final Customer other = (Customer) obj;
+        final User other = (User) obj;
         if (!Objects.equals(this.getEmail(), other.getEmail())) {
             return false;
         }

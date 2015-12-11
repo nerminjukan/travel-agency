@@ -1,6 +1,6 @@
 package cz.muni.fi.pa165.travelagency;
 
-import cz.muni.fi.pa165.travelagency.dao.CustomerDao;
+import cz.muni.fi.pa165.travelagency.dao.UserDao;
 import org.hibernate.jpa.HibernatePersistenceProvider;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
@@ -23,7 +23,7 @@ import javax.sql.DataSource;
 @EnableTransactionManagement
 @EnableJpaRepositories
 //@ComponentScan("cz.muni.fi.pa165.travelagency.dao")
-@ComponentScan(basePackageClasses={CustomerDao.class})
+@ComponentScan(basePackageClasses={UserDao.class})
 public class PersistenceSampleApplicationContext {
 	
 	@Bean 

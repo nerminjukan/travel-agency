@@ -1,6 +1,6 @@
 package cz.muni.fi.pa165.travelagency.service;
 
-import cz.muni.fi.pa165.travelagency.entity.Customer;
+import cz.muni.fi.pa165.travelagency.entity.User;
 import cz.muni.fi.pa165.travelagency.entity.Excursion;
 import cz.muni.fi.pa165.travelagency.entity.Reservation;
 import cz.muni.fi.pa165.travelagency.entity.Trip;
@@ -67,7 +67,7 @@ public interface ReservationService {
      * @param c customer
      * @return list of customer's reservations
      */
-    List<Reservation> findByCustomer(Customer c);
+    List<Reservation> findByCustomer(User c);
     
     /**
      * Method returns all reservations with input trip

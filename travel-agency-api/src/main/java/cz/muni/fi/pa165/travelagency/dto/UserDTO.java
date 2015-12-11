@@ -8,7 +8,7 @@ import javax.validation.constraints.NotNull;
  * 
  * @author Radovan Sinko
  */
-public class CustomerDTO {
+public class UserDTO {
     
     @NotNull
     private Long id;
@@ -66,10 +66,10 @@ public class CustomerDTO {
         if (obj == null) {
             return false;
         }
-        if (!(obj instanceof CustomerDTO)) {
+        if (!(obj instanceof UserDTO)) {
             return false;
         }
-        final CustomerDTO other = (CustomerDTO) obj;
+        final UserDTO other = (UserDTO) obj;
         if (!Objects.equals(this.getEmail(), other.getEmail())) {
             return false;
         }

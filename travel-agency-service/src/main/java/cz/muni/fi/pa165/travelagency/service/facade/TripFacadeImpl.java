@@ -33,7 +33,7 @@ public class TripFacadeImpl implements TripFacade {
     @Autowired
     private ExcursionService excursionService;
     @Autowired
-    private CustomerService customerService;
+    private UserService customerService;
     @Autowired
     private ReservationService reservationService;
 

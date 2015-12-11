@@ -1,7 +1,7 @@
 package cz.muni.fi.pa165.travelagency.service;
 
-import cz.muni.fi.pa165.travelagency.dao.CustomerDao;
-import cz.muni.fi.pa165.travelagency.entity.Customer;
+import cz.muni.fi.pa165.travelagency.dao.UserDao;
+import cz.muni.fi.pa165.travelagency.entity.User;
 import cz.muni.fi.pa165.travelagency.service.config.ServiceConfiguration;
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -26,30 +26,30 @@ import static org.testng.Assert.*;
  * @author Radovan Sinko
  */
 @ContextConfiguration(classes = ServiceConfiguration.class)
-public class CustomerServiceTest extends AbstractTransactionalTestNGSpringContextTests {
+public class UserServiceTest extends AbstractTransactionalTestNGSpringContextTests {
 
     @Mock
-    private CustomerDao customerDao;
+    private UserDao customerDao;
 
     @Autowired
     @InjectMocks
-    private CustomerService customerService;
+    private UserService customerService;
 
     @BeforeClass
     public void setup() throws ServiceException {
         MockitoAnnotations.initMocks(this);
     }
 
-    private Customer customer, customer2;
+    private User customer, customer2;
 
     @BeforeMethod
     public void beforeMethod() {
-        customer = new Customer();
+        customer = new User();
         customer.setName("Pepa Jedlicka");
         customer.setEmail("pepa@jedlicka.cz");
         customer.setPhoneNumber("+420 700 600 500");
 
-        customer2 = new Customer();
+        customer2 = new User();
         customer2.setName("Franta Haluska");
         customer2.setEmail("franta@haluska.cz");
         customer2.setPhoneNumber("+420 100 200 300");
@@ -87,7 +87,7 @@ public class CustomerServiceTest extends AbstractTransactionalTestNGSpringContex
     @Test
     public void findById() {
         when(customerDao.findById(Mockito.any())).thenReturn(customer);
-        Customer nCustomer = customerService.findById(customer.getId());
+        User nCustomer = customerService.findById(customer.getId());
         assertDeepEquals(nCustomer, customer);
     }
 
@@ -106,11 +106,11 @@ public class CustomerServiceTest extends AbstractTransactionalTestNGSpringContex
     @Test
     public void findByEmail() {
         when(customerDao.findByEmail(customer.getName())).thenReturn(customer);
-        Customer nCustomer = customerService.findByEmail(customer.getName());
+        User nCustomer = customerService.findByEmail(customer.getName());
         assertDeepEquals(nCustomer, customer);
     }
 
-    private void assertDeepEquals(Customer customer, Customer otherCustomer) {
+    private void assertDeepEquals(User customer, User otherCustomer) {
         assertEquals(customer, otherCustomer);
         assertEquals(customer.getId(), otherCustomer.getId());
         assertEquals(customer.getName(), otherCustomer.getName());

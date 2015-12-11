@@ -1,6 +1,6 @@
 package cz.muni.fi.pa165.travelagency.facade;
 
-import cz.muni.fi.pa165.travelagency.dto.CustomerDTO;
+import cz.muni.fi.pa165.travelagency.dto.UserDTO;
 import java.util.List;
 
 /**
@@ -8,35 +8,35 @@ import java.util.List;
  * 
  * @author Radovan Sinko
  */
-public interface CustomerFacade {
+public interface UserFacade {
 
     /**
      * Create new customer
      * 
      * @param c DTO of customer to be created
      */
-    void createCustomer(CustomerDTO c);
+    void createCustomer(UserDTO c);
 
     /**
      * Update customer
      * 
      * @param c DTO of customer to be updated
      */
-    void updateCustomer(CustomerDTO c);
+    void updateCustomer(UserDTO c);
     
     /**
      * Remove customer
      * 
      * @param c DTO of customer to be removed
      */
-    void removeCustomer(CustomerDTO c);
+    void removeCustomer(UserDTO c);
 
     /**
      * Finds and returns all customers
      * 
      * @return list of all customers
      */
-    List<CustomerDTO> getAllCustomers();
+    List<UserDTO> getAllCustomers();
     
     /**
      * Finds and returns customer with specified id
@@ -44,7 +44,7 @@ public interface CustomerFacade {
      * @param customerId Customer id
      * @return customer with specified id
      */
-    CustomerDTO getCustomerById(Long customerId);
+    UserDTO getCustomerById(Long customerId);
     
     /**
      * Finds and returns list of customers with specified name
@@ -52,7 +52,7 @@ public interface CustomerFacade {
      * @param name Name of customer
      * @return list of customers with specified id
      */
-    List<CustomerDTO> getCustomerByName(String name);
+    List<UserDTO> getCustomerByName(String name);
     
     /**
      * Finds and returns customer with specified email
@@ -60,5 +60,5 @@ public interface CustomerFacade {
      * @param email Email of customer
      * @return list of customers with specified email
      */
-    CustomerDTO getCustomerByEmail(String email);
+    UserDTO getCustomerByEmail(String email);
 }

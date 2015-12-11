@@ -1,7 +1,7 @@
 package cz.muni.fi.pa165.travelagency.service;
 
 import cz.muni.fi.pa165.travelagency.dao.ReservationDao;
-import cz.muni.fi.pa165.travelagency.entity.Customer;
+import cz.muni.fi.pa165.travelagency.entity.User;
 import cz.muni.fi.pa165.travelagency.entity.Excursion;
 import cz.muni.fi.pa165.travelagency.entity.Reservation;
 import cz.muni.fi.pa165.travelagency.entity.Trip;
@@ -55,7 +55,7 @@ public class ReservationServiceTest extends AbstractTransactionalTestNGSpringCon
     @BeforeMethod
     public void prepareTestReservation(){
         
-        Customer customer = createCustomer(0);
+        User customer = createCustomer(0);
         Trip trip = createTrip(0);
         Excursion excursion = createExcursion(0);
         
@@ -125,7 +125,7 @@ public class ReservationServiceTest extends AbstractTransactionalTestNGSpringCon
     
     @Test
     public void testFindByCustomer(){
-        Customer c = testReservation.getCustomer();
+        User c = testReservation.getCustomer();
         when(reservationDao.findByCustomer(c)).thenReturn(Collections.singletonList(testReservation));
         List<Reservation> l = reservationService.findByCustomer(c);
         assertEquals(l.size(), 1);
@@ -134,7 +134,7 @@ public class ReservationServiceTest extends AbstractTransactionalTestNGSpringCon
     
     @Test
     public void testFindByCustomerWhoDoesntExist(){
-        Customer c = createCustomer(2);
+        User c = createCustomer(2);
         when(reservationDao.findByCustomer(c)).thenReturn(new ArrayList<>());
         assertEquals(reservationService.findByCustomer(c).size(), 0);
     }
@@ -201,8 +201,8 @@ public class ReservationServiceTest extends AbstractTransactionalTestNGSpringCon
         return trip;
     }
     
-    private Customer createCustomer(int numberCustomer){
-        Customer customer = new Customer();
+    private User createCustomer(int numberCustomer){
+        User customer = new User();
         customer.setEmail("test" + numberCustomer + "@mail.com");
         customer.setName("Customer Name " + numberCustomer);
         customer.setPhoneNumber("123456789" + numberCustomer);
