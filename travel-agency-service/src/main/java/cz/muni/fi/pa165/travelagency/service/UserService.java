@@ -9,7 +9,24 @@ import java.util.List;
  * @author Radovan Sinko
  */
 public interface UserService {
-    
+
+    /**
+     * Authenticate user
+     *
+     * @param c user to authenticate
+     * @param password password to check
+     * @return true if password is correct, false otherwise
+     */
+    boolean authUser(User c, String password);
+
+    /**
+     * Determine if user is admin
+     *
+     * @param c user to check
+     * @return true if specified user is admin, false otherwise
+     */
+    boolean isAdmin(User c);
+
     /**
      * Create new customer
      * 

@@ -26,7 +26,7 @@ import org.testng.annotations.Test;
 @ContextConfiguration(classes=PersistenceSampleApplicationContext.class)
 @TestExecutionListeners(TransactionalTestExecutionListener.class)
 @Transactional
-public class UserDaoTest extends AbstractTestNGSpringContextTests {    
+public class UserDaoTest extends AbstractTestNGSpringContextTests {
     @Autowired
     private UserDao customerDao;
             
@@ -39,11 +39,13 @@ public class UserDaoTest extends AbstractTestNGSpringContextTests {
         c1.setEmail("test@mail.com");
         c1.setName("Customer Name");
         c1.setPhoneNumber("1234567890");
+        c1.setPasswordHash("random_hash");
         
         c2 = new User();
         c2.setEmail("mail@test.net");
         c2.setName("Best Customer");
         c2.setPhoneNumber("42");
+        c2.setPasswordHash("random_hash");
     }
     
     @Test(expectedExceptions = ConstraintViolationException.class)
@@ -122,6 +124,7 @@ public class UserDaoTest extends AbstractTestNGSpringContextTests {
         c.setEmail("test@mail.com");
         c.setName("Random Name");
         c.setPhoneNumber("654321");
+        c.setPasswordHash("random_hash");
         customerDao.create(c);
     }
 

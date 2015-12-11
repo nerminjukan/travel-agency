@@ -55,10 +55,12 @@ public class ReservationDaoTest extends AbstractTestNGSpringContextTests {
         c1.setEmail("test@mail.com");
         c1.setName("Customer Name");
         c1.setPhoneNumber("1234567890");
+        c1.setPasswordHash("random_hash");
         c2 = new User();
         c2.setEmail("second@gmail.com");
         c2.setName("Another Customer");
         c2.setPhoneNumber("1135813210");
+        c2.setPasswordHash("random_hash");
         customerDao.create(c1);
         customerDao.create(c2);
 

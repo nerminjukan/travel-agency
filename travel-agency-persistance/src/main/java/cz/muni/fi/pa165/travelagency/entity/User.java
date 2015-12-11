@@ -31,6 +31,11 @@ public class User {
     @NotNull
     private String phoneNumber;
 
+    private boolean admin;
+
+    @NotNull
+    private String passwordHash;
+
     /**
      * nonparametric constructor
      */
@@ -43,7 +48,39 @@ public class User {
      */
     public User(Long id) {
         this.id = id;
-    }    
+    }
+
+    /**
+     * Determine if user is admin
+     * @return true if user is admin, false otherwise
+     */
+    public boolean isAdmin() {
+        return admin;
+    }
+
+    /**
+     * set admin permissions for user
+     * @param isAdmin new user permission
+     */
+    public void setAdmin(boolean isAdmin) {
+        this.admin = isAdmin;
+    }
+
+    /**
+     * get hash of user's passwords
+     * @return hash of user's password
+     */
+    public String getPasswordHash() {
+        return passwordHash;
+    }
+
+    /**
+     * set hash of user's password
+     * @param passwordHash new password hash
+     */
+    public void setPasswordHash(String passwordHash) {
+        this.passwordHash = passwordHash;
+    }
     
     /**
      * gets ID of customer
