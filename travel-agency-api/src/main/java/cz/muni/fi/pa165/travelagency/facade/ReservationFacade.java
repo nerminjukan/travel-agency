@@ -38,7 +38,7 @@ public interface ReservationFacade {
      * 
      * @return list of all reservations
      */
-    List<ReservationDTO> getAllReservation();
+    List<ReservationDTO> getAllReservations();
     
     /**
      * Method returns reservation with Id which is specified in input
@@ -52,9 +52,17 @@ public interface ReservationFacade {
      * Method returns list of reservation of customer with Id from input
      * 
      * @param customerId Id of customer
-     * @return all reservation of customer
+     * @return all reservations of customer
      */
-    List<ReservationDTO> getReservationByCustomer(Long customerId);
+    List<ReservationDTO> getReservationsByCustomer(Long customerId);
+    
+    /**
+     * Method returns list of reservation of trip with Id from input
+     * 
+     * @param tripId Id of trip
+     * @return all reservations of trip
+     */
+    List<ReservationDTO> getReservationsByTrip(Long tripId);
 
     /**
      * Return total price of specified reservation

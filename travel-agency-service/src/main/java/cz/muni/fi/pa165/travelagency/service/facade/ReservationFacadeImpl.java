@@ -51,7 +51,7 @@ public class ReservationFacadeImpl implements ReservationFacade {
     }
 
     @Override
-    public List<ReservationDTO> getAllReservation() {
+    public List<ReservationDTO> getAllReservations() {
         return beanMappingService.mapTo(reservationService.findAll(), ReservationDTO.class);
     }
 
@@ -61,8 +61,13 @@ public class ReservationFacadeImpl implements ReservationFacade {
     }
 
     @Override
-    public List<ReservationDTO> getReservationByCustomer(Long customerId) {
+    public List<ReservationDTO> getReservationsByCustomer(Long customerId) {
         return beanMappingService.mapTo(reservationService.findByCustomer(customerService.findById(customerId)), ReservationDTO.class);
+    }
+
+    @Override
+    public List<ReservationDTO> getReservationsByTrip(Long tripId) {
+        return beanMappingService.mapTo(reservationService.findByTrip(tripService.findById(tripId)), ReservationDTO.class);
     }
 
     @Override
