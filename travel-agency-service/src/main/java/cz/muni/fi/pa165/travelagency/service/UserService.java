@@ -33,7 +33,7 @@ public interface UserService {
      * @param c User to be created
      * @return created customer
      */
-    User createCustomer(User c);
+    User registerUser(User c, String unencryptedPassword);
 
     /**
      * Update customer
@@ -41,14 +41,14 @@ public interface UserService {
      * @param c User to be updated
      * @return updated customer
      */
-    User updateCustomer(User c);
+    User updateUser(User c);
     
     /**
      * Remove customer
      * 
      * @param c User to be removed
      */
-    void removeCustomer(User c);
+    void removeUser(User c);
 
     /**
      * Finds and returns all customers

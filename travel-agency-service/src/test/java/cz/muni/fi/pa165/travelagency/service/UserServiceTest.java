@@ -57,20 +57,20 @@ public class UserServiceTest extends AbstractTransactionalTestNGSpringContextTes
 
     @Test
     public void createCustomerTest() {
-        customerService.createCustomer(customer);
+        customerService.registerUser(customer, "pass");
         verify(customerDao).create(customer);
     }
 
     @Test
     public void updateCustomer() {
         customer.setName("Janko Hrasko");
-        customerService.updateCustomer(customer);
+        customerService.updateUser(customer);
         verify(customerDao).update(customer);
     }
 
     @Test
     public void removeCustomer() {
-        customerService.removeCustomer(customer);
+        customerService.removeUser(customer);
         verify(customerDao).remove(customer);
     }
 

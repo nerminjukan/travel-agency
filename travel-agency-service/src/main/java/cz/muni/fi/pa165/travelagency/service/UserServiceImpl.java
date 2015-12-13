@@ -22,18 +22,19 @@ public class UserServiceImpl implements UserService {
     private UserDao customerDao;
 
     @Override
-    public User createCustomer(User c) {
+    public User registerUser(User c, String unencryptedPassword) {
+        c.setPasswordHash(createHash(unencryptedPassword));
         customerDao.create(c);
         return c;
     }
 
     @Override
-    public User updateCustomer(User c) {
+    public User updateUser(User c) {
         return customerDao.update(c);
     }
 
     @Override
-    public void removeCustomer(User c) {
+    public void removeUser(User c) {
         customerDao.remove(c);
     }
 

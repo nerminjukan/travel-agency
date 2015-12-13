@@ -62,7 +62,7 @@ public class User {
      * set admin permissions for user
      * @param isAdmin new user permission
      */
-    public void setAdmin(boolean isAdmin) {
+    public void setIsAdmin(boolean isAdmin) {
         this.admin = isAdmin;
     }
 
