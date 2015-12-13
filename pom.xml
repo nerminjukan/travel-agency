@@ -44,6 +44,8 @@
         <module>travel-agency-service</module>
         <module>travel-agency-api</module>
         <module>travel-agency-utils</module>
+        <module>travel-agency-rest</module>
+        <module>travel-agency-sampledata</module>
     </modules>
     <dependencies>
     </dependencies>
