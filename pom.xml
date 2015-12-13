@@ -46,6 +46,7 @@
         <module>travel-agency-utils</module>
         <module>travel-agency-rest</module>
         <module>travel-agency-sampledata</module>
+        <module>travel-agency-springmvc</module>
     </modules>
     <dependencies>
     </dependencies>
