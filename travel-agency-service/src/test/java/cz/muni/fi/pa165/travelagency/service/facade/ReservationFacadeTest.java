@@ -166,7 +166,7 @@ public class ReservationFacadeTest {
         when(reservationService.findByTrip(t)).thenReturn(reservations);
         
         when(beanMappingService.mapTo(reservations, ReservationDTO.class)).thenReturn(rdtoList);
-        assertEquals(reservationFacade.getReservationsByUser(1L).size(), 1);
+        assertEquals(reservationFacade.getReservationsByTrip(1L).size(), 1);
     }
     
     @Test
