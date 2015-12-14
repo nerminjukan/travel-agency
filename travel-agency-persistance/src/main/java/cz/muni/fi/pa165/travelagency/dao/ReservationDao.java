@@ -49,12 +49,12 @@ public interface ReservationDao {
     Reservation findById(Long id);
     
     /**
-     * Method returns all reservations with input customer
+     * Method returns all reservations with input user
      * 
-     * @param customer all reservations will be returned with this customer
-     * @return all reservations with input customer
+     * @param user all reservations will be returned with this user
+     * @return all reservations with input user
      */
-    List<Reservation> findByCustomer(User customer);
+    List<Reservation> findByUser(User user);
     
     /**
      * Method returns all reservations with input trip

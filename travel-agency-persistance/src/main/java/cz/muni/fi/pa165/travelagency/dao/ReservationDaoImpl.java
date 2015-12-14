@@ -48,13 +48,13 @@ public class ReservationDaoImpl implements ReservationDao{
     }
 
     @Override
-    public List<Reservation> findByCustomer(User customer) {
-        if(customer == null){
-            throw new IllegalArgumentException("Customer is null!");
+    public List<Reservation> findByUser(User user) {
+        if(user == null){
+            throw new IllegalArgumentException("User is null!");
         }
         try{
-            return em.createQuery("SELECT r FROM Reservation r WHERE r.customer.id = :customerId", Reservation.class)
-                    .setParameter("customerId", customer.getId()).getResultList();
+            return em.createQuery("SELECT r FROM Reservation r WHERE r.user.id = :userId", Reservation.class)
+                    .setParameter("userId", user.getId()).getResultList();
         } catch (NoResultException nre) {
             return null;
 	}

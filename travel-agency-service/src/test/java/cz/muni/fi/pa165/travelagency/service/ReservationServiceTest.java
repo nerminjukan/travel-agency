@@ -55,13 +55,13 @@ public class ReservationServiceTest extends AbstractTransactionalTestNGSpringCon
     @BeforeMethod
     public void prepareTestReservation(){
         
-        User customer = createCustomer(0);
+        User user = createUser(0);
         Trip trip = createTrip(0);
         Excursion excursion = createExcursion(0);
         
         testReservation = new Reservation();
         testReservation.setTrip(trip);
-        testReservation.setCustomer(customer);
+        testReservation.setUser(user);
         testReservation.addExcursion(excursion);
     }
     
@@ -102,7 +102,7 @@ public class ReservationServiceTest extends AbstractTransactionalTestNGSpringCon
         assertEquals(reservationService.findAll().size(), 1);
         
         Reservation r = new Reservation();
-        r.setCustomer(createCustomer(1));
+        r.setUser(createUser(1));
         r.setTrip(createTrip(1));
         r.addExcursion(createExcursion(1));
         
@@ -124,19 +124,19 @@ public class ReservationServiceTest extends AbstractTransactionalTestNGSpringCon
     }
     
     @Test
-    public void testFindByCustomer(){
-        User c = testReservation.getCustomer();
-        when(reservationDao.findByCustomer(c)).thenReturn(Collections.singletonList(testReservation));
-        List<Reservation> l = reservationService.findByCustomer(c);
+    public void testFindByUser(){ 
+        User u = testReservation.getUser();
+        when(reservationDao.findByUser(u)).thenReturn(Collections.singletonList(testReservation));
+        List<Reservation> l = reservationService.findByUser(u);
         assertEquals(l.size(), 1);
         assertDeepEquals(l.get(0), testReservation);
     }
     
     @Test
-    public void testFindByCustomerWhoDoesntExist(){
-        User c = createCustomer(2);
-        when(reservationDao.findByCustomer(c)).thenReturn(new ArrayList<>());
-        assertEquals(reservationService.findByCustomer(c).size(), 0);
+    public void testFindByUserWhoDoesntExist(){
+        User u = createUser(2);
+        when(reservationDao.findByUser(u)).thenReturn(new ArrayList<>());
+        assertEquals(reservationService.findByUser(u).size(), 0);
     }
     
     @Test
@@ -184,7 +184,7 @@ public class ReservationServiceTest extends AbstractTransactionalTestNGSpringCon
     private void assertDeepEquals(Reservation r1, Reservation r2){
         assertEquals(r1, r2);
         assertEquals(r1.getId(), r2.getId());
-        assertTrue(r1.getCustomer().equals(r2.getCustomer()));
+        assertTrue(r1.getUser().equals(r2.getUser()));
         assertTrue(r1.getTrip().equals(r2.getTrip()));
         assertTrue(r1.getExcursions().equals(r2.getExcursions()));
     }
@@ -201,12 +201,12 @@ public class ReservationServiceTest extends AbstractTransactionalTestNGSpringCon
         return trip;
     }
     
-    private User createCustomer(int numberCustomer){
-        User customer = new User();
-        customer.setEmail("test" + numberCustomer + "@mail.com");
-        customer.setName("Customer Name " + numberCustomer);
-        customer.setPhoneNumber("123456789" + numberCustomer);
-        return customer;
+    private User createUser(int numberUser){
+        User user = new User();
+        user.setEmail("test" + numberUser + "@mail.com");
+        user.setName("User Name " + numberUser);
+        user.setPhoneNumber("123456789" + numberUser);
+        return user;
     }
     
     private Excursion createExcursion(int numberExcursion){

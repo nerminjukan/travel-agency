@@ -27,7 +27,7 @@ public class Reservation {
     
     @NotNull
     @ManyToOne
-    private User customer;
+    private User user;
     
     @NotNull
     @ManyToOne
@@ -70,21 +70,21 @@ public class Reservation {
     }
 
     /**
-     * Method returns customer of the reservation
+     * Method returns user of the reservation
      * 
-     * @return customer of the reservation
+     * @return user of the reservation
      */
-    public User getCustomer() {
-        return customer;
+    public User getUser() {
+        return user;
     }
 
     /**
-     * Method sets customer of the reservation
+     * Method sets user of the reservation
      * 
-     * @param customer customer of the reservation
+     * @param user user of the reservation
      */
-    public void setCustomer(User customer) {
-        this.customer = customer;
+    public void setUser(User user) {
+        this.user = user;
     }
 
     /**
@@ -135,7 +135,7 @@ public class Reservation {
     @Override
     public int hashCode() {
         int hash = 7;
-        hash = 89 * hash + Objects.hashCode(this.customer);
+        hash = 89 * hash + Objects.hashCode(this.user);
         hash = 89 * hash + Objects.hashCode(this.trip);
         return hash;
     }
@@ -152,7 +152,7 @@ public class Reservation {
             return false;
         }
         final Reservation other = (Reservation) obj;
-        if (!Objects.equals(this.getCustomer(), other.getCustomer())) {
+        if (!Objects.equals(this.getUser(), other.getUser())) {
             return false;
         }
         if (!Objects.equals(this.getTrip(), other.getTrip())) {
@@ -165,7 +165,7 @@ public class Reservation {
     
     @Override
     public String toString() {
-        return "Reservation{" + "Id=" + id + ", customer=" + customer + ", trip=" + trip + ", excursions=" + excursions + '}';
+        return "Reservation{" + "Id=" + id + ", user=" + user + ", trip=" + trip + ", excursions=" + excursions + '}';
     }   
     
 }

@@ -4,7 +4,7 @@ import java.util.Objects;
 import javax.validation.constraints.NotNull;
 
 /**
- * general DTO for Customer entity
+ * general DTO for User entity
  * 
  * @author Radovan Sinko
  */
@@ -82,6 +82,6 @@ public class UserDTO {
 
     @Override
     public String toString() {
-        return "Customer{" + "id=" + id + ", name=" + name + ", email=" + email + ", phoneNumber=" + phoneNumber + '}';
+        return "User{" + "id=" + id + ", name=" + name + ", email=" + email + ", phoneNumber=" + phoneNumber + '}';
     }
 }

@@ -34,12 +34,12 @@ public interface ExcursionFacade {
     public ExcursionDTO getExcursionById(Long excursionId);
 
     /**
-     * Get all excursions reserved by customer with specified id.
+     * Get all excursions reserved by user with specified id.
      *
-     * @param customerId Id of customer.
-     * @return List of all customer's excursions.
+     * @param userId Id of user.
+     * @return List of all user's excursions.
      */
-    public List<ExcursionDTO> getExcursionsByCustomer(Long customerId);
+    public List<ExcursionDTO> getExcursionsByUser(Long userId);
 
     /**
      * Delete excursion with specified id.

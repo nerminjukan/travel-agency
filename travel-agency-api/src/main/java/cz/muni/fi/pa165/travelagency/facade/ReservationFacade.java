@@ -49,12 +49,12 @@ public interface ReservationFacade {
     ReservationDTO getReservationById(Long reservationId);
     
     /**
-     * Method returns list of reservation of customer with Id from input
+     * Method returns list of reservation of user with Id from input
      * 
-     * @param customerId Id of customer
-     * @return all reservations of customer
+     * @param userId Id of user
+     * @return all reservations of user
      */
-    List<ReservationDTO> getReservationsByCustomer(Long customerId);
+    List<ReservationDTO> getReservationsByUser(Long userId);
     
     /**
      * Method returns list of reservation of trip with Id from input

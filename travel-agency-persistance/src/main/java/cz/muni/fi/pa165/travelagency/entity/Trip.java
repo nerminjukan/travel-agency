@@ -22,7 +22,7 @@ import javax.validation.constraints.NotNull;
 
 /**
  * Entity class which represents trip in Travel Agency. Excursions
- * are optional parts of Trip and Customer can make reservation for them.
+ * are optional parts of Trip and User can make reservation for them.
  * It is possible to add multiple {@link cz.muni.fi.pa165.travelagency.entity.Excursion Excursion} to Trip.
  *
  * @author Ondrej Mular

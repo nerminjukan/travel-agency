@@ -25,7 +25,7 @@ import static org.testng.Assert.assertEquals;
 
 
 /**
- * tests for the
+ * Tests for the ReservationDao
  * @author Ondrej Glasnak
  */
 @ContextConfiguration(classes = PersistenceSampleApplicationContext.class)
@@ -40,7 +40,7 @@ public class ReservationDaoTest extends AbstractTestNGSpringContextTests {
     private Reservation res1, res2;
 
     @Autowired
-    private UserDao customerDao;
+    private UserDao userDao;
 
     @Autowired
     private TripDao tripDao;
@@ -53,16 +53,16 @@ public class ReservationDaoTest extends AbstractTestNGSpringContextTests {
 
         c1 = new User();
         c1.setEmail("test@mail.com");
-        c1.setName("Customer Name");
+        c1.setName("User Name");
         c1.setPhoneNumber("1234567890");
         c1.setPasswordHash("random_hash");
         c2 = new User();
         c2.setEmail("second@gmail.com");
-        c2.setName("Another Customer");
+        c2.setName("Another User");
         c2.setPhoneNumber("1135813210");
         c2.setPasswordHash("random_hash");
-        customerDao.create(c1);
-        customerDao.create(c2);
+        userDao.create(c1);
+        userDao.create(c2);
 
         t1 = new Trip();
         t1.setName("albania");
@@ -83,17 +83,17 @@ public class ReservationDaoTest extends AbstractTestNGSpringContextTests {
         tripDao.create(t2);
 
         res1 = new Reservation();
-        res1.setCustomer(c1);
+        res1.setUser(c1);
         res1.setTrip(t1);
 
         res2 = new Reservation();
-        res2.setCustomer(c1);
+        res2.setUser(c1);
         res2.setTrip(t1);
     }
 
     @Test(expectedExceptions = ConstraintViolationException.class)
     public void testNullCustomer() {
-        res1.setCustomer(null);
+        res1.setUser(null);
         reservationDao.create(res1);
     }
 
@@ -106,10 +106,10 @@ public class ReservationDaoTest extends AbstractTestNGSpringContextTests {
     @Test
     public void testUpdate() {
         reservationDao.create(res1);
-        res1.setCustomer(c2);
+        res1.setUser(c2);
         reservationDao.update(res1);
         assertEquals(reservationDao.findById(res1.getId()).getTrip(), t1);
-        assertEquals(reservationDao.findById(res1.getId()).getCustomer(), c2);
+        assertEquals(reservationDao.findById(res1.getId()).getUser(), c2);
     }
 
     @Test
@@ -133,7 +133,7 @@ public class ReservationDaoTest extends AbstractTestNGSpringContextTests {
         reservationDao.create(res1);
         Reservation res = reservationDao.findById(res1.getId());
         Assert.assertEquals(res1.getId(), res.getId());
-        Assert.assertEquals(c1, res.getCustomer());
+        Assert.assertEquals(c1, res.getUser());
         Assert.assertEquals(t1, res.getTrip());
     }
 
@@ -141,11 +141,11 @@ public class ReservationDaoTest extends AbstractTestNGSpringContextTests {
     public void testFindByCustomer() {
         reservationDao.create(res1);
         reservationDao.create(res2);
-        res2.setCustomer(c1);
-        List<Reservation> resList = reservationDao.findByCustomer(c1);
+        res2.setUser(c1);
+        List<Reservation> resList = reservationDao.findByUser(c1);
         Assert.assertTrue(resList.size() == 2);
-        res2.setCustomer(c2);
-        resList = reservationDao.findByCustomer(c2);
+        res2.setUser(c2);
+        resList = reservationDao.findByUser(c2);
         Assert.assertTrue(resList.size() == 1);
     }
 
@@ -153,11 +153,11 @@ public class ReservationDaoTest extends AbstractTestNGSpringContextTests {
     public void testFindByTrip() {
         reservationDao.create(res1);
         reservationDao.create(res2);
-        res2.setCustomer(c1);
-        List<Reservation> resList = reservationDao.findByCustomer(c1);
+        res2.setUser(c1);
+        List<Reservation> resList = reservationDao.findByUser(c1);
         Assert.assertTrue(resList.size() == 2);
-        res2.setCustomer(c2);
-        resList = reservationDao.findByCustomer(c2);
+        res2.setUser(c2);
+        resList = reservationDao.findByUser(c2);
         Assert.assertTrue(resList.size() == 1);
     }
 
@@ -170,7 +170,7 @@ public class ReservationDaoTest extends AbstractTestNGSpringContextTests {
         List<Reservation> resList = reservationDao.findByTrip(t1);
         Assert.assertTrue(resList.size() == 2);
         resList = reservationDao.findByTrip(t2);
-        Assert.assertTrue(resList.size() == 0);
+        Assert.assertTrue(resList.isEmpty());
         res2.setTrip(t2);
         resList = reservationDao.findByTrip(t2);
         Assert.assertTrue(resList.size() == 1);

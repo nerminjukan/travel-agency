@@ -64,7 +64,7 @@ public class ReservationFacadeTest {
     private ReservationService reservationService;
     
     @Mock
-    private UserService customerService;
+    private UserService userService;
     
     @InjectMocks
     private ReservationFacade reservationFacade = new ReservationFacadeImpl();
@@ -144,16 +144,16 @@ public class ReservationFacadeTest {
     }
     
     @Test
-    public void testGetReservationsByCustomer(){
+    public void testGetReservationsByUser(){
         User c = new User(1L);
         List<Reservation> reservations = new ArrayList<>();
         reservations.add(r1);
        
-        when(customerService.findById(1L)).thenReturn(c);
-        when(reservationService.findByCustomer(c)).thenReturn(reservations);
+        when(userService.findById(1L)).thenReturn(c);
+        when(reservationService.findByUser(c)).thenReturn(reservations);
         
         when(beanMappingService.mapTo(reservations, ReservationDTO.class)).thenReturn(rdtoList);
-        assertEquals(reservationFacade.getReservationsByCustomer(1L).size(), 1);
+        assertEquals(reservationFacade.getReservationsByUser(1L).size(), 1);
     }
     
     @Test
@@ -166,7 +166,7 @@ public class ReservationFacadeTest {
         when(reservationService.findByTrip(t)).thenReturn(reservations);
         
         when(beanMappingService.mapTo(reservations, ReservationDTO.class)).thenReturn(rdtoList);
-        assertEquals(reservationFacade.getReservationsByCustomer(1L).size(), 1);
+        assertEquals(reservationFacade.getReservationsByUser(1L).size(), 1);
     }
     
     @Test
@@ -183,7 +183,7 @@ public class ReservationFacadeTest {
     
     private Reservation createReservation(long id){
         Reservation r = new Reservation(id);
-        r.setCustomer(createCustomer(id));
+        r.setUser(createUser(id));
         r.setTrip(createTrip(id));
         r.addExcursion(createExcursion(id));
         
@@ -202,13 +202,13 @@ public class ReservationFacadeTest {
         return trip;
     }
     
-    private User createCustomer(long id){
-        User customer = new User();
-        customer.setEmail("test" + id + "@mail.com");
-        customer.setName("Customer Name " + id);
-        customer.setPhoneNumber("123456789" + id);
+    private User createUser(long id){
+        User user = new User();
+        user.setEmail("test" + id + "@mail.com");
+        user.setName("User Name " + id);
+        user.setPhoneNumber("123456789" + id);
         
-        return customer;
+        return user;
     }
     
     private Excursion createExcursion(long id){
@@ -226,7 +226,7 @@ public class ReservationFacadeTest {
     private ReservationDTO createReservationDTO(long id){
         ReservationDTO rdto = new ReservationDTO();
         rdto.setId(id);
-        rdto.setCustomer(createCustomerDTO(id));
+        rdto.setUser(createUserDTO(id));
         rdto.setTrip(createTripDTO(id));
         Set<ExcursionDTO> listOfExcursions = new HashSet<>();
         listOfExcursions.add(createExcursionDTO(id));
@@ -248,14 +248,14 @@ public class ReservationFacadeTest {
         return tripDTO;
     }
     
-    private UserDTO createCustomerDTO(long id){
-        UserDTO customerDTO = new UserDTO();
-        customerDTO.setId(id);
-        customerDTO.setEmail("test" + id + "@mail.com");
-        customerDTO.setName("Customer Name " + id);
-        customerDTO.setPhoneNumber("123456789" + id);
+    private UserDTO createUserDTO(long id){
+        UserDTO userDTO = new UserDTO();
+        userDTO.setId(id);
+        userDTO.setEmail("test" + id + "@mail.com");
+        userDTO.setName("User Name " + id);
+        userDTO.setPhoneNumber("123456789" + id);
         
-        return customerDTO;
+        return userDTO;
     }
     
     private ExcursionDTO createExcursionDTO(long id){

@@ -5,54 +5,54 @@ import cz.muni.fi.pa165.travelagency.dto.UserDTO;
 import java.util.List;
 
 /**
- * Facade layer for Customer entity
+ * Facade layer for User entity 
  * 
  * @author Radovan Sinko
  */
 public interface UserFacade {
 
     /**
-     * Update customer
+     * Update user
      * 
-     * @param c DTO of customer to be updated
+     * @param u DTO of user to be updated
      */
-    void updateUser(UserDTO c);
+    void updateUser(UserDTO u);
     
     /**
-     * Remove customer
+     * Remove user
      * 
-     * @param c DTO of customer to be removed
+     * @param u DTO of user to be removed
      */
-    void removeUser(UserDTO c);
+    void removeUser(UserDTO u);
 
     /**
-     * Finds and returns all customers
+     * Finds and returns all users
      * 
-     * @return list of all customers
+     * @return list of all users
      */
     List<UserDTO> getAllUsers();
     
     /**
-     * Finds and returns customer with specified id
+     * Finds and returns user with specified id
      * 
-     * @param customerId Customer id
-     * @return customer with specified id
+     * @param userId user id
+     * @return user with specified id
      */
-    UserDTO getUserById(Long customerId);
+    UserDTO getUserById(Long userId);
     
     /**
-     * Finds and returns list of customers with specified name
+     * Finds and returns list of users with specified name
      * 
-     * @param name Name of customer
-     * @return list of customers with specified id
+     * @param name Name of user
+     * @return list of users with specified id
      */
     List<UserDTO> getUserByName(String name);
     
     /**
-     * Finds and returns customer with specified email
+     * Finds and returns user with specified email
      * 
-     * @param email Email of customer
-     * @return list of customers with specified email
+     * @param email Email of user
+     * @return list of users with specified email
      */
     UserDTO getUserByEmail(String email);
 

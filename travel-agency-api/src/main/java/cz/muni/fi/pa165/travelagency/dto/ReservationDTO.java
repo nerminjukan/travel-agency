@@ -15,7 +15,7 @@ public class ReservationDTO {
     private Long id;
     
     @NotNull
-    private UserDTO customer;
+    private UserDTO user;
     
     @NotNull
     private TripDTO trip;
@@ -30,12 +30,12 @@ public class ReservationDTO {
         this.id = id;
     }
 
-    public UserDTO getCustomer() {
-        return customer;
+    public UserDTO getUser() {
+        return user;
     }
 
-    public void setCustomer(UserDTO customer) {
-        this.customer = customer;
+    public void setUser(UserDTO user) {
+        this.user = user;
     }
 
     public TripDTO getTrip() {
@@ -57,7 +57,7 @@ public class ReservationDTO {
     @Override
     public int hashCode() {
         int hash = 7;
-        hash = 89 * hash + Objects.hashCode(this.customer);
+        hash = 89 * hash + Objects.hashCode(this.user);
         hash = 89 * hash + Objects.hashCode(this.trip);
         return hash;
     }
@@ -74,7 +74,7 @@ public class ReservationDTO {
             return false;
         }
         final ReservationDTO other = (ReservationDTO) obj;
-        if (!Objects.equals(this.getCustomer(), other.getCustomer())) {
+        if (!Objects.equals(this.getUser(), other.getUser())) {
             return false;
         }
         if (!Objects.equals(this.getTrip(), other.getTrip())) {
@@ -85,6 +85,6 @@ public class ReservationDTO {
     
     @Override
     public String toString() {
-        return "Reservation{" + "Id=" + id + ", customer=" + customer + ", trip=" + trip + ", excursions=" + excursions + '}';
+        return "Reservation{" + "Id=" + id + ", user=" + user + ", trip=" + trip + ", excursions=" + excursions + '}';
     }
 }

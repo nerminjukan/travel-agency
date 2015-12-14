@@ -43,7 +43,7 @@ public class User {
     }
 
     /**
-     * constructor of customer which sets id.
+     * constructor of user which sets id.
      * @param id Id of entity
      */
     public User(Long id) {
@@ -83,56 +83,56 @@ public class User {
     }
     
     /**
-     * gets ID of customer
-     * @return id Id of customer
+     * gets ID of user
+     * @return id Id of user
      */
     public Long getId() {
         return id;
     }
 
     /**
-     * gets the Name of customer
-     * @return name Name of customer
+     * gets the Name of user
+     * @return name Name of user
      */
     public String getName() {
         return name;
     }
 
     /**
-     * sets specified name of the customer
-     * @param name Name of customer
+     * sets specified name of the user
+     * @param name Name of user
      */
     public void setName(String name) {
         this.name = name;
     }
 
     /**
-     * gets the email of customer
-     * @return email Email of customer
+     * gets the email of user
+     * @return email Email of user
      */
     public String getEmail() {
         return email;
     }
 
     /**
-     * sets specified email of the customer
-     * @param email Email of customer
+     * sets specified email of the user
+     * @param email Email of user
      */
     public void setEmail(String email) {
         this.email = email;
     }
 
     /**
-     * gets the phone number of customer
-     * @return phoneNumber Phone number of customer
+     * gets the phone number of user
+     * @return phoneNumber Phone number of user
      */
     public String getPhoneNumber() {
         return phoneNumber;
     }
 
     /**
-     * sets specified phone number of the customer
-     * @param phoneNumber Phone number of customer
+     * sets specified phone number of the user
+     * @param phoneNumber Phone number of user
      */
     public void setPhoneNumber(String phoneNumber) {
         this.phoneNumber = phoneNumber;
@@ -162,7 +162,7 @@ public class User {
 
     @Override
     public String toString() {
-        return "Customer{" + "id=" + id + ", name=" + name + ", email=" + email + ", phoneNumber=" + phoneNumber + '}';
+        return "User{" + "id=" + id + ", name=" + name + ", email=" + email + ", phoneNumber=" + phoneNumber + '}';
     }
        
     

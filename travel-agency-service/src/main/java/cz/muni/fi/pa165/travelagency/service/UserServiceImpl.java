@@ -19,53 +19,53 @@ import org.springframework.stereotype.Service;
 public class UserServiceImpl implements UserService {
 
     @Autowired
-    private UserDao customerDao;
+    private UserDao userDao;
 
     @Override
-    public User registerUser(User c, String unencryptedPassword) {
-        c.setPasswordHash(createHash(unencryptedPassword));
-        customerDao.create(c);
-        return c;
+    public User registerUser(User u, String unencryptedPassword) {
+        u.setPasswordHash(createHash(unencryptedPassword));
+        userDao.create(u);
+        return u;
     }
 
     @Override
-    public User updateUser(User c) {
-        return customerDao.update(c);
+    public User updateUser(User u) {
+        return userDao.update(u);
     }
 
     @Override
-    public void removeUser(User c) {
-        customerDao.remove(c);
+    public void removeUser(User u) {
+        userDao.remove(u);
     }
 
     @Override
     public List<User> findAll() {
-        return customerDao.findAll();
+        return userDao.findAll();
     }
 
     @Override
-    public User findById(Long customerId) {
-        return customerDao.findById(customerId);
+    public User findById(Long userId) {
+        return userDao.findById(userId);
     }
 
     @Override
     public List<User> findByName(String name) {
-        return customerDao.findByName(name);
+        return userDao.findByName(name);
     }
 
     @Override
     public User findByEmail(String email) {
-        return customerDao.findByEmail(email);
+        return userDao.findByEmail(email);
     }
 
     @Override
-    public boolean authUser(User c, String password) {
-        return validatePassword(password, c.getPasswordHash());
+    public boolean authUser(User u, String password) {
+        return validatePassword(password, u.getPasswordHash());
     }
 
     @Override
-    public boolean isAdmin(User c) {
-        return c.isAdmin();
+    public boolean isAdmin(User u) {
+        return u.isAdmin();
     }
 
     //see  https://crackstation.net/hashing-security.htm#javasourcecode

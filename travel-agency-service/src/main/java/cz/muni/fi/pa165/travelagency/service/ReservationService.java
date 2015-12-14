@@ -62,12 +62,12 @@ public interface ReservationService {
     Reservation findById(Long id);
 
     /**
-     * Finds reservations of specified customer
+     * Finds reservations of specified user
      *
-     * @param c customer
-     * @return list of customer's reservations
+     * @param u user
+     * @return list of user's reservations
      */
-    List<Reservation> findByCustomer(User c);
+    List<Reservation> findByUser(User u);
     
     /**
      * Method returns all reservations with input trip

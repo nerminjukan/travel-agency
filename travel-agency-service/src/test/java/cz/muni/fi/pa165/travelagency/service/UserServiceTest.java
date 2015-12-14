@@ -29,93 +29,93 @@ import static org.testng.Assert.*;
 public class UserServiceTest extends AbstractTransactionalTestNGSpringContextTests {
 
     @Mock
-    private UserDao customerDao;
+    private UserDao userDao;
 
     @Autowired
     @InjectMocks
-    private UserService customerService;
+    private UserService userService;
 
     @BeforeClass
     public void setup() throws ServiceException {
         MockitoAnnotations.initMocks(this);
     }
 
-    private User customer, customer2;
+    private User user, user2;
 
     @BeforeMethod
     public void beforeMethod() {
-        customer = new User();
-        customer.setName("Pepa Jedlicka");
-        customer.setEmail("pepa@jedlicka.cz");
-        customer.setPhoneNumber("+420 700 600 500");
+        user = new User();
+        user.setName("Pepa Jedlicka");
+        user.setEmail("pepa@jedlicka.cz");
+        user.setPhoneNumber("+420 700 600 500");
 
-        customer2 = new User();
-        customer2.setName("Franta Haluska");
-        customer2.setEmail("franta@haluska.cz");
-        customer2.setPhoneNumber("+420 100 200 300");
+        user2 = new User();
+        user2.setName("Franta Haluska");
+        user2.setEmail("franta@haluska.cz");
+        user2.setPhoneNumber("+420 100 200 300");
     }
 
     @Test
-    public void createCustomerTest() {
-        customerService.registerUser(customer, "pass");
-        verify(customerDao).create(customer);
+    public void createUserTest() {
+        userService.registerUser(user, "pass");
+        verify(userDao).create(user);
     }
 
     @Test
-    public void updateCustomer() {
-        customer.setName("Janko Hrasko");
-        customerService.updateUser(customer);
-        verify(customerDao).update(customer);
+    public void updateUser() {
+        user.setName("Janko Hrasko");
+        userService.updateUser(user);
+        verify(userDao).update(user);
     }
 
     @Test
-    public void removeCustomer() {
-        customerService.removeUser(customer);
-        verify(customerDao).remove(customer);
+    public void removeUser() {
+        userService.removeUser(user);
+        verify(userDao).remove(user);
     }
 
     @Test
     public void findAll() {
-        when(customerDao.findAll()).thenReturn(new ArrayList<>());
-        assertEquals(customerService.findAll().size(), 0);
-        when(customerDao.findAll()).thenReturn(Collections.singletonList(customer));
-        assertEquals(customerService.findAll().size(), 1);
-        when(customerDao.findAll()).thenReturn(Arrays.asList(customer, customer2));
-        assertEquals(customerService.findAll().size(), 2);
+        when(userDao.findAll()).thenReturn(new ArrayList<>());
+        assertEquals(userService.findAll().size(), 0);
+        when(userDao.findAll()).thenReturn(Collections.singletonList(user));
+        assertEquals(userService.findAll().size(), 1);
+        when(userDao.findAll()).thenReturn(Arrays.asList(user, user2));
+        assertEquals(userService.findAll().size(), 2);
     }
 
     @Test
     public void findById() {
-        when(customerDao.findById(Mockito.any())).thenReturn(customer);
-        User nCustomer = customerService.findById(customer.getId());
-        assertDeepEquals(nCustomer, customer);
+        when(userDao.findById(Mockito.any())).thenReturn(user);
+        User nUser = userService.findById(user.getId());
+        assertDeepEquals(nUser, user);
     }
 
     @Test
     public void findByName() {
-        when(customerDao.findByName("Janko")).thenReturn(new ArrayList<>());
-        assertEquals(customerService.findByName("Janko").size(), 0);
-        when(customerDao.findByName("Pepa Jedlicka")).thenReturn(Collections.singletonList(customer));
-        assertEquals(customerService.findByName("Pepa Jedlicka").size(), 1);
-        customer2.setName("Pepa Jedlicka");
-        when(customerDao.findByName("Pepa Jedlicka")).thenReturn(Arrays.asList(customer, customer2));
-        assertEquals(customerService.findByName("Pepa Jedlicka").size(), 2);
+        when(userDao.findByName("Janko")).thenReturn(new ArrayList<>());
+        assertEquals(userService.findByName("Janko").size(), 0);
+        when(userDao.findByName("Pepa Jedlicka")).thenReturn(Collections.singletonList(user));
+        assertEquals(userService.findByName("Pepa Jedlicka").size(), 1);
+        user2.setName("Pepa Jedlicka");
+        when(userDao.findByName("Pepa Jedlicka")).thenReturn(Arrays.asList(user, user2));
+        assertEquals(userService.findByName("Pepa Jedlicka").size(), 2);
         
     }
 
     @Test
     public void findByEmail() {
-        when(customerDao.findByEmail(customer.getName())).thenReturn(customer);
-        User nCustomer = customerService.findByEmail(customer.getName());
-        assertDeepEquals(nCustomer, customer);
+        when(userDao.findByEmail(user.getName())).thenReturn(user);
+        User nUser = userService.findByEmail(user.getName());
+        assertDeepEquals(nUser, user);
     }
 
-    private void assertDeepEquals(User customer, User otherCustomer) {
-        assertEquals(customer, otherCustomer);
-        assertEquals(customer.getId(), otherCustomer.getId());
-        assertEquals(customer.getName(), otherCustomer.getName());
-        assertEquals(customer.getEmail(), otherCustomer.getEmail());
-        assertEquals(customer.getPhoneNumber(), otherCustomer.getPhoneNumber());
+    private void assertDeepEquals(User user, User otherUser) {
+        assertEquals(user, otherUser);
+        assertEquals(user.getId(), otherUser.getId());
+        assertEquals(user.getName(), otherUser.getName());
+        assertEquals(user.getEmail(), otherUser.getEmail());
+        assertEquals(user.getPhoneNumber(), otherUser.getPhoneNumber());
     }
 
 }

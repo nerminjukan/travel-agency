@@ -51,7 +51,7 @@ public class ExcursionFacadeTest {
     private ExcursionService excursionService;
 
     @Mock
-    private UserService customerService;
+    private UserService userService;
 
     @Mock
     private TripService tripService;
@@ -132,16 +132,16 @@ public class ExcursionFacadeTest {
     }
 
     @Test
-    public void testGetExcursionsByCustomer() {
+    public void testGetExcursionsByUser() {
         User c = new User(3l);
         Reservation r = new Reservation(2l);
-        r.setCustomer(c);
+        r.setUser(c);
         r.addExcursion(ex1);
         r.addExcursion(ex2);
-        when(customerService.findById(3l)).thenReturn(c);
-        when(reservationService.findByCustomer(c)).thenReturn(Collections.singletonList(r));
+        when(userService.findById(3l)).thenReturn(c);
+        when(reservationService.findByUser(c)).thenReturn(Collections.singletonList(r));
         when(beanMappingService.mapTo(r.getExcursions(), ExcursionDTO.class)).thenReturn(exDTOList);
-        assertEquals(excursionFacade.getExcursionsByCustomer(3l).size(), 2);
+        assertEquals(excursionFacade.getExcursionsByUser(3l).size(), 2);
     }
 
     @Test

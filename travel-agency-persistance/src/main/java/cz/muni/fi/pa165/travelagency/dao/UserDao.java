@@ -32,9 +32,9 @@ public interface UserDao {
     void remove(User c);
     
     /**
-     * Returns list of all existing Customers.
+     * Returns list of all existing users.
      * 
-     * @return list of all existing Customers
+     * @return list of all existing users
      */
     List<User> findAll();
     
@@ -47,18 +47,18 @@ public interface UserDao {
     User findById(Long id);
     
     /**
-     * Returns Customers with provided name.
+     * Returns users with provided name.
      * 
-     * @param name name of Customers
-     * @return list of Customers with provided name
+     * @param name name of users
+     * @return list of users with provided name
      */
     List<User> findByName(String name);
     
     /**
-     * Returns Customers with provided email.
+     * Returns users with provided email.
      * 
-     * @param email email of Customers
-     * @return list of Customers with provided email
+     * @param email email of users
+     * @return list of users with provided email
      */
     User findByEmail(String email);
 }

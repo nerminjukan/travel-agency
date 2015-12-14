@@ -49,11 +49,11 @@ public interface TripFacade {
     TripDTO getTripById(Long tripId);
 
     /**
-     * finds all trips reserved by the specified customer
+     * finds all trips reserved by the specified user
      *
-     * @param customerId id of customer
+     * @param userId id of user
      * @return list of trips
      */
-    List<TripDTO> getTripsByCustomer(Long customerId);
+    List<TripDTO> getTripsByUser(Long userId);
 
 }

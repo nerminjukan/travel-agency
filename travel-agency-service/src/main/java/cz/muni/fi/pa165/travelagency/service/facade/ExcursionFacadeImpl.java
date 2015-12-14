@@ -32,7 +32,7 @@ public class ExcursionFacadeImpl implements ExcursionFacade {
     private ExcursionService excursionService;
 
     @Autowired
-    private UserService customerService;
+    private UserService userService;
 
     @Autowired
     private TripService tripService;
@@ -57,9 +57,8 @@ public class ExcursionFacadeImpl implements ExcursionFacade {
     }
 
     @Override
-    public List<ExcursionDTO> getExcursionsByCustomer(Long customerId) {
-        List<Reservation> l = reservationService.findByCustomer(
-                customerService.findById(customerId)
+    public List<ExcursionDTO> getExcursionsByUser(Long userId) {
+        List<Reservation> l = reservationService.findByUser(userService.findById(userId)
         );
         List<Excursion> eList = new ArrayList<>();
         for (Reservation r: l) {

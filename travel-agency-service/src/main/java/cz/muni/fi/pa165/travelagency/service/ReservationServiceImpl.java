@@ -60,8 +60,8 @@ public class ReservationServiceImpl implements ReservationService {
     }
 
     @Override
-    public List<Reservation> findByCustomer(User c) {
-        return reservationDao.findByCustomer(c);
+    public List<Reservation> findByUser(User u) {
+        return reservationDao.findByUser(u);
     }
 
     @Override

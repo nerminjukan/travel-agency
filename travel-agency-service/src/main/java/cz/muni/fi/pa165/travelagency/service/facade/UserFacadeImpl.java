@@ -23,26 +23,26 @@ public class UserFacadeImpl implements UserFacade {
     private BeanMappingService beanMappingService;
 
     @Autowired
-    private UserService customerService;
+    private UserService userService;
 
     @Override
-    public void updateUser(UserDTO c) {
-        customerService.updateUser(beanMappingService.mapTo(c, User.class));
+    public void updateUser(UserDTO u) {
+        userService.updateUser(beanMappingService.mapTo(u, User.class));
     }
 
     @Override
-    public void removeUser(UserDTO c) {
-        customerService.removeUser(beanMappingService.mapTo(c, User.class));
+    public void removeUser(UserDTO u) {
+        userService.removeUser(beanMappingService.mapTo(u, User.class));
     }
 
     @Override
     public List<UserDTO> getAllUsers() {
-        return beanMappingService.mapTo(customerService.findAll(), UserDTO.class);
+        return beanMappingService.mapTo(userService.findAll(), UserDTO.class);
     }
 
     @Override
-    public UserDTO getUserById(Long customerId) {
-        User u = customerService.findById(customerId);
+    public UserDTO getUserById(Long userId) {
+        User u = userService.findById(userId);
         if (u == null) {
             return null;
         }
@@ -51,12 +51,12 @@ public class UserFacadeImpl implements UserFacade {
 
     @Override
     public List<UserDTO> getUserByName(String name) {
-        return beanMappingService.mapTo(customerService.findByName(name), UserDTO.class);
+        return beanMappingService.mapTo(userService.findByName(name), UserDTO.class);
     }
 
     @Override
     public UserDTO getUserByEmail(String email) {
-        User u = customerService.findByEmail(email);
+        User u = userService.findByEmail(email);
         if (u == null) {
             return null;
         }
@@ -65,16 +65,16 @@ public class UserFacadeImpl implements UserFacade {
 
     @Override
     public boolean isUserAdmin(UserDTO u) {
-        return customerService.isAdmin(beanMappingService.mapTo(u, User.class));
+        return userService.isAdmin(beanMappingService.mapTo(u, User.class));
     }
 
     @Override
     public UserDTO authUser(UserAuthenticateDTO u) {
-        User user = customerService.findByEmail(u.getEmail());
+        User user = userService.findByEmail(u.getEmail());
         if (user == null) {
             return null;
         }
-        if (customerService.authUser(user, u.getPassword())) {
+        if (userService.authUser(user, u.getPassword())) {
             return beanMappingService.mapTo(user, UserDTO.class);
         }
         return null;

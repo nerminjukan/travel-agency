@@ -37,13 +37,13 @@ public class UserDaoTest extends AbstractTestNGSpringContextTests {
     public void setUp() {
         c1 = new User();
         c1.setEmail("test@mail.com");
-        c1.setName("Customer Name");
+        c1.setName("User Name");
         c1.setPhoneNumber("1234567890");
         c1.setPasswordHash("random_hash");
         
         c2 = new User();
         c2.setEmail("mail@test.net");
-        c2.setName("Best Customer");
+        c2.setName("Best User");
         c2.setPhoneNumber("42");
         c2.setPasswordHash("random_hash");
     }
@@ -75,6 +75,7 @@ public class UserDaoTest extends AbstractTestNGSpringContextTests {
         Assert.assertEquals("Another Name", c.getName());
         Assert.assertEquals("test@mail.com", c.getEmail());
         Assert.assertEquals("1234567890", c.getPhoneNumber());
+        Assert.assertEquals("random_hash", c.getPasswordHash());
     }
 
     @Test
@@ -99,22 +100,24 @@ public class UserDaoTest extends AbstractTestNGSpringContextTests {
         User c = customerDao.findById(c1.getId());
         Assert.assertEquals(c1.getId(), c.getId());
         Assert.assertEquals("test@mail.com", c.getEmail());
-        Assert.assertEquals("Customer Name", c.getName());
+        Assert.assertEquals("User Name", c.getName());
         Assert.assertEquals("1234567890", c.getPhoneNumber());
+        Assert.assertEquals("random_hash", c.getPasswordHash());
     }
 
     @Test
     public void testFindByName() {
         customerDao.create(c1);
         customerDao.create(c2);
-        List<User> cList = customerDao.findByName("Customer");
+        List<User> cList = customerDao.findByName("User");
         Assert.assertTrue(cList.size() == 2);
-        cList = customerDao.findByName("Best Customer");
+        cList = customerDao.findByName("Best User");
         Assert.assertTrue(cList.size() == 1);
         User c = cList.get(0);
-        Assert.assertEquals("Best Customer", c.getName());
+        Assert.assertEquals("Best User", c.getName());
         Assert.assertEquals("42", c.getPhoneNumber());
         Assert.assertEquals("mail@test.net", c.getEmail());
+        Assert.assertEquals("random_hash", c.getPasswordHash());
     }
     
     @Test(expectedExceptions = PersistenceException.class)

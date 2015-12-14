@@ -40,7 +40,7 @@ public class TripFacadeTest {
     @Mock
     private ReservationService resService;
     @Mock
-    private UserService customerService;
+    private UserService userService;
 
     // TODO del
     @Mock
@@ -136,21 +136,21 @@ public class TripFacadeTest {
     }
 
     @Test
-    public void testGetTripsByCustomer() {
+    public void testGetTripsByUser() {
         User c = new User(11L);
         Reservation r1 = new Reservation(21L);
         Reservation r2 = new Reservation(22L);
-        r1.setCustomer(c);
-        r2.setCustomer(c);
+        r1.setUser(c);
+        r2.setUser(c);
         r1.setTrip(t1);
         r2.setTrip(t2);
         List<Reservation> reservations = new ArrayList<>();
         reservations.add(r1);
         reservations.add(r2);
-        when(customerService.findById(11L)).thenReturn(c);
-        when(resService.findByCustomer(c)).thenReturn(reservations);
+        when(userService.findById(11L)).thenReturn(c);
+        when(resService.findByUser(c)).thenReturn(reservations);
         when(beanMappingService.mapTo(r1.getTrip(), TripDTO.class)).thenReturn(tDTO1);
         when(beanMappingService.mapTo(r1.getTrip(), TripDTO.class)).thenReturn(tDTO2);
-        assertEquals(tripFacade.getTripsByCustomer(11L).size(), 2);
+        assertEquals(tripFacade.getTripsByUser(11L).size(), 2);
     }
 }

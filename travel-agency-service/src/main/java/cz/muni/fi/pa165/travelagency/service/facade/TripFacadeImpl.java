@@ -33,7 +33,7 @@ public class TripFacadeImpl implements TripFacade {
     @Autowired
     private ExcursionService excursionService;
     @Autowired
-    private UserService customerService;
+    private UserService userService;
     @Autowired
     private ReservationService reservationService;
 
@@ -95,15 +95,14 @@ public class TripFacadeImpl implements TripFacade {
     }
 
     /**
-     * finds all trips reserved by the specified customer
+     * finds all trips reserved by the specified user
      *
-     * @param customerId id of customer
+     * @param userId id of user
      * @return list of trips
      */
     @Override
-    public List<TripDTO> getTripsByCustomer(Long customerId) {
-        List<Reservation> reservations = reservationService.findByCustomer(
-                customerService.findById(customerId));
+    public List<TripDTO> getTripsByUser(Long userId) {
+        List<Reservation> reservations = reservationService.findByUser(userService.findById(userId));
         // set for unique.
         Set<TripDTO> tripsSet = new HashSet<>();
 

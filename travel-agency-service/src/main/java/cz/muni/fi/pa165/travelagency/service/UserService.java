@@ -4,7 +4,7 @@ import cz.muni.fi.pa165.travelagency.entity.User;
 import java.util.List;
 
 /**
- * Service layer interface for customer entity
+ * Service layer interface for user entity
  * 
  * @author Radovan Sinko
  */
@@ -13,71 +13,71 @@ public interface UserService {
     /**
      * Authenticate user
      *
-     * @param c user to authenticate
+     * @param u user to authenticate
      * @param password password to check
      * @return true if password is correct, false otherwise
      */
-    boolean authUser(User c, String password);
+    boolean authUser(User u, String password);
 
     /**
      * Determine if user is admin
      *
-     * @param c user to check
+     * @param u user to check
      * @return true if specified user is admin, false otherwise
      */
-    boolean isAdmin(User c);
+    boolean isAdmin(User u);
 
     /**
-     * Create new customer
+     * Create new user
      * 
-     * @param c User to be created
-     * @return created customer
+     * @param u User to be created
+     * @return created user
      */
-    User registerUser(User c, String unencryptedPassword);
+    User registerUser(User u, String unencryptedPassword);
 
     /**
-     * Update customer
+     * Update user
      * 
-     * @param c User to be updated
-     * @return updated customer
+     * @param u User to be updated
+     * @return updated user
      */
-    User updateUser(User c);
+    User updateUser(User u);
     
     /**
-     * Remove customer
+     * Remove user
      * 
-     * @param c User to be removed
+     * @param u User to be removed
      */
-    void removeUser(User c);
+    void removeUser(User u);
 
     /**
-     * Finds and returns all customers
+     * Finds and returns all users
      * 
-     * @return list of all customers
+     * @return list of all users
      */
     List<User> findAll();
     
     /**
-     * Finds and returns customer with specified id
+     * Finds and returns user with specified id
      * 
-     * @param customerId User id
-     * @return customer with specified id
+     * @param userId User id
+     * @return user with specified id
      */
-    User findById(Long customerId);
+    User findById(Long userId);
     
     /**
-     * Finds and returns list of customers with specified name
+     * Finds and returns list of users with specified name
      * 
-     * @param name Name of customer
-     * @return list of customers with specified id
+     * @param name Name of user
+     * @return list of users with specified id
      */
     List<User> findByName(String name);
     
     /**
-     * Finds and returns customer with specified email
+     * Finds and returns user with specified email
      * 
-     * @param email Email of customer
-     * @return list of customers with specified email
+     * @param email Email of user
+     * @return list of users with specified email
      */
     User findByEmail(String email);
 }

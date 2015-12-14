@@ -30,7 +30,7 @@ public class ReservationFacadeImpl implements ReservationFacade {
     private ReservationService reservationService;
     
     @Autowired
-    private UserService customerService;
+    private UserService userService;
 
     @Autowired
     private TripService tripService;
@@ -61,8 +61,8 @@ public class ReservationFacadeImpl implements ReservationFacade {
     }
 
     @Override
-    public List<ReservationDTO> getReservationsByCustomer(Long customerId) {
-        return beanMappingService.mapTo(reservationService.findByCustomer(customerService.findById(customerId)), ReservationDTO.class);
+    public List<ReservationDTO> getReservationsByUser(Long userId) {
+        return beanMappingService.mapTo(reservationService.findByUser(userService.findById(userId)), ReservationDTO.class);
     }
 
     @Override

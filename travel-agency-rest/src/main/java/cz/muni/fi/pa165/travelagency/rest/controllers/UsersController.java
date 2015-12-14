@@ -71,6 +71,6 @@ public class UsersController {
         if (userDTO == null) {
             throw new ResourceNotFoundException();
         }
-        return reservationFacade.getReservationsByCustomer(id);
+        return reservationFacade.getReservationsByUser(id);
     }
 }
