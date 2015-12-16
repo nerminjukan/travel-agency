@@ -62,7 +62,7 @@ public interface UserFacade {
      * @param u user
      * @return true if specified user is admin, false otherwise
      */
-    boolean isUserAdmin(UserDTO u);
+    boolean isUserAdmin(long userId);
 
     /**
      * Authenticate user

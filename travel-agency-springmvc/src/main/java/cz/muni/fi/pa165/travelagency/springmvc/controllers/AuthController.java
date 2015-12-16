@@ -24,8 +24,15 @@ public class AuthController {
     UserFacade userFacade;
 
     @RequestMapping(value = "/login", method = RequestMethod.GET)
-    public String authForm(Model model) {
+    public String authForm(
+            Model model,
+            HttpServletRequest req,
+            HttpServletResponse res) {
         log.error("request: GET /auth/login");
+        HttpSession session = req.getSession(true);
+        if (session.getAttribute("authUser") != null) {
+            return "redirect:/shopping";
+        }
         return "auth/login";
     }
 

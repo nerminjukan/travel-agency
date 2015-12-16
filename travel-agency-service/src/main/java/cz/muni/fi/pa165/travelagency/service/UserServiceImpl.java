@@ -64,7 +64,11 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public boolean isAdmin(User u) {
+    public boolean isAdmin(long userId) {
+        User u = findById(userId);
+        if (u == null) {
+            return false;
+        }
         return u.isAdmin();
     }
 

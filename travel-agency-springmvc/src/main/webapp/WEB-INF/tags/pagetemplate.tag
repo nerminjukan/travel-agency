@@ -54,8 +54,9 @@
         <div class="col-xs-6 col-sm-4 col-md-3 col-lg-2">
             <div class="panel panel-default">
                 <div class="panel-body">
-                    <c:out value="${authUser.givenName} ${authUser.surname}"/>
+                    <c:out value="${authUser.name}"/>
                 </div>
+                    <a href="${pageContext.request.contextPath}/auth/logout">logout</a>
             </div>
         </div>
     </div>

@@ -25,7 +25,7 @@ public interface UserService {
      * @param u user to check
      * @return true if specified user is admin, false otherwise
      */
-    boolean isAdmin(User u);
+    boolean isAdmin(long userId);
 
     /**
      * Create new user

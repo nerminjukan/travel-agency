@@ -16,6 +16,7 @@ import javax.servlet.http.HttpSession;
 @WebFilter( urlPatterns = {"/admin/*"})
 public class AdminFilter implements Filter {
 
+
     final static Logger log = LoggerFactory.getLogger(AdminFilter.class);
 
     @Override
@@ -31,15 +32,17 @@ public class AdminFilter implements Filter {
             return;
         }
         UserFacade userFacade = WebApplicationContextUtils.getWebApplicationContext(r.getServletContext()).getBean(UserFacade.class);
-        if (!userFacade.isUserAdmin(user)) {
-            response401(response);
+        log.error(user.toString());
+        if (!userFacade.isUserAdmin(user.getId())) {
+            response.sendRedirect("/pa165/shopping");
             return;
         }
+        request.setAttribute("authUser", user);
         chain.doFilter(request, response);
     }
 
     private void response401(HttpServletResponse response) throws IOException {
-        response.sendRedirect("/auth/login");
+        response.sendRedirect("/pa165/auth/login");
     }
 
     @Override

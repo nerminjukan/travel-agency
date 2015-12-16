@@ -26,11 +26,12 @@ public class ProtectFilter implements Filter {
             response401(response);
             return;
         }
+        request.setAttribute("authUser", session.getAttribute("authUser"));
         chain.doFilter(request, response);
     }
 
     private void response401(HttpServletResponse res) throws IOException {
-        res.sendRedirect("/auth/login");
+        res.sendRedirect("/pa165/auth/login");
     }
 
     @Override
