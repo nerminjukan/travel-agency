@@ -8,7 +8,6 @@ import org.springframework.context.annotation.Configuration;
 import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
 import org.springframework.instrument.classloading.InstrumentationLoadTimeWeaver;
 import org.springframework.instrument.classloading.LoadTimeWeaver;
-import org.springframework.jdbc.datasource.embedded.EmbeddedDatabase;
 import org.springframework.jdbc.datasource.embedded.EmbeddedDatabaseBuilder;
 import org.springframework.jdbc.datasource.embedded.EmbeddedDatabaseType;
 import org.springframework.orm.jpa.JpaTransactionManager;
@@ -17,6 +16,7 @@ import org.springframework.transaction.annotation.EnableTransactionManagement;
 import org.springframework.validation.beanvalidation.LocalValidatorFactoryBean;
 
 import javax.sql.DataSource;
+import org.springframework.dao.annotation.PersistenceExceptionTranslationPostProcessor;
 
 
 @Configuration
@@ -25,7 +25,12 @@ import javax.sql.DataSource;
 //@ComponentScan("cz.muni.fi.pa165.travelagency.dao")
 @ComponentScan(basePackageClasses={UserDao.class})
 public class PersistenceSampleApplicationContext {
-	
+
+    @Bean
+    public PersistenceExceptionTranslationPostProcessor postProcessor() {
+        return new PersistenceExceptionTranslationPostProcessor();
+    }
+    
 	@Bean 
 	public JpaTransactionManager transactionManager(){
 		return  new JpaTransactionManager(entityManagerFactory().getObject());
@@ -52,7 +57,6 @@ public class PersistenceSampleApplicationContext {
 	@Bean
 	public DataSource db(){
 		EmbeddedDatabaseBuilder builder = new EmbeddedDatabaseBuilder();
-		EmbeddedDatabase db = builder.setType(EmbeddedDatabaseType.DERBY).build();
-		return db;
+		return builder.setType(EmbeddedDatabaseType.DERBY).build();
 	}
 }

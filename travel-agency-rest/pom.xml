@@ -4,12 +4,11 @@
     <parent>
     <artifactId>travel-agency-parent</artifactId>
     <groupId>cz.muni.fi.pa165</groupId>
-    <version>1.0</version>
+    <version>1.0-SNAPSHOT</version>
   </parent>
 
     <groupId>cz.muni.fi.pa165</groupId>
     <artifactId>travel-agency-rest</artifactId>
-    <version>1.0</version>
     <packaging>war</packaging>
     <name>Travel Agency REST</name>
 

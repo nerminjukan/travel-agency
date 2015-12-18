@@ -29,7 +29,7 @@
                 <span class="icon-bar"></span>
                 <span class="icon-bar"></span>
             </button>
-            <a class="navbar-brand" href="${pageContext.request.contextPath}/shopping"><f:message key="navigation.project"/></a>
+            <a class="navbar-brand" href="${pageContext.request.contextPath}/shopping">Travel Agency</a>
             <a class="navbar-brand" href="${pageContext.request.contextPath}/shopping/reservation">Reservations</a>
         </div>
         <div id="navbar" class="collapse navbar-collapse">

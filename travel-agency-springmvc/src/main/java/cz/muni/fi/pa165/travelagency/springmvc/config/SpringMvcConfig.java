@@ -1,11 +1,13 @@
 package cz.muni.fi.pa165.travelagency.springmvc.config;
 
 import cz.muni.fi.pa165.travelagency.sampledata.SampleDataConfiguration;
+import javax.validation.Validator;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.context.MessageSource;
 import org.springframework.context.annotation.*;
 import org.springframework.context.support.ResourceBundleMessageSource;
+import org.springframework.validation.beanvalidation.LocalValidatorFactoryBean;
 import org.springframework.web.servlet.ViewResolver;
 import org.springframework.web.servlet.config.annotation.DefaultServletHandlerConfigurer;
 import org.springframework.web.servlet.config.annotation.EnableWebMvc;
@@ -22,14 +24,12 @@ public class SpringMvcConfig extends WebMvcConfigurerAdapter {
 
     final static Logger log = LoggerFactory.getLogger(SpringMvcConfig.class);
 
-    public static final String TEXTS = "Texts";
-
     /**
      * Maps the main page to a specific view.
      */
     @Override
     public void addViewControllers(ViewControllerRegistry registry) {
-        log.debug("mapping URL / to home view");
+        log.debug("mapping URL / to auth/login view");
         registry.addViewController("/").setViewName("/auth/login");
     }
 
@@ -54,24 +54,4 @@ public class SpringMvcConfig extends WebMvcConfigurerAdapter {
         viewResolver.setSuffix(".jsp");
         return viewResolver;
     }
-
-    /**
-     * Provides localized messages.
-     */
-    @Bean
-    public MessageSource messageSource() {
-        log.debug("registering ResourceBundle 'Texts' for messages");
-        ResourceBundleMessageSource messageSource = new ResourceBundleMessageSource();
-        messageSource.setBasename(TEXTS);
-        return messageSource;
-    }
-
-//    /**
-//     * Provides JSR-303 Validator.
-//     */
-//    @Bean
-//    public Validator validator() {
-//        log.debug("registering JSR-303 validator");
-//        return new LocalValidatorFactoryBean();
-//    }
 }
