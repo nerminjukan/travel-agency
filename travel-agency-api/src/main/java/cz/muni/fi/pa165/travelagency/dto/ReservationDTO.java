@@ -1,8 +1,10 @@
 package cz.muni.fi.pa165.travelagency.dto;
 
+import java.math.BigDecimal;
 import java.util.HashSet;
 import java.util.Objects;
 import java.util.Set;
+import javax.validation.constraints.Min;
 import javax.validation.constraints.NotNull;
 
 /**
@@ -21,6 +23,17 @@ public class ReservationDTO {
     private TripDTO trip;
     
     private Set<ExcursionDTO> excursions = new HashSet<>();
+
+    @Min(0)
+    private BigDecimal totalPrice;
+
+    public BigDecimal getTotalPrice() {
+        return totalPrice;
+    }
+
+    public void setTotalPrice(BigDecimal totalPrice) {
+        this.totalPrice = totalPrice;
+    }
 
     public Long getId() {
         return id;

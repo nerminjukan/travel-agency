@@ -14,7 +14,6 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title><c:out value="${title}"/></title>
     <!-- bootstrap loaded from content delivery network -->
-    <link rel="shortcut icon" href="${pageContext.request.contextPath}/favicon.ico" type="image/x-icon">
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css" crossorigin="anonymous">
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap-theme.min.css"  crossorigin="anonymous">
     <jsp:invoke fragment="head"/>
@@ -30,7 +29,8 @@
                 <span class="icon-bar"></span>
                 <span class="icon-bar"></span>
             </button>
-            <a class="navbar-brand" href="${pageContext.request.contextPath}"><f:message key="navigation.project"/></a>
+            <a class="navbar-brand" href="${pageContext.request.contextPath}/shopping"><f:message key="navigation.project"/></a>
+            <a class="navbar-brand" href="${pageContext.request.contextPath}/shopping/reservation">Reservations</a>
         </div>
         <div id="navbar" class="collapse navbar-collapse">
             

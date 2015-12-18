@@ -1,8 +1,9 @@
 package cz.muni.fi.pa165.travelagency.facade;
 
+import cz.muni.fi.pa165.travelagency.dto.ReservationCreateDTO;
 import cz.muni.fi.pa165.travelagency.dto.ReservationDTO;
 import cz.muni.fi.pa165.travelagency.dto.ReservationTotalPriceDTO;
-import java.math.BigDecimal;
+import cz.muni.fi.pa165.travelagency.dto.UserDTO;
 import java.util.List;
 
 /**
@@ -17,7 +18,7 @@ public interface ReservationFacade {
      * 
      * @param r reservationDTO to be created
      */
-    void createReservation(ReservationDTO r);
+    Long createReservation(ReservationCreateDTO r, UserDTO user);
     
     /**
      * Method updates reservation from input parameter

@@ -6,8 +6,8 @@
 package cz.muni.fi.pa165.travelagency.service.facade;
 
 import cz.muni.fi.pa165.travelagency.dto.ExcursionDTO;
+import cz.muni.fi.pa165.travelagency.dto.ReservationCreateDTO;
 import cz.muni.fi.pa165.travelagency.dto.ReservationDTO;
-import cz.muni.fi.pa165.travelagency.dto.ReservationTotalPriceDTO;
 import cz.muni.fi.pa165.travelagency.dto.TripDTO;
 import cz.muni.fi.pa165.travelagency.dto.UserDTO;
 import cz.muni.fi.pa165.travelagency.entity.Excursion;
@@ -25,7 +25,6 @@ import java.math.BigDecimal;
 import java.sql.Date;
 import java.time.LocalDate;
 import java.util.ArrayList;
-import java.util.Collections;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
@@ -110,9 +109,33 @@ public class ReservationFacadeTest {
     
     @Test
     public void testCreateReservation(){
-        when(beanMappingService.mapTo(rdto1, Reservation.class)).thenReturn(r1);
-        reservationFacade.createReservation(rdto1);
-        verify(reservationService).createReservation(r1);
+        UserDTO user = new UserDTO();
+        user.setId(1l);
+        User u = new User(1l);
+        Excursion e1 = new Excursion(1l);
+        Excursion e2 = new Excursion(2l);
+        Trip t = new Trip(1l);
+        t.addExcursion(e1);
+        t.addExcursion(e2);
+        ReservationCreateDTO r = new ReservationCreateDTO();
+        r.setTripId(1l);
+        Set<Long> set = new HashSet<>();
+        set.add(1l);
+        set.add(2l);
+        set.add(3l);
+        r.setExcursionsId(set);
+        when(tripService.findById(1l)).thenReturn(t);
+        when(excursionService.findById(1l)).thenReturn(e1);
+        when(excursionService.findById(2l)).thenReturn(e2);
+        when(excursionService.findById(3l)).thenReturn(null);
+        when(userService.findById(1l)).thenReturn(u);
+        reservationFacade.createReservation(r, user);
+        Reservation res = new Reservation();
+        res.addExcursion(e1);
+        res.addExcursion(e2);
+        res.setTrip(t);
+        res.setUser(u);
+        verify(reservationService).createReservation(res);
     }
     
     @Test

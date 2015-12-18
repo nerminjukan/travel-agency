@@ -1,11 +1,17 @@
 package cz.muni.fi.pa165.travelagency.service.facade;
 
+import cz.muni.fi.pa165.travelagency.dto.ReservationCreateDTO;
 import cz.muni.fi.pa165.travelagency.dto.ReservationDTO;
 import cz.muni.fi.pa165.travelagency.dto.ReservationTotalPriceDTO;
+import cz.muni.fi.pa165.travelagency.dto.UserDTO;
+import cz.muni.fi.pa165.travelagency.entity.Excursion;
 import cz.muni.fi.pa165.travelagency.entity.Reservation;
+import cz.muni.fi.pa165.travelagency.entity.Trip;
+import cz.muni.fi.pa165.travelagency.entity.User;
 import cz.muni.fi.pa165.travelagency.exceptions.TravelAgencyServiceException;
 import cz.muni.fi.pa165.travelagency.facade.ReservationFacade;
 import cz.muni.fi.pa165.travelagency.service.BeanMappingService;
+import cz.muni.fi.pa165.travelagency.service.ExcursionService;
 import cz.muni.fi.pa165.travelagency.service.UserService;
 import cz.muni.fi.pa165.travelagency.service.ReservationService;
 import cz.muni.fi.pa165.travelagency.service.TripService;
@@ -34,10 +40,36 @@ public class ReservationFacadeImpl implements ReservationFacade {
 
     @Autowired
     private TripService tripService;
+
+    @Autowired
+    private ExcursionService excursionService;
     
     @Override
-    public void createReservation(ReservationDTO r) {
-        reservationService.createReservation(beanMappingService.mapTo(r, Reservation.class));
+    public Long createReservation(ReservationCreateDTO r, UserDTO user) {
+        if (user == null) {
+            throw new TravelAgencyServiceException("not existing user");
+        }
+        User u = userService.findById(user.getId());
+        if (u == null) {
+            throw new TravelAgencyServiceException("not existing user");
+        }
+        Trip trip = tripService.findById(r.getTripId());
+        if (trip == null) {
+            throw new TravelAgencyServiceException("not existing trip");
+        }
+        Reservation reservation = new Reservation();
+        reservation.setTrip(trip);
+        reservation.setUser(u);
+        if (r.getExcursionsId() != null) {
+            for (Long excursionId : r.getExcursionsId()) {
+                Excursion ex = excursionService.findById(excursionId);
+                if (ex != null) {
+                    reservation.addExcursion(ex);
+                }
+            }
+        }
+        reservationService.createReservation(reservation);
+        return reservation.getId();
     }
 
     @Override
@@ -52,22 +84,49 @@ public class ReservationFacadeImpl implements ReservationFacade {
 
     @Override
     public List<ReservationDTO> getAllReservations() {
-        return beanMappingService.mapTo(reservationService.findAll(), ReservationDTO.class);
+        return updateTotalPrice(
+                beanMappingService.mapTo(
+                        reservationService.findAll(),
+                        ReservationDTO.class
+                )
+        );
     }
 
     @Override
     public ReservationDTO getReservationById(Long reservationId) {
-        return beanMappingService.mapTo(reservationService.findById(reservationId), ReservationDTO.class);
+        Reservation r = reservationService.findById(reservationId);
+        if (r == null) {
+            return null;
+        }
+        return updateTotalPrice(
+                beanMappingService.mapTo(
+                        r, ReservationDTO.class
+                )
+        );
     }
 
     @Override
     public List<ReservationDTO> getReservationsByUser(Long userId) {
-        return beanMappingService.mapTo(reservationService.findByUser(userService.findById(userId)), ReservationDTO.class);
+        return updateTotalPrice(
+                beanMappingService.mapTo(
+                        reservationService.findByUser(
+                                userService.findById(userId)
+                        ),
+                        ReservationDTO.class
+                )
+        );
     }
 
     @Override
     public List<ReservationDTO> getReservationsByTrip(Long tripId) {
-        return beanMappingService.mapTo(reservationService.findByTrip(tripService.findById(tripId)), ReservationDTO.class);
+        return updateTotalPrice(
+                beanMappingService.mapTo(
+                        reservationService.findByTrip(
+                                tripService.findById(tripId)
+                        ),
+                        ReservationDTO.class
+                )
+        );
     }
 
     @Override
@@ -78,5 +137,21 @@ public class ReservationFacadeImpl implements ReservationFacade {
         dto.setReservation(beanMappingService.mapTo(r, ReservationDTO.class));
         dto.setPrice(price);
         return dto;
+    }
+
+    private ReservationDTO updateTotalPrice(ReservationDTO r) {
+        r.setTotalPrice(
+                reservationService.getTotalPrice(
+                        beanMappingService.mapTo(r, Reservation.class)
+                )
+        );
+        return r;
+    }
+
+    private List<ReservationDTO> updateTotalPrice(List<ReservationDTO> col) {
+        for (ReservationDTO r : col) {
+            updateTotalPrice(r);
+        }
+        return col;
     }
 }

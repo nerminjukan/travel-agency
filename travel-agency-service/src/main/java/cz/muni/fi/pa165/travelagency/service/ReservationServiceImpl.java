@@ -71,9 +71,10 @@ public class ReservationServiceImpl implements ReservationService {
 
     @Override
     public BigDecimal getTotalPrice(Reservation r) {
-        if (r == null) {
+        if (r == null || r.getId() == null) {
             throw new IllegalArgumentException();
         }
+        r = reservationDao.findById(r.getId());
         BigDecimal totalPrice = r.getTrip().getPrice();
         for (Excursion e: r.getExcursions()) {
             totalPrice = totalPrice.add(e.getPrice());

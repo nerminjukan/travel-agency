@@ -157,15 +157,16 @@ public class ReservationServiceTest extends AbstractTransactionalTestNGSpringCon
 
     @Test
     public void testGetTotalPriceNoExcursions() {
-        Reservation r = new Reservation();
+        Reservation r = new Reservation(1l);
         Trip t = createTrip(0);
         t.setPrice(new BigDecimal("5000.00"));
         r.setTrip(t);
+        when(reservationDao.findById(1l)).thenReturn(r);
         assertEquals(reservationService.getTotalPrice(r), new BigDecimal("5000.00"));
     }
 
     public void testGetTotalPriceMultipleExcursions() {
-        Reservation r = new Reservation();
+        Reservation r = new Reservation(1l);
         Trip t = createTrip(0);
         t.setPrice(new BigDecimal("5000.00"));
         r.setTrip(t);
@@ -178,6 +179,7 @@ public class ReservationServiceTest extends AbstractTransactionalTestNGSpringCon
         e = createExcursion(2);
         e.setPrice(new BigDecimal("0.00"));
         r.addExcursion(e);
+        when(reservationDao.findById(1l)).thenReturn(r);
         assertEquals(reservationService.getTotalPrice(r), new BigDecimal("7499.99"));
     }
     
