@@ -6,27 +6,23 @@
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
 
-<my:pagetemplate title="Reservations">
+<my:pagetemplate title="Users">
 <jsp:attribute name="body">
 
     <table class="table">
         <thead>
         <tr>
             <th>id</th>
-            <th>trip</th>
-            <th>excursions number</th>
-            <th>total price</th>
+            <th>name</th>
         </tr>
         </thead>
         <tbody>
-        <c:forEach items="${reservations}" var="reservation">
+        <c:forEach items="${users}" var="user">
             <tr>
-                <td>${reservation.id}</td>
-                <td><a href="/pa165/shopping/trip/${reservation.trip.id}"><c:out value="${reservation.trip.name}"/></a></td>
-                <td><c:out value="${fn:length(reservation.excursions)}"/></td>
-                <td><c:out value="${reservation.totalPrice}"/> EUR</td>
+                <td>${user.id}</td>
+                <td><c:out value="${user.name}"/></td>
                 <td>
-                    <a href="/pa165/shopping/reservation/view/${reservation.id}" class="btn btn-primary">View</a>
+                    <a href="/pa165/shopping/user/view/${user.id}" class="btn btn-primary">More info</a>
                 </td>
             </tr>
         </c:forEach>

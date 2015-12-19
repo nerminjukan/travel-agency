@@ -30,7 +30,10 @@
                 <span class="icon-bar"></span>
             </button>
             <a class="navbar-brand" href="${pageContext.request.contextPath}/shopping">Travel Agency</a>
-            <a class="navbar-brand" href="${pageContext.request.contextPath}/shopping/reservation">Reservations</a>
+            <c:if test="${not empty authUser}"><a class="navbar-brand" href="${pageContext.request.contextPath}/shopping/reservation/list">Reservations</a></c:if>
+            <c:if test="${authUser.isAdmin()}"><a class="navbar-brand" href="${pageContext.request.contextPath}/shopping/trip/list">Trips</a></c:if>
+            <c:if test="${authUser.isAdmin()}"><a class="navbar-brand" href="${pageContext.request.contextPath}/shopping/excursion/list">Excursions</a></c:if>
+            <c:if test="${authUser.isAdmin()}"><a class="navbar-brand" href="${pageContext.request.contextPath}/shopping/user/list">Users</a></c:if>
         </div>
         <div id="navbar" class="collapse navbar-collapse">
             

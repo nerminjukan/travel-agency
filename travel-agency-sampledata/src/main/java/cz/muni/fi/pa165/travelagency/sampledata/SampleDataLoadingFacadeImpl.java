@@ -1,7 +1,7 @@
 package cz.muni.fi.pa165.travelagency.sampledata;
 
-import cz.muni.fi.pa165.travelagency.dto.ExcursionDTO;
 import cz.muni.fi.pa165.travelagency.entity.Excursion;
+import cz.muni.fi.pa165.travelagency.entity.Reservation;
 import cz.muni.fi.pa165.travelagency.entity.Trip;
 import cz.muni.fi.pa165.travelagency.entity.User;
 import cz.muni.fi.pa165.travelagency.service.ExcursionService;
@@ -18,7 +18,6 @@ import java.io.IOException;
 import java.math.BigDecimal;
 import java.sql.Date;
 import java.time.LocalDate;
-import java.time.Month;
 import java.util.HashSet;
 import java.util.Set;
 
@@ -40,26 +39,32 @@ public class SampleDataLoadingFacadeImpl implements SampleDataLoadingFacade {
 
     @Override
     public void loadData() throws IOException {
-        user("test@mail.com", "JAnko Mrkvicka", "+123456789", "password");
-        user("admin@mail.com", "Administrator", "+1234567890", "admin");
-        Set<Excursion> exSet = new HashSet<>();
-        exSet.add(excursion(
+        User admin = user("admin@mail.com", "Administrator", "+1234567890", "admin");
+        User u1 = user("test@mail.com", "JAnko Mrkvicka", "+123456789", "password");
+        User u2 = user("test2@mail.com", "Petr Koroptvicka", "+999222333", "pass");
+        User u3 = user("test3@mail.com", "Jana Nadenikova", "+444666322", "pass");
+        
+        Excursion ex1 = excursion(
                 "Test excursion",
                 "Long description :D",
                 Date.valueOf(LocalDate.of(2015, 10, 3)),
                 Date.valueOf(LocalDate.of(2015, 10, 5)),
                 "Another great destination",
-                new BigDecimal("59.99"))
+                new BigDecimal("59.99")
         );
-        exSet.add(excursion(
+        Excursion ex2 = excursion(
                 "Another excursion",
                 "Even longer description :D",
                 Date.valueOf(LocalDate.of(2015, 10, 4)),
                 Date.valueOf(LocalDate.of(2015, 10, 5)),
                 "Another great destination",
-                new BigDecimal("70.99"))
+                new BigDecimal("70.99")
         );
-        trip(
+        Set<Excursion> exSet = new HashSet<>();
+        exSet.add(ex1);
+        exSet.add(ex2);
+        
+        Trip t1 = trip(
                 "Best trip",
                 "",
                 Date.valueOf(LocalDate.of(2015, 10, 1)),
@@ -69,7 +74,7 @@ public class SampleDataLoadingFacadeImpl implements SampleDataLoadingFacade {
                 exSet,
                 10L
         );
-        trip(
+        Trip t2 = trip(
                 "Another trip",
                 "boring trip",
                 Date.valueOf(LocalDate.of(2015, 12, 24)),
@@ -79,6 +84,12 @@ public class SampleDataLoadingFacadeImpl implements SampleDataLoadingFacade {
                 new HashSet<Excursion>(),
                 100L
         );
+        
+        Set<Excursion> exSetForUser1 = new HashSet<>();
+        exSetForUser1.add(ex1);
+        reservation(u1, t1, exSetForUser1);
+        reservation(u2, t2, new HashSet<Excursion>());
+        reservation(u3, t2, exSet);
     }
 
     private User user(String email, String name, String phoneNumber, String password) {
@@ -88,6 +99,8 @@ public class SampleDataLoadingFacadeImpl implements SampleDataLoadingFacade {
         u.setPhoneNumber(phoneNumber);
         if (password.equals("admin")) {
             u.setIsAdmin(true);
+        } else {
+            u.setIsAdmin(false);
         }
         userService.registerUser(u, password);
         return u;
@@ -133,5 +146,21 @@ public class SampleDataLoadingFacadeImpl implements SampleDataLoadingFacade {
         e.setPrice(price);
         excursionService.createExcursion(e);
         return e;
+    }
+    
+    private Reservation reservation(
+            User user,
+            Trip trip,
+            Set<Excursion> excursion){
+        
+        Reservation r = new Reservation();
+        r.setTrip(trip);
+        r.setUser(user);
+        for (Excursion e : excursion) {
+            r.addExcursion(e);
+        }
+        
+        reservationService.createReservation(r);
+        return r;
     }
 }

@@ -31,7 +31,8 @@ public class User {
     @NotNull
     private String phoneNumber;
 
-    private boolean admin;
+    @NotNull
+    private boolean isAdmin;
 
     @NotNull
     private String passwordHash;
@@ -55,7 +56,7 @@ public class User {
      * @return true if user is admin, false otherwise
      */
     public boolean isAdmin() {
-        return admin;
+        return isAdmin;
     }
 
     /**
@@ -63,7 +64,7 @@ public class User {
      * @param isAdmin new user permission
      */
     public void setIsAdmin(boolean isAdmin) {
-        this.admin = isAdmin;
+        this.isAdmin = isAdmin;
     }
 
     /**
@@ -162,7 +163,7 @@ public class User {
 
     @Override
     public String toString() {
-        return "User{" + "id=" + id + ", name=" + name + ", email=" + email + ", phoneNumber=" + phoneNumber + '}';
+        return "User{" + "id=" + id + ", name=" + name + ", email=" + email + ", phoneNumber=" + phoneNumber + ", isAdmin= " + isAdmin + '}';
     }
        
     

@@ -20,14 +20,13 @@ public class UserDTO {
     private String email;
     
     @NotNull
-    private String phoneNumber;   
+    private String phoneNumber;  
+    
+    @NotNull
+    private boolean isAdmin;
     
     public Long getId() {
         return id;
-    }
-    
-    public void setId(long id){
-        this.id = id;
     }
 
     public void setId(Long id) {
@@ -58,6 +57,14 @@ public class UserDTO {
         this.phoneNumber = phoneNumber;
     }
 
+    public boolean isAdmin() {
+        return isAdmin;
+    }
+
+    public void setIsAdmin(boolean isAdmin) {
+        this.isAdmin = isAdmin;
+    }
+
     @Override
     public int hashCode() {
         int hash = 3;
@@ -82,6 +89,6 @@ public class UserDTO {
 
     @Override
     public String toString() {
-        return "User{" + "id=" + id + ", name=" + name + ", email=" + email + ", phoneNumber=" + phoneNumber + '}';
+        return "User{" + "id=" + id + ", name=" + name + ", email=" + email + ", phoneNumber=" + phoneNumber + ", isAdmin=" + isAdmin + '}';
     }
 }

@@ -84,43 +84,11 @@ public class ShoppingController {
         
         try {
             Long id = reservationFacade.createReservation(formBean, (UserDTO) session.getAttribute("authUser"));
-        redirectAttributes.addFlashAttribute("alert_success", "Reservation " + id + " was created");
-        return "redirect:" + uriBuilder.path("/shopping/reservation/{id}").buildAndExpand(id).encode().toUriString();
+            redirectAttributes.addFlashAttribute("alert_success", "Reservation " + id + " was created");
+            return "redirect:" + uriBuilder.path("/shopping/reservation/view/{id}").buildAndExpand(id).encode().toUriString();
         } catch (TravelAgencyServiceException e) {
             redirectAttributes.addFlashAttribute("alert_success", "Unable to create reservation: " + e.getMessage());
         }
         return "redirect:" + uriBuilder.path("/shopping").build().encode().toUriString();
-    }
-
-    @RequestMapping(value = "/reservation", method = RequestMethod.GET)
-    public String listReservations(Model model, HttpServletRequest req) {
-        log.error("request: GET /shopping/reservation");
-        HttpSession session = req.getSession(true);
-        Long id = ((UserDTO) session.getAttribute("authUser")).getId();
-        model.addAttribute("reservations", reservationFacade.getReservationsByUser(id));
-        return "shopping/reservation/list";
-    }
-
-    @RequestMapping(value = "/reservation/{id}", method = RequestMethod.GET)
-    public String showReservation(
-            @PathVariable("id") long id,
-            Model model,
-            HttpServletRequest req) {
-        log.error("request: GET /shopping/reservation/" + id);
-        ReservationDTO r = reservationFacade.getReservationById(id);
-        if (r == null) {
-            return "redirect:/shopping";
-        }
-        HttpSession session = req.getSession(true);
-        if (
-                !Objects.equals(
-                        r.getUser().getId(),
-                        ((UserDTO) session.getAttribute("authUser")).getId()
-                )
-            ) {
-            return "redirect:/shopping";
-        }
-        model.addAttribute("reservation", r);
-        return "shopping/reservation/view";
     }
 }

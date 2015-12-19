@@ -54,6 +54,7 @@ public class AuthController {
             return "redirect:/auth/login";
         }
         HttpSession session = req.getSession(true);
+        user.setIsAdmin(userFacade.isUserAdmin(user.getId()));
         session.setAttribute("authUser", user);
         redirectAttributes.addFlashAttribute("alert_info", "You have been logged in.");
         return "redirect:/shopping";
