@@ -25,6 +25,9 @@ public class UserDTO {
     @NotNull
     private boolean isAdmin;
     
+    @NotNull
+    private String passwordHash;
+    
     public Long getId() {
         return id;
     }
@@ -65,6 +68,14 @@ public class UserDTO {
         this.isAdmin = isAdmin;
     }
 
+    public String getPasswordHash() {
+        return passwordHash;
+    }
+
+    public void setPasswordHash(String passwordHash) {
+        this.passwordHash = passwordHash;
+    }
+    
     @Override
     public int hashCode() {
         int hash = 3;
