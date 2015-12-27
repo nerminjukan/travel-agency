@@ -9,6 +9,10 @@
 <my:pagetemplate title="Excursion detail">
 <jsp:attribute name="body">
 
+    <form method="post" action="${pageContext.request.contextPath}/excursion/delete/${product.id}">
+        <button type="submit" class="btn btn-primary">Delete</button>
+    </form>
+    
     <div class="row">
         <div class="col-xs-6">
             <table>

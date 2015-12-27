@@ -6,6 +6,8 @@ import java.sql.Date;
 import java.util.Objects;
 import javax.validation.constraints.DecimalMin;
 import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Pattern;
+import javax.validation.constraints.Size;
 
 /**
  * Creation DTO for {@link cz.muni.fi.pa165.travelagency.entity.Excursion} entity
@@ -16,8 +18,10 @@ import javax.validation.constraints.NotNull;
 public class ExcursionCreateDTO {
 
     @NotNull
+    @Size(min = 3, max = 50)
     private String name;
 
+    @Size(max = 500)
     private String description;
 
     @NotNull

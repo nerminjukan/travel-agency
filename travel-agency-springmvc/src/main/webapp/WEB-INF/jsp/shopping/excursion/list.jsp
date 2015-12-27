@@ -9,6 +9,11 @@
 <my:pagetemplate title="Excursions">
 <jsp:attribute name="body">
 
+    <a href="${pageContext.request.contextPath}/shopping/excursion/new" class="btn btn-primary">
+        <span class="glyphicon glyphicon-plus" aria-hidden="true"></span>
+        New excursion
+    </a>
+    
     <table class="table">
         <thead>
         <tr>
@@ -27,6 +32,11 @@
                 <td><c:out value="${excursion.price}"/> EUR</td>
                 <td>
                     <a href="/pa165/shopping/excursion/view/${excursion.id}" class="btn btn-primary">Detail</a>
+                </td>
+                <td>
+                    <form method="post" action="${pageContext.request.contextPath}/shopping/excursion/delete/${excursion.id}">
+                        <button type="submit" class="btn btn-primary">Delete</button>
+                    </form>
                 </td>
             </tr>
         </c:forEach>

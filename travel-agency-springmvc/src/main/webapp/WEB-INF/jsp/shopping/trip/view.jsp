@@ -46,34 +46,24 @@
             <table class="table">
                 <caption>Excursions</caption>
                 <tbody>
-                <c:forEach items="${trip.excursions}" var="excursion">
+                    <c:forEach items="${trip.excursions}" var="excursion" varStatus="i">
                     <tr>
-                        <td>Name:</td>
-                        <td><c:out value="${excursion.name}"/></td>
-                    </tr>
-                    <tr>
-                        <td>Description:</td>
-                        <td><c:out value="${excursion.description}"/></td>
-                    </tr>
-                    <tr>
-                        <td>Date from:</td>
-                        <td><c:out value="${excursion.dateFrom}"/></td>
-                    </tr>
-                    <tr>
-                        <td>Date to:</td>
-                        <td><c:out value="${excursion.dateTo}"/></td>
-                    </tr>
-                    <tr>
-                        <td>Destination:</td>
-                        <td><c:out value="${excursion.destination}"/></td>
-                    </tr>
-                    <tr>
-                        <td>Price:</td>
-                        <td><c:out value="${excursion.price}"/> EUR</td>
+                        <td><c:out value="${i.index + 1}."/></td>
+                        <td>
+                            <a href="${pageContext.request.contextPath}/shopping/excursion/view/${excursion.id}">
+                                <c:out value="${excursion.name}"/>
+                            </a>
+                        </td>
                     </tr>
                 </c:forEach>
                 </tbody>
             </table>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-xs-6">
+            <a href="/pa165/shopping/trip/update/${trip.id}" class="btn btn-primary">Update</a>
+            <a href="/pa165/shopping/trip/delete/${trip.id}" class="btn btn-primary">Delete</a>
         </div>
     </div>
 </jsp:attribute>
