@@ -21,8 +21,8 @@ import org.springframework.transaction.annotation.Transactional;
  * @author Ondrej Glasnak
  *         date 22/11/15
  */
-@Transactional
 @Service
+@Transactional
 public class TripFacadeImpl implements TripFacade {
 
     @Autowired
@@ -51,16 +51,20 @@ public class TripFacadeImpl implements TripFacade {
      * deletes trip with this Id
      * TODO: TBD: should this delete all associated excursions with trip?
      *
-     * @param t trip to be deleted.
+     * @param tripId if of trip to be deleted.
      */
     @Override
-    public void deleteTrip(TripDTO t) {
-        Set<ExcursionDTO> excursions = t.getExcursions();
-        for (ExcursionDTO e : excursions)
-            excursionService.removeExcursion(
-                    beanMappingService.mapTo(e, Excursion.class));
-
-        tripService.removeTrip(beanMappingService.mapTo(t, Trip.class));
+    public void deleteTrip(Long tripId) {
+        
+        List<Reservation> reservations = reservationService.findByTrip(tripService.findById(tripId));
+        for (Reservation r : reservations) {
+            reservationService.removeReservation(r);
+        }
+        Set<Excursion> excursions = tripService.findById(tripId).getExcursions();
+        
+        tripService.removeTrip(new Trip(tripId));
+        for (Excursion e : excursions)
+            excursionService.removeExcursion(e);
     }
 
     /**
@@ -70,7 +74,12 @@ public class TripFacadeImpl implements TripFacade {
      */
     @Override
     public void updateTrip(TripDTO t) {
-        tripService.updateTrip(beanMappingService.mapTo(t, Trip.class));
+        Trip trip = beanMappingService.mapTo(t, Trip.class);
+        Set<ExcursionDTO> excursions = t.getExcursions();
+        for(ExcursionDTO e : excursions){
+            trip.addExcursion(beanMappingService.mapTo(e, Excursion.class));
+        }
+        tripService.updateTrip(trip);
     }
 
     /**

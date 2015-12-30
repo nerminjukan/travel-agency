@@ -14,8 +14,8 @@ import org.springframework.transaction.annotation.Transactional;
  *
  * @author Jan Duda
  */
-@Transactional
 @Repository
+@Transactional
 public class ReservationDaoImpl implements ReservationDao{
 
     @PersistenceContext
@@ -32,8 +32,8 @@ public class ReservationDaoImpl implements ReservationDao{
     }
 
     @Override
-    public void remove(Reservation r) {
-        em.remove(r);
+    public void remove(Reservation r) throws IllegalArgumentException {
+        em.remove(findById(r.getId()));
     }
 
     @Override

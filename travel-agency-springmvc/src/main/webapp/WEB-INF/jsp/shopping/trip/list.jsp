@@ -28,6 +28,11 @@
                 <td>
                     <a href="/pa165/shopping/trip/view/${trip.id}" class="btn btn-primary">Detail</a>
                 </td>
+                <td>
+                    <form method="post" action="${pageContext.request.contextPath}/shopping/trip/delete/${trip.id}">
+                        <button type="submit" class="btn btn-primary">Delete</button>
+                    </form>
+                </td>
             </tr>
         </c:forEach>
         </tbody>

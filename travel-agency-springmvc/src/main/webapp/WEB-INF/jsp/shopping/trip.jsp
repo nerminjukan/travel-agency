@@ -32,7 +32,7 @@
                     <tr>
                         <td><form:checkbox path="excursionsId" value="${ex.id}"/></td>
                         <td>
-                            <c:out value="${ex.name}"/>
+                            <a href="${pageContext.request.contextPath}/shopping/excursion/view/${ex.id}"><c:out value="${ex.name}"/></a>
                         </td>
                         <td>
                             <span style="color: red; font-weight: bold;"><c:out value="${ex.price}"/>&nbsp;EUR</span>

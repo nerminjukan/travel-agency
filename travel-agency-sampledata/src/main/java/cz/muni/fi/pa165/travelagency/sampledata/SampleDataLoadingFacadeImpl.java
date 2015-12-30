@@ -89,7 +89,7 @@ public class SampleDataLoadingFacadeImpl implements SampleDataLoadingFacade {
         exSetForUser1.add(ex1);
         reservation(u1, t1, exSetForUser1);
         reservation(u2, t2, new HashSet<Excursion>());
-        reservation(u3, t2, exSet);
+        reservation(u3, t1, exSet);
     }
 
     private User user(String email, String name, String phoneNumber, String password) {

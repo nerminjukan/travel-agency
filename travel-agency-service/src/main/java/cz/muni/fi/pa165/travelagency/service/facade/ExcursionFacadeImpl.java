@@ -13,6 +13,7 @@ import cz.muni.fi.pa165.travelagency.service.ReservationService;
 import cz.muni.fi.pa165.travelagency.service.TripService;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Set;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -21,8 +22,8 @@ import org.springframework.transaction.annotation.Transactional;
  *
  * @author omular
  */
-@Transactional
 @Service
+@Transactional
 public class ExcursionFacadeImpl implements ExcursionFacade {
 
     @Autowired
@@ -72,6 +73,25 @@ public class ExcursionFacadeImpl implements ExcursionFacade {
 
     @Override
     public void deleteExcursion(Long excursionId) {
+        Excursion excursion = excursionService.findById(excursionId);
+        
+        List<Reservation> reservations = reservationService.findAll();
+        for(Reservation r : reservations){
+            if(r.getExcursions().contains(excursion)){
+                r.removeExcursion(excursion);
+                reservationService.updateReservation(r);
+            }
+        }
+        
+        List<Trip> trips = tripService.findAll();
+        for (Trip t : trips) {
+            if(t.getExcursions().contains(excursion)){
+                t.removeExcursion(excursion);
+                tripService.updateTrip(t);
+                break;
+            }
+        }
+        
         excursionService.removeExcursion(new Excursion(excursionId));
     }
 

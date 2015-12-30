@@ -5,11 +5,13 @@ import cz.muni.fi.pa165.travelagency.entity.Trip;
 import java.sql.Date;
 
 import java.util.List;
+import org.springframework.stereotype.Service;
 
 /**
  * @author Ondrej Glasnak, Ondrej Mular
  * date 23/11/15
  */
+@Service
 public interface TripService {
 
     /**

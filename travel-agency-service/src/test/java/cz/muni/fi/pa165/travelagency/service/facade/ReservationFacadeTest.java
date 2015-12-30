@@ -148,7 +148,7 @@ public class ReservationFacadeTest {
     @Test
     public void testRemoveReservation(){
         when(beanMappingService.mapTo(rdto1, Reservation.class)).thenReturn(r1);
-        reservationFacade.removeReservation(rdto1);
+        reservationFacade.removeReservation(rdto1.getId());
         verify(reservationService).removeReservation(r1);
     }
     

@@ -6,11 +6,13 @@ import cz.muni.fi.pa165.travelagency.entity.Reservation;
 import cz.muni.fi.pa165.travelagency.entity.Trip;
 import java.math.BigDecimal;
 import java.util.List;
+import org.springframework.stereotype.Service;
 
 /**
  * 
  * @author Jan Duda
  */
+@Service
 public interface ReservationService {
     
     /**

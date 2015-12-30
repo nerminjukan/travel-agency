@@ -88,8 +88,7 @@ public class ExcursionController {
             UriComponentsBuilder uriBuilder,
             RedirectAttributes redirectAttributes) {
         
-        ExcursionDTO excursion = excursionFacade.getExcursionById(id); // TODO Firstly delete excursion from trips and reservations
-                                                                       // where is the excursion
+        ExcursionDTO excursion = excursionFacade.getExcursionById(id);
         
         excursionFacade.deleteExcursion(id);
         log.debug("delete({})", id);

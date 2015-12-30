@@ -1,10 +1,16 @@
 package cz.muni.fi.pa165.travelagency.springmvc.controllers;
 
+import cz.muni.fi.pa165.travelagency.dto.ExcursionDTO;
+import cz.muni.fi.pa165.travelagency.dto.ReservationDTO;
 import cz.muni.fi.pa165.travelagency.dto.TripDTO;
 import cz.muni.fi.pa165.travelagency.dto.UserDTO;
+import cz.muni.fi.pa165.travelagency.facade.ExcursionFacade;
+import cz.muni.fi.pa165.travelagency.facade.ReservationFacade;
 import cz.muni.fi.pa165.travelagency.facade.TripFacade;
 import cz.muni.fi.pa165.travelagency.facade.UserFacade;
 import cz.muni.fi.pa165.travelagency.sampledata.SampleDataLoadingFacadeImpl;
+import java.util.List;
+import java.util.Set;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -16,6 +22,8 @@ import org.springframework.web.bind.annotation.RequestMethod;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
+import org.springframework.web.util.UriComponentsBuilder;
 
 
 /**
@@ -32,6 +40,12 @@ public class TripController {
 
     @Autowired
     private UserFacade userFacade;
+    
+    @Autowired
+    private ExcursionFacade excursionFacade;
+    
+    @Autowired
+    private ReservationFacade reservationFacade;
 
     @RequestMapping(value = "/list", method = RequestMethod.GET)
     public String listTrips(Model model, HttpServletRequest req) {
@@ -60,4 +74,18 @@ public class TripController {
         return "/shopping/trip/view";
     }
 
+    @RequestMapping(value = "/delete/{id}", method = RequestMethod.POST)
+    public String delete(@PathVariable long id, 
+            Model model,
+            UriComponentsBuilder uriBuilder,
+            RedirectAttributes redirectAttributes) {
+        
+        TripDTO trip = tripFacade.getTripById(id);
+        
+        tripFacade.deleteTrip(id);
+        log.debug("delete({})", id);
+        
+        redirectAttributes.addFlashAttribute("alert_success", "Trip \"" + trip.getName() + "\" was deleted.");
+        return "redirect:" + uriBuilder.path("/shopping/trip/list").toUriString();
+    }
 }

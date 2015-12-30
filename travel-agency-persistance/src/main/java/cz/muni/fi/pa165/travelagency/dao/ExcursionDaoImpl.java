@@ -13,8 +13,8 @@ import org.springframework.transaction.annotation.Transactional;
  * implementated methods of the ExcursionDao interface
  * @author Ondrej Glasnak date 28.10.2015
  */
-@Transactional
 @Repository
+@Transactional
 public class ExcursionDaoImpl implements ExcursionDao {
 
     @PersistenceContext
@@ -31,8 +31,8 @@ public class ExcursionDaoImpl implements ExcursionDao {
     }
 
     @Override
-    public void remove(Excursion e) {
-        em.remove(e);
+    public void remove(Excursion e) throws IllegalArgumentException {
+        em.remove(findById(e.getId()));
     }
 
     @Override

@@ -1,5 +1,6 @@
 package cz.muni.fi.pa165.travelagency.service.facade;
 
+import cz.muni.fi.pa165.travelagency.dto.ExcursionDTO;
 import cz.muni.fi.pa165.travelagency.dto.ReservationCreateDTO;
 import cz.muni.fi.pa165.travelagency.dto.ReservationDTO;
 import cz.muni.fi.pa165.travelagency.dto.ReservationTotalPriceDTO;
@@ -17,6 +18,7 @@ import cz.muni.fi.pa165.travelagency.service.ReservationService;
 import cz.muni.fi.pa165.travelagency.service.TripService;
 import java.math.BigDecimal;
 import java.util.List;
+import java.util.Set;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -25,8 +27,8 @@ import org.springframework.transaction.annotation.Transactional;
  *
  * @author Jan Duda
  */
-@Transactional
 @Service
+@Transactional
 public class ReservationFacadeImpl implements ReservationFacade {
 
     @Autowired
@@ -74,12 +76,20 @@ public class ReservationFacadeImpl implements ReservationFacade {
 
     @Override
     public void updateReservation(ReservationDTO r) {
-        reservationService.updateReservation(beanMappingService.mapTo(r, Reservation.class));
+        Reservation reservation = beanMappingService.mapTo(r, Reservation.class);
+        
+        reservation.setUser(beanMappingService.mapTo(r.getUser(), User.class));
+        Set<ExcursionDTO> excursions = r.getExcursions();
+        for(ExcursionDTO e : excursions){
+            reservation.addExcursion(beanMappingService.mapTo(e, Excursion.class));
+        }
+        
+        reservationService.updateReservation(reservation);
     }
 
     @Override
-    public void removeReservation(ReservationDTO r) {
-        reservationService.removeReservation(beanMappingService.mapTo(r, Reservation.class));
+    public void removeReservation(Long reservationId) {
+        reservationService.removeReservation(new Reservation(reservationId));
     }
 
     @Override

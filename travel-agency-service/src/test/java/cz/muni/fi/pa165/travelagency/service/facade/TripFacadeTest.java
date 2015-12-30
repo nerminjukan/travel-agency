@@ -110,7 +110,7 @@ public class TripFacadeTest {
     @Test
     public void testDeleteTrip() {
         when(beanMappingService.mapTo(tDTO1, Trip.class)).thenReturn(t1);
-        tripFacade.deleteTrip(tDTO1);
+        tripFacade.deleteTrip(tDTO1.getId());
         verify(tripService).removeTrip(t1);
     }
 

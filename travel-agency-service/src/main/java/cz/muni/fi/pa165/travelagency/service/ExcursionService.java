@@ -2,12 +2,14 @@ package cz.muni.fi.pa165.travelagency.service;
 
 import cz.muni.fi.pa165.travelagency.entity.Excursion;
 import java.util.List;
+import org.springframework.stereotype.Service;
 
 /**
  * Service layer interface for {@link cz.muni.fi.pa165.travelagency.entity.Excursion} entity.
  *
  * @author omular
  */
+@Service
 public interface ExcursionService {
     /**
      * Finds excursion by specified id.

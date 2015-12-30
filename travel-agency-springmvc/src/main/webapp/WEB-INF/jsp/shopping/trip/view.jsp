@@ -60,11 +60,5 @@
             </table>
         </div>
     </div>
-    <div class="row">
-        <div class="col-xs-6">
-            <a href="/pa165/shopping/trip/update/${trip.id}" class="btn btn-primary">Update</a>
-            <a href="/pa165/shopping/trip/delete/${trip.id}" class="btn btn-primary">Delete</a>
-        </div>
-    </div>
 </jsp:attribute>
 </my:pagetemplate>

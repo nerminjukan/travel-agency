@@ -13,8 +13,8 @@ import org.springframework.transaction.annotation.Transactional;
  *
  * @author Radovan Sinko
  */
-@Transactional
 @Repository
+@Transactional
 public class UserDaoImpl implements UserDao {
 
     @PersistenceContext

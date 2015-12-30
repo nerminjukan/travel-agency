@@ -30,9 +30,9 @@ public interface ReservationFacade {
     /**
      * Method deletes reservation from input parameter
      * 
-     * @param r reservationDTO to be removed
+     * @param reservationId id of reservation to be removed
      */
-    void removeReservation(ReservationDTO r);
+    void removeReservation(Long reservationId);
     
     /**
      * Method returns all reservations

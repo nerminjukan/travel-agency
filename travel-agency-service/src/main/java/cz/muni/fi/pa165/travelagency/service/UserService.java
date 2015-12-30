@@ -2,12 +2,14 @@ package cz.muni.fi.pa165.travelagency.service;
 
 import cz.muni.fi.pa165.travelagency.entity.User;
 import java.util.List;
+import org.springframework.stereotype.Service;
 
 /**
  * Service layer interface for user entity
  * 
  * @author Radovan Sinko
  */
+@Service
 public interface UserService {
 
     /**

@@ -15,8 +15,8 @@ import org.springframework.transaction.annotation.Transactional;
  *
  * @author Ondrej Mular
  */
-@Transactional
 @Repository
+@Transactional
 public class TripDaoImpl implements TripDao {
 
     @PersistenceContext
@@ -33,8 +33,8 @@ public class TripDaoImpl implements TripDao {
     }
 
     @Override
-    public void remove(Trip t) {
-        em.remove(t);
+    public void remove(Trip t) throws IllegalArgumentException {
+        em.remove(findById(t.getId()));
     }
 
     @Override

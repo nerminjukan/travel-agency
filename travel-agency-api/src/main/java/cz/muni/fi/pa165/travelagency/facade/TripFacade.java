@@ -24,7 +24,7 @@ public interface TripFacade {
      *
      * @param t trip to be deleted
      */
-    void deleteTrip(TripDTO t);
+    void deleteTrip(Long tripId);
 
     /**
      * updates trip with information specified in param t
