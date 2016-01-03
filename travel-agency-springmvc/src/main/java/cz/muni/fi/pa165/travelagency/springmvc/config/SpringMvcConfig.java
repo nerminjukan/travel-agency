@@ -23,6 +23,8 @@ import org.springframework.web.servlet.view.InternalResourceViewResolver;
 public class SpringMvcConfig extends WebMvcConfigurerAdapter {
 
     final static Logger log = LoggerFactory.getLogger(SpringMvcConfig.class);
+    
+    public static final String TEXTS = "Texts";
 
     /**
      * Maps the main page to a specific view.
@@ -53,5 +55,25 @@ public class SpringMvcConfig extends WebMvcConfigurerAdapter {
         viewResolver.setPrefix("/WEB-INF/jsp/");
         viewResolver.setSuffix(".jsp");
         return viewResolver;
+    }
+    
+    /**
+     * Provides localized messages.
+     */
+    @Bean
+    public MessageSource messageSource() {
+        log.debug("registering ResourceBundle 'Texts' for messages");
+        ResourceBundleMessageSource messageSource = new ResourceBundleMessageSource();
+        messageSource.setBasename(TEXTS);
+        return messageSource;
+    }
+    
+    /**
+     * Provides JSR-303 Validator.
+     */
+    @Bean
+    public Validator validator() {
+        log.debug("registering JSR-303 validator");
+        return new LocalValidatorFactoryBean();
     }
 }

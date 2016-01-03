@@ -1,33 +1,37 @@
 package cz.muni.fi.pa165.travelagency.dto;
 
-import cz.muni.fi.pa165.travelagency.utils.validation.DateRange;
 import java.math.BigDecimal;
-import java.sql.Date;
+import java.util.Date;
 import java.util.Objects;
 import javax.validation.constraints.DecimalMin;
 import javax.validation.constraints.NotNull;
-import javax.validation.constraints.Pattern;
 import javax.validation.constraints.Size;
+import org.springframework.format.annotation.DateTimeFormat;
 
 /**
  * Creation DTO for {@link cz.muni.fi.pa165.travelagency.entity.Excursion} entity
  *
  * @author omular
  */
-@DateRange(start="dateFrom", end="dateTo")
 public class ExcursionCreateDTO {
 
     @NotNull
     @Size(min = 3, max = 50)
     private String name;
+    
+    @NotNull
+    @Size(min = 3, max = 50)
+    private String destination;
 
     @Size(max = 500)
     private String description;
 
     @NotNull
+    @DateTimeFormat(pattern = "dd.MM.yyyy")
     private Date dateTo;
 
     @NotNull
+    @DateTimeFormat(pattern = "dd.MM.yyyy")
     private Date dateFrom;
 
     @NotNull
@@ -69,6 +73,14 @@ public class ExcursionCreateDTO {
         this.dateFrom = dateFrom;
     }
 
+    public String getDestination() {
+        return destination;
+    }
+
+    public void setDestination(String destination) {
+        this.destination = destination;
+    }
+    
     public BigDecimal getPrice() {
         return price;
     }
@@ -115,6 +127,7 @@ public class ExcursionCreateDTO {
     public String toString() {
         return "ExcursionCreateDTO{" +
                 "name=" + name +
+                ", destination=" + destination +
                 ", description=" + description +
                 ", dateTo=" + dateTo +
                 ", dateFrom=" + dateFrom +

@@ -34,6 +34,9 @@
                     <a href="/pa165/shopping/excursion/view/${excursion.id}" class="btn btn-primary">Detail</a>
                 </td>
                 <td>
+                    <a href="${pageContext.request.contextPath}/shopping/excursion/update/${excursion.id}" class="btn btn-primary">Update</a>
+                </td>
+                <td>
                     <form method="post" action="${pageContext.request.contextPath}/shopping/excursion/delete/${excursion.id}">
                         <button type="submit" class="btn btn-primary">Delete</button>
                     </form>

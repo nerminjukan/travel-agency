@@ -11,6 +11,8 @@ import cz.muni.fi.pa165.travelagency.facade.TripFacade;
 import cz.muni.fi.pa165.travelagency.facade.UserFacade;
 import cz.muni.fi.pa165.travelagency.sampledata.SampleDataLoadingFacadeImpl;
 import cz.muni.fi.pa165.travelagency.springmvc.forms.ExcursionCreateDTOValidator;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.List;
 import java.util.Set;
 import javax.servlet.http.HttpServletRequest;
@@ -19,11 +21,13 @@ import javax.validation.Valid;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.propertyeditors.CustomDateEditor;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.validation.FieldError;
 import org.springframework.validation.ObjectError;
+import org.springframework.validation.Validator;
 import org.springframework.web.bind.WebDataBinder;
 import org.springframework.web.bind.annotation.InitBinder;
 import org.springframework.web.bind.annotation.ModelAttribute;
@@ -113,7 +117,12 @@ public class ExcursionController {
     @InitBinder
     protected void initBinder(WebDataBinder binder) {
         if (binder.getTarget() instanceof ExcursionCreateDTO) {
-            binder.addValidators(new ExcursionCreateDTOValidator());
+            SimpleDateFormat dateFormat = new SimpleDateFormat("dd.MM.yyyy");
+            CustomDateEditor editor = new CustomDateEditor(dateFormat, true);
+            binder.registerCustomEditor(Date.class, editor);
+            ExcursionCreateDTOValidator validator = new ExcursionCreateDTOValidator();
+            validator.setTripFacade(tripFacade);
+            binder.addValidators(validator);
         }
     }
     
@@ -124,17 +133,15 @@ public class ExcursionController {
             RedirectAttributes redirectAttributes, 
             UriComponentsBuilder uriBuilder){
         
-        // TODO do a validator for dateFrom and dateTo
-        
         log.error("create(excursionCreate={})", formBean);
         
         if (bindingResult.hasErrors()) {
             for (ObjectError ge : bindingResult.getGlobalErrors()) {
-                log.trace("ObjectError: {}", ge);
+                log.error("ObjectError: {}", ge);
             }
             for (FieldError fe : bindingResult.getFieldErrors()) {
                 model.addAttribute(fe.getField() + "_error", true);
-                log.trace("FieldError: {}", fe);
+                log.error("FieldError: {}", fe);
             }
             return "/shopping/excursion/new";
         }

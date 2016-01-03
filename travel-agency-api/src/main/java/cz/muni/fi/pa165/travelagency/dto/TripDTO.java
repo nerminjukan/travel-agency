@@ -1,5 +1,6 @@
 package cz.muni.fi.pa165.travelagency.dto;
 
+import cz.muni.fi.pa165.travelagency.utils.validation.DateRange;
 import java.math.BigDecimal;
 import java.sql.Date;
 import java.util.HashSet;
@@ -15,6 +16,7 @@ import javax.validation.constraints.NotNull;
  * @author Ondrej Glasnak
  * date 22/11/15
  */
+@DateRange(start="dateFrom", end="dateTo")
 public class TripDTO {
     private Long id;
 

@@ -22,11 +22,11 @@
                 </tr>
                 <tr>
                     <td><h4>Date from:</h4></td>
-                    <td><h4><c:out value="${trip.dateFrom}"/></h4></td>
+                    <td><h4><fmt:formatDate value="${trip.dateFrom}" type="date" dateStyle="medium"/></h4></td>
                 </tr>
                 <tr>
                     <td><h4>Date to:</h4></td>
-                    <td><h4><c:out value="${trip.dateTo}"/></h4></td>
+                    <td><h4><fmt:formatDate value="${trip.dateTo}" type="date" dateStyle="medium"/></h4></td>
                 </tr>
                 <tr>
                     <td><h4>Destination:</h4></td>
