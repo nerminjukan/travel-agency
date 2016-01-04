@@ -38,13 +38,13 @@ public class ExcursionUpdateDTOValidator implements Validator{
             TripDTO tripDTO = tripFacade.getTripById(excursionDTO.getTripId());
             SimpleDateFormat sdf = new SimpleDateFormat("dd.MM.yyyy");
             
-            if (tripDTO.getDateFrom().after(dateFrom) || tripDTO.getDateTo().before(dateFrom)) {
+            if (dateFrom != null && (tripDTO.getDateFrom().after(dateFrom) || tripDTO.getDateTo().before(dateFrom))) {
                 errors.rejectValue("dateFrom", "notbetween.dateFrom", "Date from of excursion cannot be "
                         + "before date from and after date to of trip. "
                         + "Date from of excursion must be between: " + sdf.format(tripDTO.getDateFrom()) + " - " + sdf.format(tripDTO.getDateTo()) + ".");
             }
 
-            if (tripDTO.getDateFrom().after(dateTo) || tripDTO.getDateTo().before(dateTo)) {
+            if (dateTo != null && (tripDTO.getDateFrom().after(dateTo) || tripDTO.getDateTo().before(dateTo))) {
                 errors.rejectValue("dateTo", "notbetween.dateTo", "Date to of excursion cannot be "
                         + "before date from and after date to of trip. "
                         + "Date to of excursion must be between: " + sdf.format(tripDTO.getDateFrom()) + " - " + sdf.format(tripDTO.getDateTo()) + ".");
