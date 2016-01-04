@@ -2,6 +2,7 @@ package cz.muni.fi.pa165.travelagency.springmvc.controllers;
 
 import cz.muni.fi.pa165.travelagency.dto.ExcursionCreateDTO;
 import cz.muni.fi.pa165.travelagency.dto.ExcursionDTO;
+import cz.muni.fi.pa165.travelagency.dto.ExcursionUpdateDTO;
 import cz.muni.fi.pa165.travelagency.dto.ReservationDTO;
 import cz.muni.fi.pa165.travelagency.dto.TripDTO;
 import cz.muni.fi.pa165.travelagency.dto.UserDTO;
@@ -11,6 +12,7 @@ import cz.muni.fi.pa165.travelagency.facade.TripFacade;
 import cz.muni.fi.pa165.travelagency.facade.UserFacade;
 import cz.muni.fi.pa165.travelagency.sampledata.SampleDataLoadingFacadeImpl;
 import cz.muni.fi.pa165.travelagency.springmvc.forms.ExcursionCreateDTOValidator;
+import cz.muni.fi.pa165.travelagency.springmvc.forms.ExcursionUpdateDTOValidator;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
@@ -87,7 +89,7 @@ public class ExcursionController {
     }
     
     @RequestMapping(value = "/delete/{id}", method = RequestMethod.POST)
-    public String delete(@PathVariable long id, 
+    public String delete(@PathVariable("id") long id, 
             Model model,
             UriComponentsBuilder uriBuilder,
             RedirectAttributes redirectAttributes) {
@@ -116,11 +118,16 @@ public class ExcursionController {
     
     @InitBinder
     protected void initBinder(WebDataBinder binder) {
+        SimpleDateFormat dateFormat = new SimpleDateFormat("dd.MM.yyyy");
+        CustomDateEditor editor = new CustomDateEditor(dateFormat, true);
+        binder.registerCustomEditor(Date.class, editor);
         if (binder.getTarget() instanceof ExcursionCreateDTO) {
-            SimpleDateFormat dateFormat = new SimpleDateFormat("dd.MM.yyyy");
-            CustomDateEditor editor = new CustomDateEditor(dateFormat, true);
-            binder.registerCustomEditor(Date.class, editor);
             ExcursionCreateDTOValidator validator = new ExcursionCreateDTOValidator();
+            validator.setTripFacade(tripFacade);
+            binder.addValidators(validator);
+        }
+        if (binder.getTarget() instanceof ExcursionUpdateDTO){
+            ExcursionUpdateDTOValidator validator = new ExcursionUpdateDTOValidator();
             validator.setTripFacade(tripFacade);
             binder.addValidators(validator);
         }
@@ -150,5 +157,46 @@ public class ExcursionController {
         
         redirectAttributes.addFlashAttribute("alert_success", "Excursion with " + id + " was created");
         return "redirect:" + uriBuilder.path("/shopping/excursion/view/{id}").buildAndExpand(id).encode().toUriString();
+    }
+    
+    @RequestMapping(value = "/update/{id}", method = RequestMethod.GET)
+    public String prepareForUpdate(@PathVariable("id") long id,
+            Model model,
+            UriComponentsBuilder uriBuilder) {
+        
+        log.error("updateExcursion(id={})", id);
+        
+        ExcursionUpdateDTO excursionToUpdate = new ExcursionUpdateDTO(excursionFacade.getExcursionById(id));
+        excursionToUpdate.setTripId(tripFacade.getTripByExcursion(id).getId());
+        
+        model.addAttribute("excursionUpdate", excursionToUpdate);
+//        model.addAttribute("excursionUpdate", excursionFacade.getExcursionById(id));
+        return "/shopping/excursion/update";
+    }
+    
+    @RequestMapping(value = "/updating", method = RequestMethod.POST)
+    public String updateExcursion(@Valid @ModelAttribute("excursionUpdate") ExcursionUpdateDTO formBean,
+            BindingResult bindingResult,
+            Model model, 
+            RedirectAttributes redirectAttributes, 
+            UriComponentsBuilder uriBuilder) {
+        
+        log.error("update(excursionUpdate={})", formBean);
+        
+        if (bindingResult.hasErrors()) {
+            for (ObjectError ge : bindingResult.getGlobalErrors()) {
+                log.error("ObjectError: {}", ge);
+            }
+            for (FieldError fe : bindingResult.getFieldErrors()) {
+                model.addAttribute(fe.getField() + "_error", true);
+                log.error("FieldError: {}", fe);
+            }
+            return "/shopping/excursion/update";
+        }
+        
+        excursionFacade.updateExcursion(formBean);
+        
+        redirectAttributes.addFlashAttribute("alert_success", "Excursion with " + formBean.getId() + " was updated");
+        return "redirect:" + uriBuilder.path("/shopping/excursion/view/{id}").buildAndExpand(formBean.getId()).encode().toUriString();
     }
 }

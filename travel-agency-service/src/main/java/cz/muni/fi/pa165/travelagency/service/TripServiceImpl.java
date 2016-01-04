@@ -1,5 +1,6 @@
 package cz.muni.fi.pa165.travelagency.service;
 
+import cz.muni.fi.pa165.travelagency.dao.ExcursionDao;
 import cz.muni.fi.pa165.travelagency.dao.TripDao;
 import cz.muni.fi.pa165.travelagency.dao.ReservationDao;
 import cz.muni.fi.pa165.travelagency.entity.Excursion;
@@ -23,6 +24,9 @@ public class TripServiceImpl implements TripService {
 
     @Autowired
     private ReservationDao reservationDao;
+    
+    @Autowired
+    private ExcursionDao excursionDao;
 
     @Override
     public Trip findById(Long id) {
@@ -78,5 +82,22 @@ public class TripServiceImpl implements TripService {
             }
         }
         return inRange;
+    }
+    
+    @Override
+    public Trip getTripByExcursion(Long excursionId){
+        List<Trip> trips = tripDao.findAll();
+        
+        Excursion ex = excursionDao.findById(excursionId);
+        Trip trip = null;
+        
+        for(Trip t : trips){
+            if(t.getExcursions().contains(ex)){
+                trip = t;
+                break;
+            }
+        }
+        
+        return trip;        
     }
 }

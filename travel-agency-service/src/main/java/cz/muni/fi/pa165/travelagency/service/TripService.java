@@ -80,4 +80,12 @@ public interface TripService {
      * @return trips that are in specified date range
      */
     List<Trip> getTripsInDateRange(Date start, Date end);
+    
+    /**
+     * Gets trip in which is excursion with excursionId.
+     * 
+     * @param excursionId id of excursion 
+     * @return trip where is excursion
+     */
+    Trip getTripByExcursion(Long excursionId);
 }

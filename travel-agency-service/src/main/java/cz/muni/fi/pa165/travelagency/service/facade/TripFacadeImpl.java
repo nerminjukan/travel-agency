@@ -122,4 +122,9 @@ public class TripFacadeImpl implements TripFacade {
         tripList.addAll(tripsSet);
         return tripList;
     }
+    
+    @Override
+    public TripDTO getTripByExcursion(Long excursionId){
+        return beanMappingService.mapTo(tripService.getTripByExcursion(excursionId), TripDTO.class);
+    }
 }

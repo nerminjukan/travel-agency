@@ -7,6 +7,7 @@ package cz.muni.fi.pa165.travelagency.service.facade;
 
 import cz.muni.fi.pa165.travelagency.dto.ExcursionCreateDTO;
 import cz.muni.fi.pa165.travelagency.dto.ExcursionDTO;
+import cz.muni.fi.pa165.travelagency.dto.ExcursionUpdateDTO;
 import cz.muni.fi.pa165.travelagency.entity.User;
 import cz.muni.fi.pa165.travelagency.entity.Excursion;
 import cz.muni.fi.pa165.travelagency.entity.Reservation;
@@ -152,8 +153,19 @@ public class ExcursionFacadeTest {
 
     @Test
     public void testUpdateExcursion() {
-        when(beanMappingService.mapTo(exDTO1, Excursion.class)).thenReturn(ex1);
-        excursionFacade.updateExcursion(exDTO1);
+        ExcursionUpdateDTO euDTO = new ExcursionUpdateDTO(exDTO1);
+        euDTO.setTripId(1l);
+        Trip newTrip = new Trip(1l);
+        Trip oldTrip = new Trip(2l);
+        
+        when(tripService.findById(2l)).thenReturn(oldTrip);
+        when(tripService.findById(1l)).thenReturn(newTrip);
+        when(beanMappingService.mapTo(euDTO, Excursion.class)).thenReturn(ex1);
+        tripService.updateTrip(oldTrip);
+        tripService.updateTrip(newTrip);
+        verify(tripService).updateTrip(oldTrip);
+        verify(tripService).updateTrip(newTrip);
+        excursionFacade.updateExcursion(euDTO);
         verify(excursionService).updateExcursion(ex1);
     }
 

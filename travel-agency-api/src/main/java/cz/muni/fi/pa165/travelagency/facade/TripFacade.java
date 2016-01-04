@@ -55,5 +55,13 @@ public interface TripFacade {
      * @return list of trips
      */
     List<TripDTO> getTripsByUser(Long userId);
+    
+    /**
+     * Finds trip in which is excursion with excursionId.
+     * 
+     * @param excursionId id of excursion 
+     * @return trip where is excursion
+     */
+    TripDTO getTripByExcursion(Long excursionId);
 
 }

@@ -1,6 +1,6 @@
 package cz.muni.fi.pa165.travelagency.springmvc.forms;
 
-import cz.muni.fi.pa165.travelagency.dto.ExcursionCreateDTO;
+import cz.muni.fi.pa165.travelagency.dto.ExcursionUpdateDTO;
 import cz.muni.fi.pa165.travelagency.dto.TripDTO;
 import cz.muni.fi.pa165.travelagency.facade.TripFacade;
 import java.text.SimpleDateFormat;
@@ -12,30 +12,30 @@ import org.springframework.validation.Validator;
  *
  * @author Jan Duda
  */
-public class ExcursionCreateDTOValidator implements Validator {
-
+public class ExcursionUpdateDTOValidator implements Validator{
+    
     private TripFacade tripFacade;
 
     @Override
     public boolean supports(Class<?> type) {
-        return ExcursionCreateDTO.class.isAssignableFrom(type);
+        return ExcursionUpdateDTO.class.isAssignableFrom(type);
     }
 
     @Override
     public void validate(Object target, Errors errors) {
-        ExcursionCreateDTO excursionCreateDTO = (ExcursionCreateDTO) target;
+        ExcursionUpdateDTO excursionDTO = (ExcursionUpdateDTO) target;
 
-        Date dateFrom = excursionCreateDTO.getDateFrom();
-        Date dateTo = excursionCreateDTO.getDateTo();
+        Date dateFrom = excursionDTO.getDateFrom();
+        Date dateTo = excursionDTO.getDateTo();
 
         if (dateFrom != null && dateTo != null && dateTo.before(dateFrom)) {
             errors.rejectValue("dateTo", "notbefore.dateTo", "DateTo cannot be before dateFrom.");
         }
 
-        if (excursionCreateDTO.getTripId() == -1) {
+        if (excursionDTO.getTripId() == -1) {
             errors.rejectValue("tripId", "notchosen.tripId", "You must choose a trip.");
         } else {
-            TripDTO tripDTO = tripFacade.getTripById(excursionCreateDTO.getTripId());
+            TripDTO tripDTO = tripFacade.getTripById(excursionDTO.getTripId());
             SimpleDateFormat sdf = new SimpleDateFormat("dd.MM.yyyy");
             
             if (tripDTO.getDateFrom().after(dateFrom) || tripDTO.getDateTo().before(dateFrom)) {

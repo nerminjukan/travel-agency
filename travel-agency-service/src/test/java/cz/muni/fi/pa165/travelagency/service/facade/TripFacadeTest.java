@@ -1,6 +1,8 @@
 package cz.muni.fi.pa165.travelagency.service.facade;
 
+import cz.muni.fi.pa165.travelagency.dto.ExcursionDTO;
 import cz.muni.fi.pa165.travelagency.dto.TripDTO;
+import cz.muni.fi.pa165.travelagency.entity.Excursion;
 import cz.muni.fi.pa165.travelagency.entity.User;
 import cz.muni.fi.pa165.travelagency.entity.Reservation;
 import cz.muni.fi.pa165.travelagency.entity.Trip;
@@ -24,7 +26,9 @@ import java.math.BigDecimal;
 import java.sql.Date;
 import java.time.LocalDate;
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 import static org.testng.Assert.*;
 
@@ -152,5 +156,23 @@ public class TripFacadeTest {
         when(beanMappingService.mapTo(r1.getTrip(), TripDTO.class)).thenReturn(tDTO1);
         when(beanMappingService.mapTo(r1.getTrip(), TripDTO.class)).thenReturn(tDTO2);
         assertEquals(tripFacade.getTripsByUser(11L).size(), 2);
+    }
+    
+    @Test
+    public void testGetTripByExcursion(){
+        Excursion ex = new Excursion(11L);
+        Trip t = createTrip(3L);
+        t.addExcursion(ex);
+        
+        ExcursionDTO exDTO = new ExcursionDTO();
+        ex.setId(11L);
+        TripDTO tDTO = createTripDTO(3L);
+        Set<ExcursionDTO> exsDTO = new HashSet<>();
+        exsDTO.add(exDTO);
+        tDTO.setExcursions(exsDTO);
+        
+        when(tripService.getTripByExcursion(11L)).thenReturn(t);
+        when(beanMappingService.mapTo(t, TripDTO.class)).thenReturn(tDTO);
+        assertEquals(tripFacade.getTripById(1L), tDTO);
     }
 }

@@ -1,5 +1,6 @@
 package cz.muni.fi.pa165.travelagency.service;
 
+import cz.muni.fi.pa165.travelagency.dao.ExcursionDao;
 import cz.muni.fi.pa165.travelagency.dao.ReservationDao;
 import cz.muni.fi.pa165.travelagency.dao.TripDao;
 import cz.muni.fi.pa165.travelagency.entity.Excursion;
@@ -40,8 +41,15 @@ public class TripServiceTest extends AbstractTransactionalTestNGSpringContextTes
 
     @Mock
     private ReservationDao reservationDao;
+    
+    @Mock
+    private ExcursionDao excursionDao;
 
     private Trip trip1, trip2;
+    
+    private Excursion ex;
+    
+    private List<Trip> trips;
 
     @Autowired
     @InjectMocks
@@ -62,6 +70,8 @@ public class TripServiceTest extends AbstractTransactionalTestNGSpringContextTes
         trip1.setDestination("dest1");
         trip1.setPrice(new BigDecimal("1000"));
         trip1.setAvailableTrips((long) 10);
+        ex = createExcursion(11L);
+        trip1.addExcursion(ex);
 
         trip2 = new Trip();
         trip1.setId((long) 12);
@@ -71,6 +81,22 @@ public class TripServiceTest extends AbstractTransactionalTestNGSpringContextTes
         trip2.setDestination("dest2");
         trip2.setPrice(new BigDecimal("2000"));
         trip2.setAvailableTrips((long) 20);
+        trip2.addExcursion(createExcursion(22L));
+        
+        trips = new ArrayList<>();
+        trips.add(trip1);
+        trips.add(trip2);
+    }
+    
+    private Excursion createExcursion(Long id){
+        Excursion e = new Excursion(id);
+        e.setName("excursion" + id);
+        e.setDescription("description" + id);
+        e.setDestination("destination" + id);
+        e.setDateFrom(Date.valueOf("2016-01-01"));
+        e.setDateTo(Date.valueOf("2016-01-15"));
+        e.setPrice(new BigDecimal("200"));
+        return e;
     }
 
     @Test
@@ -178,6 +204,13 @@ public class TripServiceTest extends AbstractTransactionalTestNGSpringContextTes
                 Date.valueOf("2016-02-15")
         );
         assertEquals(l.size(), 2);
+    }
+    
+    @Test
+    public void testGetTripByExcursion(){
+        when(tripDao.findAll()).thenReturn(trips);
+        when(excursionDao.findById(11L)).thenReturn(ex);
+        assertDeepEquals(tripService.getTripByExcursion(11L), trip1);
     }
 
     private void assertDeepEquals(Trip t1, Trip t2) {
