@@ -43,7 +43,7 @@ public class ExcursionDTO {
         
     }
     
-    public ExcursionDTO(ExcursionDTO ex){
+    protected ExcursionDTO(ExcursionDTO ex){
         id = ex.getId();
         name = ex.getName();
         description = ex.getDescription();

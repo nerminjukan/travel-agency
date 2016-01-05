@@ -3,7 +3,6 @@ package cz.muni.fi.pa165.travelagency.springmvc.controllers;
 import cz.muni.fi.pa165.travelagency.dto.ExcursionCreateDTO;
 import cz.muni.fi.pa165.travelagency.dto.ExcursionDTO;
 import cz.muni.fi.pa165.travelagency.dto.ExcursionUpdateDTO;
-import cz.muni.fi.pa165.travelagency.dto.ReservationDTO;
 import cz.muni.fi.pa165.travelagency.dto.TripDTO;
 import cz.muni.fi.pa165.travelagency.dto.UserDTO;
 import cz.muni.fi.pa165.travelagency.facade.ExcursionFacade;
@@ -16,7 +15,6 @@ import cz.muni.fi.pa165.travelagency.springmvc.forms.ExcursionUpdateDTOValidator
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
-import java.util.Set;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 import javax.validation.Valid;
@@ -29,7 +27,6 @@ import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.validation.FieldError;
 import org.springframework.validation.ObjectError;
-import org.springframework.validation.Validator;
 import org.springframework.web.bind.WebDataBinder;
 import org.springframework.web.bind.annotation.InitBinder;
 import org.springframework.web.bind.annotation.ModelAttribute;
@@ -57,9 +54,6 @@ public class ExcursionController {
     
     @Autowired
     private TripFacade tripFacade;
-    
-    @Autowired
-    private ReservationFacade reservationFacade;
 
     @RequestMapping(value = "/list", method = RequestMethod.GET)
     public String listExcursions(Model model, HttpServletRequest req) {
@@ -170,7 +164,6 @@ public class ExcursionController {
         excursionToUpdate.setTripId(tripFacade.getTripByExcursion(id).getId());
         
         model.addAttribute("excursionUpdate", excursionToUpdate);
-//        model.addAttribute("excursionUpdate", excursionFacade.getExcursionById(id));
         return "/shopping/excursion/update";
     }
     
