@@ -6,7 +6,6 @@ import cz.muni.fi.pa165.travelagency.dto.ExcursionUpdateDTO;
 import cz.muni.fi.pa165.travelagency.dto.TripDTO;
 import cz.muni.fi.pa165.travelagency.dto.UserDTO;
 import cz.muni.fi.pa165.travelagency.facade.ExcursionFacade;
-import cz.muni.fi.pa165.travelagency.facade.ReservationFacade;
 import cz.muni.fi.pa165.travelagency.facade.TripFacade;
 import cz.muni.fi.pa165.travelagency.facade.UserFacade;
 import cz.muni.fi.pa165.travelagency.sampledata.SampleDataLoadingFacadeImpl;
@@ -160,8 +159,8 @@ public class ExcursionController {
         
         log.error("updateExcursion(id={})", id);
         
-        ExcursionUpdateDTO excursionToUpdate = new ExcursionUpdateDTO(excursionFacade.getExcursionById(id));
-        excursionToUpdate.setTripId(tripFacade.getTripByExcursion(id).getId());
+        Long tripId = tripFacade.getTripByExcursion(id).getId();
+        ExcursionUpdateDTO excursionToUpdate = new ExcursionUpdateDTO(excursionFacade.getExcursionById(id), tripId);
         
         model.addAttribute("excursionUpdate", excursionToUpdate);
         return "/shopping/excursion/update";

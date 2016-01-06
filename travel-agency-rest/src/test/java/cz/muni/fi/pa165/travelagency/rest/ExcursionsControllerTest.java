@@ -57,7 +57,7 @@ import org.testng.annotations.Test;
  */
 @WebAppConfiguration
 @ContextConfiguration(classes = {RootWebContext.class})
-public class ExcursionControllerTest extends AbstractTestNGSpringContextTests {
+public class ExcursionsControllerTest extends AbstractTestNGSpringContextTests {
     
     @Mock
     private ExcursionFacade excursionFacade;
@@ -172,7 +172,7 @@ public class ExcursionControllerTest extends AbstractTestNGSpringContextTests {
         doReturn(excursions.get(1)).when(excursionFacade).getExcursionById(2L);
         
         doNothing().when(excursionFacade).updateExcursion(any(ExcursionUpdateDTO.class));
-        ExcursionUpdateDTO excursionToUpdate = new ExcursionUpdateDTO(excursions.get(0));
+        ExcursionUpdateDTO excursionToUpdate = new ExcursionUpdateDTO(excursions.get(0), 1L);
         excursionToUpdate.setName("Excursion to Ostrava");
         
         String json = this.convertObjectToJsonBytes(excursionToUpdate);

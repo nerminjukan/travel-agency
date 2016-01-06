@@ -1,6 +1,7 @@
 package cz.muni.fi.pa165.travelagency.service.facade;
 
 import cz.muni.fi.pa165.travelagency.dto.ExcursionDTO;
+import cz.muni.fi.pa165.travelagency.dto.TripCreateDTO;
 import cz.muni.fi.pa165.travelagency.dto.TripDTO;
 import cz.muni.fi.pa165.travelagency.entity.Excursion;
 import cz.muni.fi.pa165.travelagency.entity.User;
@@ -106,8 +107,16 @@ public class TripFacadeTest {
 
     @Test
     public void testCreateTrip() {
-        when(beanMappingService.mapTo(tDTO1, Trip.class)).thenReturn(t1);
-        tripFacade.createTrip(tDTO1);
+        TripCreateDTO tcDTO = new TripCreateDTO();
+        tcDTO.setName("Trip_1");
+        tcDTO.setDateFrom(Date.valueOf(LocalDate.of(2015, 1, 3)));
+        tcDTO.setDateTo(Date.valueOf(LocalDate.of(2015, 1, 3).plusDays(1)));
+        tcDTO.setDestination("Dest_1");
+        tcDTO.setAvailableTrips(101L);
+        tcDTO.setPrice(new BigDecimal("401.0"));
+        
+        when(beanMappingService.mapTo(tcDTO, Trip.class)).thenReturn(t1);
+        tripFacade.createTrip(tcDTO);
         verify(tripService).createTrip(t1);
     }
 

@@ -26,7 +26,7 @@
                 <td><c:out value="${fn:length(reservation.excursions)}"/></td>
                 <td><c:out value="${reservation.totalPrice}"/> EUR</td>
                 <td>
-                    <a href="/pa165/shopping/reservation/view/${reservation.id}" class="btn btn-primary">View</a>
+                    <a href="/pa165/shopping/reservation/view/${reservation.id}" class="btn btn-primary">Detail</a>
                 </td>
             </tr>
         </c:forEach>

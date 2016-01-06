@@ -4,7 +4,8 @@ import java.util.Objects;
 import javax.validation.constraints.NotNull;
 
 /**
- *
+ * Update DTO for Excursion entity
+ * 
  * @author Jan Duda
  */
 public class ExcursionUpdateDTO extends ExcursionDTO {
@@ -16,8 +17,9 @@ public class ExcursionUpdateDTO extends ExcursionDTO {
         
     }
     
-    public ExcursionUpdateDTO(ExcursionDTO ex){
+    public ExcursionUpdateDTO(ExcursionDTO ex, Long tripId){
         super(ex);
+        this.tripId = tripId;
     }
     
     public Long getTripId() {

@@ -153,8 +153,7 @@ public class ExcursionFacadeTest {
 
     @Test
     public void testUpdateExcursion() {
-        ExcursionUpdateDTO euDTO = new ExcursionUpdateDTO(exDTO1);
-        euDTO.setTripId(1l);
+        ExcursionUpdateDTO euDTO = new ExcursionUpdateDTO(exDTO1, 1l);
         Trip newTrip = new Trip(1l);
         Trip oldTrip = new Trip(2l);
         

@@ -1,5 +1,6 @@
 package cz.muni.fi.pa165.travelagency.facade;
 
+import cz.muni.fi.pa165.travelagency.dto.TripCreateDTO;
 import cz.muni.fi.pa165.travelagency.dto.TripDTO;
 
 import java.util.List;
@@ -16,13 +17,14 @@ public interface TripFacade {
      * Create new trip.
      *
      * @param t trip DTO to be created.
+     * @return id of created trip
      */
-    void createTrip(TripDTO t);
+    Long createTrip(TripCreateDTO t);
 
     /**
      * deletes trip
      *
-     * @param t trip to be deleted
+     * @param tripId trip's id
      */
     void deleteTrip(Long tripId);
 
