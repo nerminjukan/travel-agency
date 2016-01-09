@@ -84,14 +84,12 @@ public class UserFacadeTest {
         userDTO1.setName("Admin");
         userDTO1.setPhoneNumber("0123456789");
         userDTO1.setIsAdmin(true);
-        userDTO1.setPasswordHash("Password");
 
         userDTO2 = new UserDTO();
         userDTO2.setId(2l);
         userDTO2.setName("User");
         userDTO2.setPhoneNumber("9876543210");
         userDTO2.setIsAdmin(false);
-        userDTO2.setPasswordHash("Password");
 
         userList = new ArrayList<>();
         userList.add(user1);
