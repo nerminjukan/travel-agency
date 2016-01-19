@@ -22,7 +22,7 @@
                 <td>${user.id}</td>
                 <td><c:out value="${user.name}"/></td>
                 <td>
-                    <a href="/pa165/shopping/user/view/${user.id}" class="btn btn-primary">Detail</a>
+                    <a href="/pa165/admin/user/view/${user.id}" class="btn btn-primary">Detail</a>
                 </td>
             </tr>
         </c:forEach>

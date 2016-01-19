@@ -40,7 +40,7 @@ import org.springframework.web.util.UriComponentsBuilder;
  * @author Radovan Sinko
  */
 @Controller
-@RequestMapping("/shopping/excursion")
+@RequestMapping("/admin/excursion")
 public class ExcursionController {
 
     final static Logger log = LoggerFactory.getLogger(SampleDataLoadingFacadeImpl.class);
@@ -56,7 +56,7 @@ public class ExcursionController {
 
     @RequestMapping(value = "/list", method = RequestMethod.GET)
     public String listExcursions(Model model, HttpServletRequest req) {
-        log.error("request: GET /shopping/excursion/list");
+        log.error("request: GET /admin/excursion/list");
         HttpSession session = req.getSession(true);
         UserDTO user = (UserDTO) session.getAttribute("authUser");
         if (userFacade.isUserAdmin(user.getId())) {
@@ -64,7 +64,7 @@ public class ExcursionController {
         } else {
             model.addAttribute("excursions", excursionFacade.getExcursionById(user.getId()));
         }
-        return "/shopping/excursion/list";
+        return "/admin/excursion/list";
     }
 
     @RequestMapping(value = "/view/{id}", method = RequestMethod.GET)
@@ -72,13 +72,13 @@ public class ExcursionController {
             @PathVariable("id") long id,
             Model model) {
 
-        log.error("request: GET /shopping/excursion/view/" + id);
+        log.error("request: GET /admin/excursion/view/" + id);
         ExcursionDTO excursion = excursionFacade.getExcursionById(id);
         if (excursion == null) {
             return "redirect:/shopping";
         }
         model.addAttribute("excursion", excursion);
-        return "/shopping/excursion/view";
+        return "/admin/excursion/view";
     }
     
     @RequestMapping(value = "/delete/{id}", method = RequestMethod.POST)
@@ -93,14 +93,14 @@ public class ExcursionController {
         log.debug("delete({})", id);
         
         redirectAttributes.addFlashAttribute("alert_success", "Excursion \"" + excursion.getName() + "\" was deleted.");
-        return "redirect:" + uriBuilder.path("/shopping/excursion/list").toUriString();
+        return "redirect:" + uriBuilder.path("/admin/excursion/list").toUriString();
     }
 
     @RequestMapping(value = "/new", method = RequestMethod.GET)
     public String newExcursion(Model model){
         log.error("new()");
         model.addAttribute("excursionCreate", new ExcursionCreateDTO());
-        return "shopping/excursion/new";
+        return "/admin/excursion/new";
     }
     
     @ModelAttribute("trips")
@@ -143,13 +143,13 @@ public class ExcursionController {
                 model.addAttribute(fe.getField() + "_error", true);
                 log.error("FieldError: {}", fe);
             }
-            return "/shopping/excursion/new";
+            return "/admin/excursion/new";
         }
         
         Long id = excursionFacade.createExcursion(formBean);
         
         redirectAttributes.addFlashAttribute("alert_success", "Excursion with " + id + " was created");
-        return "redirect:" + uriBuilder.path("/shopping/excursion/view/{id}").buildAndExpand(id).encode().toUriString();
+        return "redirect:" + uriBuilder.path("/admin/excursion/view/{id}").buildAndExpand(id).encode().toUriString();
     }
     
     @RequestMapping(value = "/update/{id}", method = RequestMethod.GET)
@@ -163,7 +163,7 @@ public class ExcursionController {
         ExcursionUpdateDTO excursionToUpdate = new ExcursionUpdateDTO(excursionFacade.getExcursionById(id), tripId);
         
         model.addAttribute("excursionUpdate", excursionToUpdate);
-        return "/shopping/excursion/update";
+        return "/admin/excursion/update";
     }
     
     @RequestMapping(value = "/updating", method = RequestMethod.POST)
@@ -183,12 +183,12 @@ public class ExcursionController {
                 model.addAttribute(fe.getField() + "_error", true);
                 log.error("FieldError: {}", fe);
             }
-            return "/shopping/excursion/update";
+            return "/admin/excursion/update";
         }
         
         excursionFacade.updateExcursion(formBean);
         
         redirectAttributes.addFlashAttribute("alert_success", "Excursion with " + formBean.getId() + " was updated");
-        return "redirect:" + uriBuilder.path("/shopping/excursion/view/{id}").buildAndExpand(formBean.getId()).encode().toUriString();
+        return "redirect:" + uriBuilder.path("/admin/excursion/view/{id}").buildAndExpand(formBean.getId()).encode().toUriString();
     }
 }

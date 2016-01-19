@@ -30,10 +30,15 @@
                 <span class="icon-bar"></span>
             </button>
             <a class="navbar-brand" href="${pageContext.request.contextPath}/shopping">Travel Agency</a>
-            <c:if test="${not empty authUser}"><a class="navbar-brand" href="${pageContext.request.contextPath}/shopping/reservation/list">Reservations</a></c:if>
-            <c:if test="${authUser.isAdmin()}"><a class="navbar-brand" href="${pageContext.request.contextPath}/shopping/trip/list">Trips</a></c:if>
-            <c:if test="${authUser.isAdmin()}"><a class="navbar-brand" href="${pageContext.request.contextPath}/shopping/excursion/list">Excursions</a></c:if>
-            <c:if test="${authUser.isAdmin()}"><a class="navbar-brand" href="${pageContext.request.contextPath}/shopping/user/list">Users</a></c:if>
+            <c:if test="${not empty authUser}">
+                <a class="navbar-brand" href="${pageContext.request.contextPath}/shopping/reservations"> My reservations</a>
+            </c:if>
+            <c:if test="${authUser.isAdmin()}">
+                <a class="navbar-brand" href="${pageContext.request.contextPath}/admin/trip/list">Trips</a>
+                <a class="navbar-brand" href="${pageContext.request.contextPath}/admin/excursion/list">Excursions</a>
+                <a class="navbar-brand" href="${pageContext.request.contextPath}/admin/user/list">Users</a>
+                <a class="navbar-brand" href="${pageContext.request.contextPath}/admin/reservation/list">Reservations</a>
+            </c:if>
         </div>
         <div id="navbar" class="collapse navbar-collapse">
             
@@ -44,41 +49,51 @@
 <div class="container">
 
     <!-- page title -->
-    <c:if test="${not empty title}">
-        <div class="page-header">
-            <h1><c:out value="${title}"/></h1>
-        </div>
-    </c:if>
-
-    <!-- authenticated user info -->
-    <c:if test="${not empty authUser}">
-    <div class="row">
-        <div class="col-xs-6 col-sm-8 col-md-9 col-lg-10"></div>
-        <div class="col-xs-6 col-sm-4 col-md-3 col-lg-2">
-            <div class="panel panel-default">
-                <div class="panel-body">
-                    <c:out value="${authUser.name}"/>
-                </div>
-                    <a href="${pageContext.request.contextPath}/auth/logout">logout</a>
+    
+        <div class="page-header row">
+            <div class="col-xs-6 col-sm-8 col-md-9 col-lg-10">
+                <c:if test="${not empty title}">
+                    <h1><c:out value="${title}"/></h1>
+                </c:if>
             </div>
+            <!-- authenticated user info -->
+            <c:if test="${not empty authUser}">
+            <div class="col-xs-6 col-sm-4 col-md-3 col-lg-2">
+                <div class="panel panel-default">
+                    <div class="panel-body">
+                        <c:out value="${authUser.name}"/> | <a href="${pageContext.request.contextPath}/auth/logout">logout</a>
+                    </div>
+                </div>
+            </div>
+            </c:if>
         </div>
-    </div>
-    </c:if>
 
+    
+   
     <!-- alerts -->
     <c:if test="${not empty alert_danger}">
-        <div class="alert alert-danger" role="alert">
+        <div class="alert alert-danger fade in" role="alert">
+            <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
             <span class="glyphicon glyphicon-exclamation-sign" aria-hidden="true"></span>
             <c:out value="${alert_danger}"/></div>
     </c:if>
     <c:if test="${not empty alert_info}">
-        <div class="alert alert-info" role="alert"><c:out value="${alert_info}"/></div>
+        <div class="alert alert-info fade in" role="alert">
+            <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
+            <c:out value="${alert_info}"/>
+        </div>
     </c:if>
     <c:if test="${not empty alert_success}">
-        <div class="alert alert-success" role="alert"><c:out value="${alert_success}"/></div>
+        <div class="alert alert-success fade in" role="alert">
+            <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
+            <c:out value="${alert_success}"/>
+        </div>
     </c:if>
     <c:if test="${not empty alert_warning}">
-        <div class="alert alert-warning" role="alert"><c:out value="${alert_warning}"/></div>
+        <div class="alert alert-warning fade in" role="alert">
+            <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
+            <c:out value="${alert_warning}"/>
+        </div>
     </c:if>
 
     <!-- page body -->

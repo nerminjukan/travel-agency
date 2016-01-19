@@ -9,7 +9,6 @@ import cz.muni.fi.pa165.travelagency.exceptions.TravelAgencyServiceException;
 import cz.muni.fi.pa165.travelagency.facade.ExcursionFacade;
 import cz.muni.fi.pa165.travelagency.facade.ReservationFacade;
 import cz.muni.fi.pa165.travelagency.facade.TripFacade;
-import java.util.Objects;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
@@ -85,10 +84,56 @@ public class ShoppingController {
         try {
             Long id = reservationFacade.createReservation(formBean, (UserDTO) session.getAttribute("authUser"));
             redirectAttributes.addFlashAttribute("alert_success", "Reservation " + id + " was created");
-            return "redirect:" + uriBuilder.path("/shopping/reservation/view/{id}").buildAndExpand(id).encode().toUriString();
+            return "redirect:" + uriBuilder.path("/shopping/reservations/{id}").buildAndExpand(id).encode().toUriString();
         } catch (TravelAgencyServiceException e) {
-            redirectAttributes.addFlashAttribute("alert_success", "Unable to create reservation: " + e.getMessage());
+            redirectAttributes.addFlashAttribute("alert_danger", "Unable to create reservation: " + e.getMessage());
         }
         return "redirect:" + uriBuilder.path("/shopping").build().encode().toUriString();
+    }
+
+    @RequestMapping(value = "/reservations", method = RequestMethod.GET)
+    public String showUsersReservations(
+            HttpServletRequest req,
+            Model model) {
+        log.error("request: GET /shopping/reservations");
+        UserDTO user = (UserDTO) req.getAttribute("authUser");
+        model.addAttribute("reservations", reservationFacade.getReservationsByUser(user.getId()));
+        return "/shopping/reservations_list";
+    }
+
+    @RequestMapping(value = "/reservations/{id}", method = RequestMethod.GET)
+    public String showUsersReservation(
+            @PathVariable("id") long id,
+            HttpServletRequest req,
+            Model model) {
+        log.error("request: GET /shopping/reservation/view/" + id);
+        ReservationDTO r = reservationFacade.getReservationById(id);
+        if (r == null) {
+            return "redirect:/shopping/reservations";
+        }
+        if (!r.getUser().equals((UserDTO) req.getAttribute("authUser"))) {
+            return "redirect:/shopping/reservations";
+        }
+        model.addAttribute("reservation", r);
+        return "/shopping/reservation_view";
+    }
+
+    @RequestMapping(value = "/reservations/{id}/delete", method = RequestMethod.POST)
+    public String deleteUsersReservation(
+            @PathVariable("id") long id,
+            RedirectAttributes redirectAttributes,
+            HttpServletRequest req,
+            Model model) {
+        log.error("request: POST /shopping/reservations/" + id + "/delete");
+        try {
+            ReservationDTO r = reservationFacade.getReservationById(id);
+            if (r != null && r.getUser().equals((UserDTO) req.getAttribute("authUser"))) {
+                reservationFacade.removeReservation(id);
+                redirectAttributes.addFlashAttribute("alert_success", "Reservation deleted.");
+            }
+        } catch(Exception e) {
+            redirectAttributes.addFlashAttribute("alert_danger", "Deletion of specified reservation failed.");
+        }
+        return "redirect:/shopping/reservations";
     }
 }

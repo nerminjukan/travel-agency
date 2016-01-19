@@ -1,22 +1,15 @@
 package cz.muni.fi.pa165.travelagency.dto;
 
 import java.math.BigDecimal;
-import java.sql.Date;
-import java.util.HashSet;
+import java.util.Date;
 import java.util.Objects;
-import java.util.Set;
 import javax.validation.constraints.DecimalMin;
 import javax.validation.constraints.Min;
 import javax.validation.constraints.NotNull;
 import org.springframework.format.annotation.DateTimeFormat;
 
-/**
- * general DTO for handling information about Trip entity.
- *
- * @author Ondrej Glasnak
- * date 22/11/15
- */
-public class TripDTO {
+
+public class TripUpdateDTO {
     private Long id;
 
     @NotNull
@@ -38,8 +31,6 @@ public class TripDTO {
     @NotNull
     @DecimalMin("0.0")
     private BigDecimal price;
-
-    private Set<ExcursionDTO> excursions = new HashSet<>();
 
     @NotNull
     @Min(1)
@@ -146,18 +137,6 @@ public class TripDTO {
         this.price = price;
     }
 
-    public Set<ExcursionDTO> getExcursions() {
-        return excursions;
-    }
-
-    /**
-     * sets list of excursions. (addExcursion and removeExcursion might be added for finer control)
-     * @param excursions set of excursions belonging to the trip.
-     */
-    public void setExcursions(Set<ExcursionDTO> excursions) {
-        this.excursions = excursions;
-    }
-
     /**
      * gets number of total available trips.
      * @return Number of total available trips.
@@ -183,7 +162,6 @@ public class TripDTO {
                 + ", dateTo=" + dateTo
                 + ", destination=" + destination
                 + ", price=" + price
-                + ", excursions=" + excursions
                 + ", availableTrips=" + availableTrips + '}';
     }
 
@@ -195,7 +173,7 @@ public class TripDTO {
         if (getClass() != o.getClass())
             return false;
 
-        final TripDTO other = (TripDTO) o;
+        final TripUpdateDTO other = (TripUpdateDTO) o;
         if (!Objects.equals(this.getName(), other.getName()))
             return false;
 

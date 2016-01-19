@@ -2,6 +2,7 @@ package cz.muni.fi.pa165.travelagency.facade;
 
 import cz.muni.fi.pa165.travelagency.dto.TripCreateDTO;
 import cz.muni.fi.pa165.travelagency.dto.TripDTO;
+import cz.muni.fi.pa165.travelagency.dto.TripUpdateDTO;
 
 import java.util.List;
 
@@ -33,7 +34,7 @@ public interface TripFacade {
      *
      * @param t trip DTO with updated information
      */
-    void updateTrip(TripDTO t);
+    void updateTrip(TripUpdateDTO t);
 
     /**
      * get list of all trips

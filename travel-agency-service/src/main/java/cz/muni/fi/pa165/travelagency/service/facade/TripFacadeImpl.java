@@ -1,8 +1,8 @@
 package cz.muni.fi.pa165.travelagency.service.facade;
 
-import cz.muni.fi.pa165.travelagency.dto.ExcursionDTO;
 import cz.muni.fi.pa165.travelagency.dto.TripCreateDTO;
 import cz.muni.fi.pa165.travelagency.dto.TripDTO;
+import cz.muni.fi.pa165.travelagency.dto.TripUpdateDTO;
 import cz.muni.fi.pa165.travelagency.entity.Excursion;
 import cz.muni.fi.pa165.travelagency.entity.Reservation;
 import cz.muni.fi.pa165.travelagency.entity.Trip;
@@ -75,13 +75,13 @@ public class TripFacadeImpl implements TripFacade {
      * @param t trip DTO with updated information
      */
     @Override
-    public void updateTrip(TripDTO t) {
-        Trip trip = beanMappingService.mapTo(t, Trip.class);
-        Set<ExcursionDTO> excursions = t.getExcursions();
-        for(ExcursionDTO e : excursions){
-            trip.addExcursion(beanMappingService.mapTo(e, Excursion.class));
+    public void updateTrip(TripUpdateDTO t) {
+        Trip newTrip = beanMappingService.mapTo(t, Trip.class);
+        Trip oldTrip = tripService.findById(t.getId());
+        for (Excursion e: oldTrip.getExcursions()) {
+            newTrip.addExcursion(e);
         }
-        tripService.updateTrip(trip);
+        tripService.updateTrip(newTrip);
     }
 
     /**

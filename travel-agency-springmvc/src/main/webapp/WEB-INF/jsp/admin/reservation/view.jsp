@@ -10,7 +10,11 @@
 
     <div class="row">
         <div class="col-xs-6">
-            <h3><c:out value="${reservation.trip.name}"/> (<c:out value="${reservation.trip.destination}"/>)</h3>
+            <h3>
+                <a href="${pageContext.request.contextPath}/admin/trip/view/${reservation.trip.id}">
+                    <c:out value="${reservation.trip.name}"/>
+                </a>
+                (<c:out value="${reservation.trip.destination}"/>)</h3>
             <h4>
                 <fmt:formatDate value="${reservation.trip.dateFrom}" type="date" dateStyle="medium"/>
                 -
@@ -28,7 +32,9 @@
                 <c:forEach items="${reservation.excursions}" var="ex">
                     <tr>
                         <td>
-                            <c:out value="${ex.name}"/>
+                            <a href="${pageContext.request.contextPath}/admin/excursion/view/${ex.id}">
+                                <c:out value="${ex.name}"/>
+                            </a>
                         </td>
                         <td>
                             <span style="color: red; font-weight: bold;"><c:out value="${ex.price}"/>&nbsp;EUR</span>

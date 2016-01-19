@@ -32,7 +32,7 @@ public class SpringMvcConfig extends WebMvcConfigurerAdapter {
     @Override
     public void addViewControllers(ViewControllerRegistry registry) {
         log.debug("mapping URL / to auth/login view");
-        registry.addViewController("/").setViewName("/auth/login");
+        registry.addRedirectViewController("/", "/auth/login");
     }
 
 

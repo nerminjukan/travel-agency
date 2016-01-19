@@ -50,7 +50,7 @@
                     <tr>
                         <td><c:out value="${i.index + 1}."/></td>
                         <td>
-                            <a href="${pageContext.request.contextPath}/shopping/excursion/view/${excursion.id}">
+                            <a href="${pageContext.request.contextPath}/admin/excursion/view/${excursion.id}">
                                 <c:out value="${excursion.name}"/>
                             </a>
                         </td>

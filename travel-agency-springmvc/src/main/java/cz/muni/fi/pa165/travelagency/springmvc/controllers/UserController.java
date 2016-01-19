@@ -26,7 +26,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
  * @author Jan Duda
  */
 @Controller
-@RequestMapping("/shopping/user")
+@RequestMapping("/admin/user")
 public class UserController {
     
     final static Logger log = LoggerFactory.getLogger(ShoppingController.class);
@@ -46,17 +46,17 @@ public class UserController {
     @RequestMapping(value = "/list", method = RequestMethod.GET)
     public String listUsers(Model model){
         
-        log.error("request: GET /shopping/user/list");
+        log.error("request: GET /admin/user/list");
         
         model.addAttribute("users", userFacade.getAllUsers());
         
-        return "/shopping/user/list";
+        return "/admin/user/list";
     }
     
     @RequestMapping(value = "/view/{id}", method = RequestMethod.GET)
     public String showUser(@PathVariable("id") long id, Model model){
         
-        log.error("request: GET /shopping/user/view/" + id);
+        log.error("request: GET /admin/user/view/" + id);
         
         UserDTO user = userFacade.getUserById(id);
         if(user == null){
@@ -70,6 +70,6 @@ public class UserController {
         
         model.addAttribute("user", user);
         model.addAttribute("usersReservations", usersReservations);
-        return "/shopping/user/view";
+        return "/admin/user/view";
     }
 }

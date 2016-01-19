@@ -5,23 +5,16 @@
 <%@ taglib prefix="s" uri="http://www.springframework.org/tags" %>
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
 
-<my:pagetemplate title="Update excursion">
+<my:pagetemplate title="New excursion">
 <jsp:attribute name="body">
 
-    <form:form method="post" action="${pageContext.request.contextPath}/shopping/excursion/updating"
-               modelAttribute="excursionUpdate" cssClass="form-horizontal">
-
+    <form:form method="post" action="${pageContext.request.contextPath}/admin/excursion/create"
+               modelAttribute="excursionCreate" cssClass="form-horizontal">
         <div class="form-group ${name_error?'has-error':''}">
             <form:label path="name" cssClass="col-sm-2 control-label">Name</form:label>
             <div class="col-sm-10">
                 <form:input path="name" cssClass="form-control"/>
                 <form:errors path="name" cssClass="help-block"/>
-            </div>
-        </div>
-        <div class="form-group">
-            <form:label path="id" cssClass="col-sm-2 control-label">Id</form:label>
-            <div class="col-sm-10">
-                <form:input path="id" readonly="true" cssClass="form-control"/>
             </div>
         </div>
         <div class="form-group ${destination_error?'has-error':''}">
@@ -58,34 +51,23 @@
                 <form:input path="price" cssClass="form-control"/>
                 <form:errors path="price" cssClass="help-block"/>
             </div>
-        </div> 
+        </div>
         <div class="form-group ${tripId_error?'has-error':''}">
             <form:label path="tripId" cssClass="col-sm-2 control-label">Trip</form:label>
             <div class="col-sm-10">
                 <form:select path="tripId" cssClass="form-control">
-                    <form:option value="-1">Choose a trip</form:option>
+                    <form:option value="-1" selected="selected">Choose a trip</form:option>
                     <c:forEach items="${trips}" var="t">
-                        <c:choose>
-                            <c:when test="${t.id eq excursionUpdate.tripId}">
-                                <form:option value="${t.id}" selected="selected">${t.name} (Excursion dates must be between: 
-                                    <fmt:formatDate value="${t.dateFrom}" type="date" dateStyle="medium"/> - 
-                                    <fmt:formatDate value="${t.dateTo}" type="date" dateStyle="medium"/>)</form:option>
-                                <br />
-                            </c:when>    
-                            <c:otherwise>
-                                <form:option value="${t.id}">${t.name} (Excursion dates must be between: 
-                                    <fmt:formatDate value="${t.dateFrom}" type="date" dateStyle="medium"/> - 
-                                    <fmt:formatDate value="${t.dateTo}" type="date" dateStyle="medium"/>)</form:option> 
-                                <br />
-                            </c:otherwise>
-                        </c:choose>
+                        <form:option value="${t.id}">${t.name} (Excursion dates must be between: 
+                            <fmt:formatDate value="${t.dateFrom}" type="date" dateStyle="medium"/> - 
+                            <fmt:formatDate value="${t.dateTo}" type="date" dateStyle="medium"/>)</form:option>
                     </c:forEach>
                 </form:select>
                 <p class="help-block"><form:errors path="tripId" cssClass="error"/></p>
             </div>
         </div>
-            
-        <button class="btn btn-primary" type="submit">Update excursion</button>
+
+        <button class="btn btn-primary" type="submit">Create excursion</button>
     </form:form>
 </jsp:attribute>
 </my:pagetemplate>

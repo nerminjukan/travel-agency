@@ -16,17 +16,23 @@
             <th>trip</th>
             <th>excursions number</th>
             <th>total price</th>
+            <th></th>
         </tr>
         </thead>
         <tbody>
         <c:forEach items="${reservations}" var="reservation">
             <tr>
                 <td>${reservation.id}</td>
-                <td><a href="/pa165/shopping/trip/${reservation.trip.id}"><c:out value="${reservation.trip.name}"/></a></td>
+                <td><c:out value="${reservation.trip.name}"/></td>
                 <td><c:out value="${fn:length(reservation.excursions)}"/></td>
                 <td><c:out value="${reservation.totalPrice}"/> EUR</td>
                 <td>
-                    <a href="/pa165/shopping/reservation/view/${reservation.id}" class="btn btn-primary">Detail</a>
+                    <a href="/pa165/admin/reservation/view/${reservation.id}" class="btn btn-primary">Detail</a>
+                </td>
+                <td>
+                    <form method="post" action="${pageContext.request.contextPath}/admin/reservation/delete/${reservation.id}">
+                        <button type="submit" class="btn btn-primary">Delete</button>
+                    </form>
                 </td>
             </tr>
         </c:forEach>
