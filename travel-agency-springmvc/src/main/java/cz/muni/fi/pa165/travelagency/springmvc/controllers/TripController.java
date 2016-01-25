@@ -109,8 +109,8 @@ public class TripController {
     @RequestMapping(value = "/update/{id}", method = RequestMethod.GET)
     public String update(
             @PathVariable long id,
-            Model model
-    ){
+            Model model) {
+
         TripDTO tripToUpdate = tripFacade.getTripById(id);
         if (tripToUpdate == null) {
             return "redirect:/admin/trip/list";
@@ -184,7 +184,7 @@ public class TripController {
         tripFacade.updateTrip(formBean);
 
         redirectAttributes.addFlashAttribute(
-                "alert_success", "Excursion with " + formBean.getId() + " was updated"
+                "alert_success", "Trip " + formBean.getId() + " was updated"
         );
         return "redirect:" + uriBuilder.path("/admin/trip/view/{id}").buildAndExpand(formBean.getId()).encode().toUriString();
     }

@@ -49,7 +49,7 @@
                             <c:out value="${reservation.id}"/>
                         </td>
                         <td>
-                            <a href="/pa165/admin/reservation/${reservation.id}"><c:out value="${reservation.trip.name}"/></a>
+                            <a href="/pa165/admin/reservation/view/${reservation.id}"><c:out value="${reservation.trip.name}"/></a>
                         </td>
                         <td>
                             <c:out value="${fn:length(reservation.excursions)}"/>

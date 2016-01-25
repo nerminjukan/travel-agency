@@ -67,7 +67,7 @@ public class AuthController {
         log.error("request: /auth/logout");
         HttpSession session = req.getSession(true);
         session.removeAttribute("authUser");
-        redirectAttributes.addFlashAttribute("alert_info", "You have been successfuly logged out.");
+        redirectAttributes.addFlashAttribute("alert_info", "You have been successfully logged out.");
         return "redirect:/auth/login";
     }
 }
