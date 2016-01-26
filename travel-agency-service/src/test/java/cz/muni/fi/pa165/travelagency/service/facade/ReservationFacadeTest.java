@@ -8,6 +8,7 @@ package cz.muni.fi.pa165.travelagency.service.facade;
 import cz.muni.fi.pa165.travelagency.dto.ExcursionDTO;
 import cz.muni.fi.pa165.travelagency.dto.ReservationCreateDTO;
 import cz.muni.fi.pa165.travelagency.dto.ReservationDTO;
+import cz.muni.fi.pa165.travelagency.dto.ReservationUpdateDTO;
 import cz.muni.fi.pa165.travelagency.dto.TripDTO;
 import cz.muni.fi.pa165.travelagency.dto.UserDTO;
 import cz.muni.fi.pa165.travelagency.entity.Excursion;
@@ -140,8 +141,9 @@ public class ReservationFacadeTest {
     
     @Test
     public void testUpdateReservation(){
-        when(beanMappingService.mapTo(rdto1, Reservation.class)).thenReturn(r1);
-        reservationFacade.updateReservation(rdto1);
+        ReservationUpdateDTO ru = new ReservationUpdateDTO();
+        when(beanMappingService.mapTo(ru, Reservation.class)).thenReturn(r1);
+        reservationFacade.updateReservation(ru);
         verify(reservationService).updateReservation(r1);
     }
     

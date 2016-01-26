@@ -4,6 +4,7 @@ import cz.muni.fi.pa165.travelagency.dto.ExcursionDTO;
 import cz.muni.fi.pa165.travelagency.dto.ReservationCreateDTO;
 import cz.muni.fi.pa165.travelagency.dto.ReservationDTO;
 import cz.muni.fi.pa165.travelagency.dto.ReservationTotalPriceDTO;
+import cz.muni.fi.pa165.travelagency.dto.ReservationUpdateDTO;
 import cz.muni.fi.pa165.travelagency.dto.UserDTO;
 import cz.muni.fi.pa165.travelagency.entity.Excursion;
 import cz.muni.fi.pa165.travelagency.entity.Reservation;
@@ -75,7 +76,7 @@ public class ReservationFacadeImpl implements ReservationFacade {
     }
 
     @Override
-    public void updateReservation(ReservationDTO r) {
+    public void updateReservation(ReservationUpdateDTO r) {
         Reservation reservation = beanMappingService.mapTo(r, Reservation.class);
         
         reservation.setUser(beanMappingService.mapTo(r.getUser(), User.class));

@@ -3,6 +3,7 @@ package cz.muni.fi.pa165.travelagency.facade;
 import cz.muni.fi.pa165.travelagency.dto.ReservationCreateDTO;
 import cz.muni.fi.pa165.travelagency.dto.ReservationDTO;
 import cz.muni.fi.pa165.travelagency.dto.ReservationTotalPriceDTO;
+import cz.muni.fi.pa165.travelagency.dto.ReservationUpdateDTO;
 import cz.muni.fi.pa165.travelagency.dto.UserDTO;
 import java.util.List;
 
@@ -25,7 +26,7 @@ public interface ReservationFacade {
      * 
      * @param r reservationDTO to be updated
      */
-    void updateReservation(ReservationDTO r);
+    void updateReservation(ReservationUpdateDTO r);
     
     /**
      * Method deletes reservation from input parameter
